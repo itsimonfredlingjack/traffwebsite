@@ -1,0 +1,189 @@
+/* Booking Modal - Luminous Precision Studio */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 17, 21, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modal-fade 0.2s ease-out;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-dialog-editorial {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 540px;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.2), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: #F3F4F6;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  color: rgba(15, 17, 21, 0.6);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.modal-close-btn:hover {
+  background: #E5E7EB;
+  color: #0F1115;
+}
+
+.modal-header-block {
+  margin-bottom: 1.75rem;
+}
+
+.modal-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.85rem;
+}
+
+.modal-brand-name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 20px;
+  color: #0F1115;
+}
+
+.modal-mono-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(15, 17, 21, 0.45);
+}
+
+.modal-serif-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 400;
+  color: #0F1115;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+
+.modal-intro-p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(15, 17, 21, 0.65);
+  margin: 0;
+}
+
+.modal-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-label-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(15, 17, 21, 0.6);
+}
+
+.modal-text-input,
+.modal-select-input,
+.modal-textarea {
+  background: #F8F9FA;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  color: #0F1115;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.modal-text-input:focus,
+.modal-select-input:focus,
+.modal-textarea:focus {
+  background: #FFFFFF;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+}
+
+.modal-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  background: #111317;
+  color: #FFFFFF;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.modal-submit-btn:hover {
+  background: #242730;
+  transform: translateY(-1px);
+}
+
+.modal-success-screen {
+  text-align: center;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-success-icon-wrap {
+  margin-bottom: 0.5rem;
+}
+
+.modal-success-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2rem;
+  color: #0F1115;
+  margin: 0;
+}
+
+.modal-success-desc {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(15, 17, 21, 0.65);
+  max-width: 400px;
+  margin: 0;
+}

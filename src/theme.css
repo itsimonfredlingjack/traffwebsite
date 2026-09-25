@@ -1,0 +1,1488 @@
+/* The Träff visual identity, implemented.
+ *
+ * Source: the "Träff Visual Identity System" design project, document
+ * `Traff-identitet-v2.dc.html` (Identitet v2 · juli 2026). The values here are
+ * that document's, not an interpretation of it. Its three hardest rules are the
+ * ones this file exists to keep:
+ *
+ * 1. **Colour is locked to meaning and never lent to decoration.** Green is not
+ *    "success"; it means a passage was verified verbatim against source text.
+ *    Amber is not "warning"; it has one meaning, that no proof exists. Blue is
+ *    links and text actions, never a state — and, here, never a button either:
+ *    the primary action is ink, for the reason written at `--primary`. A colour
+ *    spent on anything else empties the meaning it was carrying. One colour has
+ *    been added to the identity's six — Avbrott — and its role is written where
+ *    it is defined below.
+ * 2. **Three cuts, three jobs, never mixed.** Serif states, sans explains, mono
+ *    measures. That separation is how a reader tells the product's words from
+ *    the document's.
+ * 3. **Mörkt skal, lysande papper.** The identity's §06, in its own form.
+ *    `--skal` is the ground; paper is not a background but a material, and it
+ *    appears where a document appears.
+ *
+ *    This reverses a decision made here on 2026-08-08, and the reversal was
+ *    Simon's: "det är darkmode som är grejen, jag har ändrat mig." The earlier
+ *    argument is kept because it is a good one and it is not answered yet —
+ *    a board reads an invoice case, a queue of post and a full-size PDF here
+ *    for an hour at a time, and an A4 sheet glowing out of near-black is
+ *    genuinely harder to read than one lying on warm paper. That is real, it
+ *    is about eyes rather than taste, and the fix is a paper-coloured mat
+ *    around a document rather than the document sitting straight on the shell.
+ *    **The mat exists now** — `--matta`, defined below with the reasoning. The
+ *    2026-08-08 objection is therefore answered rather than outstanding: a
+ *    document lies on a warm mid-tone, not straight on the shell, so the step
+ *    from surround to paper is two steps instead of a cliff. What is still
+ *    untested is an actual hour of reading. If a board reports glare, the mat
+ *    is the knob — raise it — not the shell.
+ *
+ *    What the shell buys, and why Simon is right that the light app read as
+ *    dull: on paper every accent had to be dark enough to survive there —
+ *    belagt was a bottle green `#137855` — so the identity's own rule that
+ *    "accenterna är små, och därför trovärdiga" could never be seen. On the
+ *    shell they take their specified mid-tones and the product gets its colour
+ *    back without spending any more of it.
+ *
+ * The typefaces are vendored beside this file rather than fetched. The desktop
+ * shell serves the application under `font-src 'self'`, so a Google Fonts link
+ * would be a blocked request and a console error; on the web it would hand
+ * every reader's IP address to a third party. Licences in ./assets/fonts.
+ */
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('./assets/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('./assets/fonts/instrument-sans-latin-ext-wght-normal.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* The assertion. Instrument Serif sets page titles, section titles, the brand
+   name and answers — everything the product itself claims. The serif held this
+   role, lost it to Poppins on 2026-08-08, and takes it back here: the identity
+   (docs/design/2026-08-10-identitet) makes the three type roles the way a
+   reader tells the product's words from the document's, so the serif is not a
+   flavour, it is the difference between a claim and an explanation.
+
+   It ships one weight. Ask it for 600 and the browser smears a synthetic bold
+   across a high-contrast face — design-lock.test.js fails if anyone does. */
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('./assets/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('./assets/fonts/instrument-serif-latin-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* The interface voice. Inter for everything that explains: body, labels,
+   chrome — plus a true italic for quotations (the document's own words). */
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* The assertion, since 2026-08-11: Nunito. Rounded geometric, three weights.
+   400 for the rare display running text, 600 for card titles, 700 for
+   headings and figures. */
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/nunito-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/nunito-600.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/nunito-700.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* The explanation: Source Sans 3, the interface's working voice. */
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('./assets/fonts/source-sans-3-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('./assets/fonts/source-sans-3-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('./assets/fonts/source-sans-3-600.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+/* The measurement. Page numbers, paragraph marks, states, scores. */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* ---- the six locked colours (§06 Färg som betydelse), on paper ----
+   * (and, further down, the one this product adds: Avbrott.)
+   *
+   * The identity's shell is dark, and that was written for a phone whose whole
+   * screen is one question and one answer. This is the desktop: a board reads an
+   * invoice case, a queue of post and a full-size PDF here, for an hour at a
+   * time. "Dokumenten är det enda i gränssnittet som är vitt" means, on a large
+   * screen, an A4 sheet glowing out of near-black — which is the thing that was
+   * hard to read.
+   *
+   * So the workspace runs on the identity's other ground, the one it specifies
+   * itself: **på papper**. Warm, not clinical. Same mark, same three cuts, same
+   * six meanings — inverted, which the identity document treats as a legitimate
+   * form rather than a departure.
+   *
+   * The state colours are the identity's own paper values (#137855, #8A5D06),
+   * not lightened guesses: the mid-tone versions are unreadable as text on a
+   * light ground, and a colour nobody can read is a colour that has stopped
+   * carrying its meaning.
+   */
+
+  /* ---- Skal, and what paper became -----------------------------------------
+   *
+   * 2026-08-10: the app goes to the identity's own §06 form — "mörkt skal,
+   * lysande papper: dokumenten är det enda i gränssnittet som är vitt."
+   *
+   * This is not a dark variant of the light app. Paper stops being the ground
+   * and becomes a *material*: it appears where a document appears, and nowhere
+   * else. That is the whole idea, and it is what makes the one white rectangle
+   * on screen legible as evidence rather than as another panel.
+   *
+   * It also answers why the light app read as dull. Every accent had to be
+   * dark enough to survive on paper — belagt was #137855, a bottle green — so
+   * the identity's rule that "accenterna är små, och därför trovärdiga" could
+   * never actually be seen. On the shell they take their own mid-tones and the
+   * product gets its colour back without spending any more of it.
+   *
+   * The values are xs_mobilapp's dark mode verbatim, which is the identity's
+   * §06 already implemented and measured, so the two halves cannot drift. */
+  /* The ground, 2026-08-11: paper-white, and the page is one continuous sheet.
+   *
+   * The dark shell is gone. What replaced it is not the old light app either —
+   * that one was warm-brown and dull, and it was dull for a reason worth
+   * keeping: it tried to carry meaning in six accent colours that all had to be
+   * dark enough to survive on paper, so none of them could be seen.
+   *
+   * This language carries meaning in *shape* instead. A verified case is a
+   * filled black pill; an unproven one is a dashed outline. That reads across a
+   * room, it survives colour-blindness, and it costs no colour at all — which
+   * is why the palette below is four greys and a white and nothing else.
+   *
+   * There is no surface alternation. Cards do not lift off the ground with a
+   * fill; they are marked by a hairline and separated by air. --skal-raised is
+   * therefore the same white as --skal, and that is deliberate rather than an
+   * oversight: the moment a card gets its own fill, the page stops being one
+   * document and becomes a dashboard again. */
+  --skal: #FFFFFF;          /* the ground, and nearly every surface */
+  --skal-raised: #FFFFFF;   /* cards: same white, marked by a hairline */
+  --skal-sunken: #FAFAFA;   /* the one soft fill: chips, filter pills, wells */
+  --skal-pressed: #F5F5F5;  /* pressed, hovered, or genuinely inert */
+
+  /* The mat, and the sheet that lies on it.
+   *
+   * This is the thing the note at the top of this file said the dark shell was
+   * not finished without, and it is the one place the 2026-08-08 argument for
+   * paper is still right: a board reads a full-size PDF here for an hour, and
+   * an A4 glowing straight out of near-black is genuinely harder on the eyes.
+   * That is about eyes, not taste.
+   *
+   * On a white ground the problem inverts. A white sheet on a white app is
+   * invisible as an object, so the mat goes the other way: --matta is the one
+   * surface *darker* than the canvas, and the sheet sits on it and stays pure
+   * white. The step is small on purpose — this is a reading surround, not a
+   * frame, and a dark mat here would be the lightbox-in-a-dark-room problem
+   * that the shell had, reintroduced from the other side.
+   *
+   * --dokument stays the one pure white that means "this is the document". It
+   * is the same value as --skal, which sounds like it defeats the point and
+   * does not: the sheet is told apart by lying on the mat with a hairline
+   * around it, not by being a different white. */
+  --matta: #F2F2F2;
+  --dokument: #FFFFFF;
+
+  /* Bläck — the text ramp, three steps, all of them legible.
+   *
+   * The design facit ran four steps and the fourth was #A3A3A3, which it spent
+   * on the mono fact row under every card and on the section eyebrows. That
+   * measures 2.52:1. It is the same failure the dark shell had and the same one
+   * the generated design system had: a grey chosen by eye for how quiet it
+   * looks, carrying information nobody can read. A white ground has far less
+   * room below 4.5:1 than a dark one — everything from #757575 up is out — so
+   * the fourth step does not exist here. Three steps, and the quietest still
+   * clears 5:1.
+   *
+   * Measured on white / on --skal-sunken:
+   *   --black-900  19.80 / 18.97    headings, primary text, the filled state
+   *   --black-700   8.86 /  8.49    fact values, secondary prose
+   *   --black-500   5.10 /  4.89    body prose, fact labels, eyebrows
+   *
+   * The quiet tier is carried by *size and weight*, not by fading the grey —
+   * a 12.5px mono label at 5.10:1 reads as subordinate without being dim. */
+  --black-900: #0A0A0A;
+  --black-700: #4A4A4A;
+  --black-500: #6E6E6E;
+
+  /* Channels, for the places that need one of these colours at an alpha.
+   *
+   * CSS cannot take an alpha of a hex token, so anything wanting "paper at
+   * 15%" had to spell the digits out — and a spelled-out value is a copy that
+   * does not follow. Högen's beam was written as rgb(236 237 239 / …), which
+   * was --ljus; the moment --ljus was re-mixed warm, the beam silently stayed
+   * cold, in four places, and nothing failed. That is the whole disease in one
+   * example, so the cure is a name: rgb(var(--black-900-rgb) / 0.15).
+   *
+   * Keep each triple identical to its hex above. design-lock checks it. */
+  --black-900-rgb: 10 10 10;
+  --papper-rgb: 255 255 255;
+  --ink-rgb: 10 10 10;
+  --remsgul-rgb: 255 214 0;
+  --sokljus-rgb: 44 92 168;
+  --handling-rgb: 26 79 208;
+
+  /* Papper is the ground again, and it is white. The material it used to name
+     — a warm sheet lying on a dark shell — no longer exists as a separate
+     thing, because the whole page is that sheet. */
+  --papper: #FFFFFF;
+  --surface-1: var(--skal-raised);
+  --surface-2: var(--skal-sunken);
+  --surface-3: var(--skal-pressed);
+  --field: var(--skal);   /* a field is white; its boundary is what marks it */
+
+  /* Bläck — what you write on the page with, product and document alike. On a
+     shared white ground there is no longer a reason for the interface's text
+     and a document's text to be different blacks; the serif is what separates
+     them, which is §07 doing its actual job. */
+  --black: var(--black-900);
+  --ink: #0A0A0A;
+  --ink-muted: var(--black-700);
+  --ink-subtle: var(--black-500);
+
+  /* ---- the six meanings, re-mixed for white -------------------------------
+   *
+   * These are the identity's own paper values, not the dark shell's mid-tones
+   * lightened. They are also used far less than they were: in this language a
+   * case's state is carried by the *shape* of its pill — filled for proven,
+   * dashed for unproven — and colour appears only where a meaning has no shape
+   * to borrow. Every one of them clears 4.5:1 as text on white. */
+
+  /* Sökljus — work in progress: sweeping, reading, indexing. It now has to
+     carry words on white, so it is a real text colour rather than a ring
+     tint. */
+  --sokljus: #2C5CA8;
+  --sokljus-text: #2C5CA8;
+  /* Belagt — verified verbatim against source text. Never a general success. */
+  --belagt: #137855;
+  /* Vägran — one meaning: no proof exists. */
+  --vagran: #8A5D06;
+  /* Handling — links and text actions. Never a state, never a button fill. */
+  --handling: #1A4FD0;
+  --handling-hover: #123CA4;
+  /* The keyboard mark: a soft tint behind the row focus has moved to, so the
+     position reads in peripheral vision without becoming a state colour. */
+  --handling-soft: #EDF1FC;
+  /* The marked passage inside a document. Lives only within the paper. */
+  --remsgul: #FFD600;
+
+  /* ---- surfaces & text ---- */
+  --background: var(--skal);
+  --foreground: var(--black-900);
+  --card: var(--skal-raised);
+  --card-foreground: var(--black-900);
+  --card-hover: var(--skal-pressed);
+  --popover: var(--skal-raised);
+  --popover-foreground: var(--black-900);
+  --muted: var(--skal-pressed);
+  --muted-foreground: var(--black-700);
+  --subtle-foreground: var(--black-500);
+  --secondary: var(--skal-pressed);
+  --secondary-foreground: var(--black-900);
+  --surface-accent: var(--skal-pressed);
+  --surface-accent-foreground: var(--black-900);
+  --border: var(--kant);
+  --border-strong: #D4D4D4;
+  /* --input is the edge of a thing you operate, so it is the control edge —
+     twenty call sites, one place to turn. It used to restate #363A43, a cold
+     grey that measured 1.75:1 and drew nothing. */
+  --input: var(--kant-kontroll);
+  --ring: var(--handling);
+  --muted-hover: #F0F0F0;
+
+  /* The edge, and the deliberate absence of lift.
+   *
+   * On the dark shell the rule was "let the surface carry the block, not the
+   * line" — a card announced itself by being a lighter plane with a soft
+   * shadow, because on near-black a drawn outline reads as engineering.
+   *
+   * On white it inverts, and this language commits to the inversion: nothing
+   * lifts, nothing floats, nothing layers. A card is white on white, marked by
+   * a 1px hairline and separated from the next one by air. That is the whole
+   * elevation system — one line and one inverted surface, no shadow scale at
+   * all — and it is what keeps a screen of cards reading as one document
+   * rather than as a dashboard of tiles.
+   *
+   * --kant is that hairline, and it is *decoration*: it divides, it does not
+   * inform. It may sit at 1.26:1 precisely because nothing depends on seeing
+   * it. Anything you operate uses --kant-kontroll below, which is measured. */
+  --kant: #E5E5E5;
+
+  /* The control edge — and the one place the rule above does not apply.
+   *
+   * "Let the surface carry the block, not the line" was right for cards and
+   * wrong for controls, and I applied it to both. A card is passive: it may
+   * announce itself with nothing but a lift, because nothing is lost if you
+   * don't notice exactly where it stops. A field is not passive. Its boundary
+   * *is* the information — it says "you can type here, and this is how much
+   * room you get" — so a boundary you cannot see is a control you cannot find.
+   * WCAG 1.4.11 says the same thing in numbers: 3:1, because it is an
+   * affordance, not decoration.
+   *
+   * Measured, --kant gave a field 1.21:1 against its own surface and the
+   * surface gave 1.14:1 against the shell. Fakturor's four filters and its
+   * search field were, accessibly speaking, not drawn at all.
+   *
+   * So controls get their own edge, at a value that clears 3:1 on every ground
+   * a control can sit on:
+   *
+   *   white 3.45   sunken 3.31   pressed 3.24
+   *
+   * (Not the matta — nothing interactive lies on the reading mat.) This is not
+   * a licence to put lines back around blocks: --kant stays the default and
+   * this token is only for things you operate. */
+  --kant-kontroll: #8A8A8A;
+
+  /* Horisonten — Bevakningar's chart in the band. Three values, because the
+     chart says three things: where the axis is, where a week with nothing in
+     it is, and where a week with something in it is. They were written as
+     0.22 / 0.16 / 0.55 of a white that was not a token, which is how a chart
+     ends up with scaffolding louder than its data.
+     Only the filled bar has to clear 3:1 (1.4.11 covers graphics you need in
+     order to read the thing; it measures 5.65). The axis and the empty track
+     are the paper the chart is drawn on — brightening those would make the
+     grid shout over the reading. */
+  --horisont-axel: #E5E5E5;
+  --horisont-tom: #F0F0F0;
+  --horisont-fylld: #4A4A4A;
+
+  /* No shadow scale. --lyft-1 is none because a resting thing is marked by its
+     hairline, and that is the rule the whole language rests on.
+     --lyft-2 is the one exception and it is a small one: a menu or popover
+     floating *over* content is the single case where a hairline genuinely is
+     not enough, because the thing behind it is also white. One soft shadow,
+     stated once, rather than a scale nobody can keep straight. */
+  --lyft-1: none;
+  --lyft-2: 0 4px 16px rgb(var(--ink-rgb) / 0.10), 0 1px 3px rgb(var(--ink-rgb) / 0.08);
+
+  /* The primary action is the ink, as it is on paper. This is what the comment
+     here has said since the file was written; it pointed at --handling anyway,
+     which made the primary a generic blue button and put Handling on duty as a
+     state. Both are fixed now: the primary is the filled black pill this
+     language uses everywhere, and Handling went back to links only. */
+  --primary: var(--black-900);
+  --primary-hover: #2E2E2E;
+  --primary-foreground: var(--skal);
+
+  /* The frame is paper, not white. The workspace ran three grounds at once —
+     an ink masthead, a warm paper canvas and a pure-white sidebar down the
+     left — and the coldest of the three was the one permanently on screen. The
+     identity reserves #FFFFFF for one thing: a document. A navigation column
+     is not a document, so it joins the paper and the app reads as two
+     materials instead of three. */
+  --sidebar: var(--skal);
+  --sidebar-foreground: var(--black-900);
+  --sidebar-accent: var(--skal-pressed);
+  --sidebar-accent-foreground: var(--black-900);
+  --sidebar-border: var(--kant);
+  --sidebar-ring: var(--ring);
+
+  /* ---- the state colours, as states ---- */
+  --ok: var(--belagt);
+  --ok-soft: #E7F2EE;
+  --ok-border: #B4D8CB;
+
+  --warn: var(--vagran);
+  --warn-soft: #F5F0E4;
+  --warn-border: #DCCDA6;
+
+  /* ---- the seventh colour: Avbrott ----
+   *
+   * The identity has no red, because it was written for a product whose states
+   * are belagt, ej belagt, söker and vila — four things the engine can know
+   * about *evidence*. This product also has machinery, and machinery breaks:
+   * an upload fails, the model host is unreachable, a session expires, a
+   * document is about to be destroyed. Those are not states of the evidence and
+   * they must never be said in a colour that is.
+   *
+   * So one colour is added, and its role is drawn as tightly as the other six:
+   *
+   *   **Avbrott — the machinery, never the evidence.** An operation that
+   *   failed, or one that is about to destroy something. It says nothing about
+   *   what a document contains, and it can therefore never appear on an answer,
+   *   a citation, a finding, a signal or a date.
+   *
+   * Two consequences follow, and both were violations before this rule existed:
+   *
+   *   - A **refusal is not red.** "Det står inte i era dokument" is the product
+   *     working exactly as promised; it is Vägran (#8A5D06), the same amber as
+   *     an empty mark. Red there would say the product broke when it did the
+   *     one thing it exists to do.
+   *   - **Overdue is not red.** A date that has passed is a *measurement*, and
+   *     §07 gives measurements to the mono, not to a hue. Overdue reads as
+   *     ink-strength mono against muted surroundings (see .matt--overdue), plus
+   *     the word itself. Nothing is broken; a day went by.
+   *
+   * The value is unchanged from the undecided token it replaces — measured at
+   * 6.24:1 on paper, the same band as Handling and the muted ink, so it is
+   * legible without being the loudest thing on a screen it should rarely be on
+   * at all.
+   */
+  --avbrott: #A82F22;
+  --avbrott-rgb: 168 47 34;
+  --avbrott-soft: #FBEBE8;
+  --avbrott-soft-hover: #F6DAD4;
+  --avbrott-border: #E3B0A8;
+
+  /* Aliases. `--danger` reads better at call sites; `--destructive` is kept so
+     older rules resolve. Both mean Avbrott and nothing else. */
+  --destructive: var(--avbrott);
+  --danger: var(--avbrott);
+  --danger-soft: var(--avbrott-soft);
+  --danger-border: var(--avbrott-border);
+
+  /* Links and interactive text: Handling. */
+  --accent-fg: var(--handling);
+  --accent-soft-bg: #E9EEFB;
+  --accent-border: #B9C8F0;
+
+  /* The mark on paper is monochrome ink — §05 "PÅ PAPPER · INVERTERAD:
+     enfärgat svart. Aldrig tillståndsfärg." */
+  --brand: var(--ink);
+  --brand-soft: #EFECE8;
+  --brand-border: #CDC7C1;
+
+  /* ---- geometry: three radii, and only three ------------------------------
+   *
+   * There were seven. `--radius-2xl` (18px) shaped 59 controls, `--radius-3xl`
+   * (24px) shaped 12 cards, and beside them the stylesheets carried raw 9px,
+   * 10px, 11px, 12px, 14px, 16px and 20px corners that nobody chose twice. The
+   * effect was not variety, it was noise: two buttons on adjacent screens were
+   * rounded differently for no reason a reader could name, and they read as two
+   * products.
+   *
+   * The values themselves were also wrong for what this is. An 18px corner on a
+   * 32px-tall button is 56% of its own height — that is a lozenge, not a
+   * control, and a screen full of lozenges is what "lekstuga" means. An
+   * instrument has tight corners. So: 8px on anything you operate, 12px on
+   * anything that holds content, 18px kept for the few large sheets where a
+   * soft edge still reads as paper rather than as a toy.
+   *
+   * The old names stay as aliases so 100+ existing declarations inherit the
+   * correction without being touched — and so the next stylesheet that reaches
+   * for `--radius-2xl` gets the right answer instead of the old one.
+   *
+   * **Superseded 2026-08-10: the radii come back, at the phone's values.**
+   * Zero radius was argued from what a desktop instrument is *not* — not a
+   * soft tappable web object — and the argument was sound but it was made in
+   * a vacuum. Träff already has a second half, and it is not hypothetical:
+   * xs_mobilapp implements the same identity, the same six meanings and the
+   * same three cuts, and it holds 12px cards, 10px fields and pill chips.
+   *
+   * Two halves of one product were shaped by two different theories. Reading
+   * them side by side, the phone is the one that looks like Träff and the
+   * desktop is the one Simon called "plåttrigt" — sheet metal. Zero radius
+   * was the last piece of the brutalist pass he rejected on 2026-08-09; the
+   * typography went back to the identity before it, and this is the geometry
+   * following.
+   *
+   * The values are the phone's, not new inventions, so the two halves cannot
+   * drift apart again: --r-field 10px, --r-card 12px. Overlays take one step
+   * more so a shadow has an edge to sit on. */
+  --r-sm: 10px;   /* operated: buttons, inputs, selects, chips, rows */
+  --r-md: 12px;   /* held: cards, panels, tables, empty states */
+  --r-lg: 16px;   /* overlays only: modals, popovers, drawers */
+  --radius-pill: 999px;
+
+  --radius: var(--r-sm);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-sm);
+  --radius-lg: var(--r-sm);
+  --radius-xl: var(--r-md);
+  --radius-2xl: var(--r-sm);   /* was 18px */
+  --radius-3xl: var(--r-md);   /* was 24px */
+  /* Multi-line content — prose, a quote, a textarea, a tall prompt button — is
+     not a control and must not be shaped like one. A 64px-tall pill is what
+     makes an operational screen read as a toy. */
+  --radius-block: var(--r-md);
+
+  /* Motion, at the phone's curve and durations (xs_mobilapp/src/styles/
+     tokens.css). One easing for the whole product: a control settling, a sheet
+     arriving. Reduced motion is honoured globally further down this file. */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --d-push: 180ms;
+  --d-sheet: 240ms;
+  /* §03 Tillstånden gives the product's one hero moment its own duration:
+     "BELAGT — kärnan slår till. Enda tillfället kärnan ritas. Skalar
+     40 → 116 → 100 % på 460 ms, samtidigt som citatet fälls ut." It is
+     deliberately longer than anything else here, because it is the only
+     motion in the product that is an assertion rather than an arrival. The
+     mark and Högen's lit leaf are two halves of the same moment and share
+     this number so they cannot drift apart. */
+  --d-belagt: 460ms;
+
+  --shadow-xs: 0 1px 2px 0 rgb(var(--ink-rgb) / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(var(--ink-rgb) / 0.07), 0 1px 2px -1px rgb(var(--ink-rgb) / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(var(--ink-rgb) / 0.09);
+  --shadow-lg: 0 16px 40px -12px rgb(var(--ink-rgb) / 0.18);
+  /* `--shadow-sheet` stood here: "the workspace sheet at rest, lifted one plane
+     off the paper". There is no such plane. Twenty lines above, this file says
+     that on white nothing lifts, nothing floats and nothing layers — a
+     hairline and an inverted surface are the entire system — and --lyft-1 is
+     `none` for exactly that reason. The token had one caller, Fakturor's case
+     view, where it drew a lifted sheet with thirteen bordered cards on it.
+     Deleted rather than left unused: an unused elevation token is an invitation
+     to elevate something, and "every var() names something that exists" is
+     already a lock, so the name cannot come back without the plane. */
+
+  /* ---- type: three cuts, three jobs, never mixed (§07) ----
+   *
+   * 2026-08-11, the documentation language. The three roles survive; the faces
+   * that fill them changed, and which role gets the serif flipped.
+   *
+   * Nunito states. It is a rounded geometric sans, and the roundness is the
+   * only place the chrome carries any voice at all — it is what stops a page
+   * of hairlines and grey prose from reading as a machine's output. The serif
+   * used to hold this role and it made the product's own words look like a
+   * document's, which is exactly the confusion §07 exists to prevent.
+   *
+   * Source Sans 3 explains. Humanist, quiet, and it holds up in Swedish at
+   * 15px for an hour, which is the actual test.
+   *
+   * JetBrains Mono measures — and in this language it does more than that: the
+   * fact row under every specimen card is mono, because those are the case's
+   * measured facts. That is the same rule, not a new one.
+   *
+   * --font-serif is no longer an alias of the display face. It is the
+   * *document's* voice: the words Träff quotes back out of a contract, so a
+   * reader can tell a claim the product is making from a claim the contract
+   * makes, without a label. Vendored under font-src 'self'; a Google Fonts
+   * link would be a blocked request in the desktop shell. */
+  --font-display: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI',
+    Cantarell, 'Noto Sans', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ---- three control heights, and only three -------------------------------
+   *
+   * The stylesheets carried thirteen: 20, 22, 24, 26, 28, 30, 32, 34, 36, 38,
+   * 40, 42 and 44px. `--h-control` was declared here to be the one answer and
+   * was then used exactly once. Thirteen heights is why a toolbar never sits on
+   * a line — every row is a fraction off the one above it, and the eye reads
+   * that as carelessness long before it can point at the cause.
+   *
+   * Three, chosen by role rather than by look: something you press inside a
+   * dense row, something you press in a toolbar, something you press when the
+   * screen has nothing else to offer. */
+  --h-sm: 28px;   /* inline: chips, table-row actions, tag toggles */
+  --h-md: 36px;   /* the default: buttons, inputs, selects, filters */
+  --h-lg: 44px;   /* the one action on an empty screen; login */
+  --h-control: var(--h-md);
+  --r-control: var(--r-sm);
+  --r-card: var(--r-md);
+
+  /* The spacing ramp. This existed already and went unused — the audit found
+     nineteen distinct gap values in the components (2,3,4,5,6,7,8,9,10,11,12,
+     14,16,18,20,22,24,40,48) against a nine-step scale sitting right here. A
+     scale nobody spends is not a system, it is a comment.
+
+     Resolved 2026-08-10: the scale was not being ignored out of laziness — it
+     could not express the product. Four of the six most-used spacings in the
+     components (2, 6, 10 and 14px, 399 declarations between them) had no step
+     to reach for, so every one of them was written as a literal. A scale with
+     holes in it teaches people to step around it. The half-steps below close
+     those holes; `sN` still means N × 4px, and `sNh` sits half a step above sN. */
+  /* The whole ramp is one number. `--space-unit` is the product's rhythm: every
+     step below is a multiple of it, so making the application denser or airier
+     is editing this line, not 1060 declarations. 0.25rem keeps the ramp exactly
+     where it has always been (s4 = 1rem = 16px). */
+  --space-unit: 0.25rem;
+
+  --s0h: calc(0.5 * var(--space-unit));  /* 2px  — hairline, icon-to-label */
+  --s1:  calc(1 * var(--space-unit));    /* 4px  */
+  --s1h: calc(1.5 * var(--space-unit));  /* 6px  */
+  --s2:  calc(2 * var(--space-unit));    /* 8px  */
+  --s2h: calc(2.5 * var(--space-unit));  /* 10px */
+  --s3:  calc(3 * var(--space-unit));    /* 12px */
+  --s3h: calc(3.5 * var(--space-unit));  /* 14px */
+  --s4:  calc(4 * var(--space-unit));    /* 16px */
+  --s5:  calc(5 * var(--space-unit));    /* 20px */
+  --s6:  calc(6 * var(--space-unit));    /* 24px */
+  --s7:  calc(7 * var(--space-unit));    /* 28px */
+  --s8:  calc(8 * var(--space-unit));    /* 32px */
+  --s9:  calc(9 * var(--space-unit));    /* 36px */
+  --s10: calc(10 * var(--space-unit));   /* 40px */
+  --s11: calc(11 * var(--space-unit));   /* 44px */
+  --s12: calc(12 * var(--space-unit));   /* 48px */
+  --s14: calc(14 * var(--space-unit));   /* 56px */
+  --s16: calc(16 * var(--space-unit));   /* 64px */
+  --s20: calc(20 * var(--space-unit));   /* 80px */
+
+  /* ---- the masthead plate ----
+   * One height, on every workspace. Measured across the five screens before
+   * this pass the ink band was 149, 277, 290, 292 and 149px tall, so moving
+   * between tabs resized the largest element on screen by up to 143px and the
+   * whole page below it jumped. A plate that changes size is not a plate.
+   * What varies between screens is the instrument it carries, never the frame
+   * around it. */
+  --band-h: 268px;
+  /* The type column. The band's title and everything underneath it hang off
+     one left edge — previously 288px on two screens and 366px on two others,
+     which is the misalignment that reads as amateurish without being nameable. */
+  --gutter: 28px;
+  --measure: 1200px;
+
+  /* §07 puts the sans between 12 and 17px. The first pass lived at the floor
+     of that range and set almost everything at 13–14, which is why the screen
+     read as one flat grey block: a ramp needs steps a reader can feel. */
+  /* 13px is, by count, the product's real working size — 42 declarations set it
+     by hand across the queues, panels, fact lists and form fields, more than any
+     token below. It had no step, so it was written out every time. Naming it
+     stops that, and makes the register's density one number to change. */
+  --text-2xs: 0.6875rem;  /* 11px — the smallest legible label */
+  --text-xs: 0.75rem;     /* 12px — micro-labels only, never prose */
+  --text-dense: 0.8125rem;/* 13px — registers, queues, dense working UI */
+  --text-sm: 0.875rem;    /* 14px — secondary */
+  --text-base: 0.9375rem; /* 15px — the interface's size */
+  --text-md: 0.9375rem;
+  --text-lg: 1.0625rem;   /* 17px — the top of the sans range */
+  --text-subhead: 1.25rem;/* 20px — section heads: above prose, below a title */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-title-sm: 1.75rem;/* 28px */
+  --text-2xl: 1.875rem;   /* 30px */
+
+  /* The display end. The ramp stopped at 30px while the product actually set its
+     mastheads at 34, 44 and 52 — so every title in the app was a literal, and
+     "make the titles smaller" was a fifteen-file edit. These are the sizes
+     already in use, named. */
+  --text-title: 2.125rem;    /* 34px — the workspace masthead */
+  --text-title-lg: 2.75rem;  /* 44px — the plate title */
+  --text-title-xl: 3.25rem;  /* 52px — first-arrival only */
+
+  /* ---- legacy aliases ---- */
+  --bg-color: var(--background);
+  --bg-workspace: var(--background);
+  --text-primary: var(--foreground);
+  --text-secondary: var(--muted-foreground);
+  --text-muted: var(--subtle-foreground);
+  --text-tertiary: var(--subtle-foreground);
+
+  --panel-bg: var(--card);
+  --panel-bg-soft: var(--skal-sunken);
+  --panel-border: var(--border);
+  --panel-hover: var(--card-hover);
+
+  --primary-action: var(--primary);
+  /* Ink, darkened — never Handling. This pointed at --handling-hover, which
+     turned every black primary button in the product blue on hover and
+     contradicted the rule three lines above it. Roughly forty controls read
+     this token, including Puck's own interactive-hover inside Hemsidan. */
+  --primary-action-hover: var(--primary-hover);
+
+  --status-ok: var(--ok);
+  --status-ok-dim: var(--ok-soft);
+  --status-warning: var(--warn);
+  --status-warning-dim: var(--warn-soft);
+  --status-error: var(--danger);
+  --status-error-dim: var(--danger-soft);
+  --warn-bg: var(--warn-soft);
+
+  --accent: var(--accent-fg);
+  --accent-soft: var(--accent-soft-bg);
+  --ai-accent: var(--accent-fg);
+  --ai-accent-dim: var(--accent-soft-bg);
+}
+
+/* ========================================================================= */
+/* Base                                                                      */
+/* ========================================================================= */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  /* Only real weights are vendored (Inter 400/500/600, Poppins 500/600,
+     JetBrains Mono variable). Without this, a typo'd weight does not fail —
+     the browser smears the nearest outline into a fake bold, which loses
+     tracking. Off globally: a future mistake shows up as "not bold" instead
+     of as a damaged typeface. */
+  font-synthesis-weight: none;
+  /* §07: 1.5–1.65. Light text on a near-black ground needs the upper half of
+     that — the tighter setting is what made paragraphs read as a wall. */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* §07: the serif is what the product *asserts* — answers, page titles, the
+   words of a document. It is set at −1…−4.5% tracking and never below 22px,
+   because below that the serif stops being a voice and becomes small print.
+   h3 is not in this group: in this product it is a *sub*heading that labels a
+   part of the interface, and an interface label explains rather than asserts. */
+h1, h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+/* h3–h6 label parts of the interface rather than assert anything, so they stay
+   in the sans. Mixing the roles is the one thing §07 forbids outright. */
+h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+/* The label: the caption that says what a thing is.
+ *
+ * §07 gives it to the sans — "sans för det som förklaras" — and §07's mono is a
+ * closed list: "sidnummer, paragrafer, poäng, tillstånd." A table head, a
+ * section label, an eyebrow and the caption under a figure are on none of that
+ * list. They explain. Set in uppercase mono they read as machine readout, which
+ * is the single largest reason the product looked like instrumentation rather
+ * than something a board reads.
+ *
+ * It is five custom properties rather than a class because the seventeen places
+ * that need it already have their own selectors, in their own components, and
+ * moving them all under one class would mean one file knowing about every
+ * screen. What matters is that the *values* live in one place: before this,
+ * those seventeen rules had drifted to six different letter-spacings and two
+ * weights for what was supposed to be a single style, because there was no
+ * label to change — only seventeen copies of one.
+ *
+ * 2026-08-11: the label goes back into uppercase mono, and the reasoning above
+ * is not wrong — it was about a different thing. What made the old product read
+ * as machine readout was uppercase mono used as the *label language*: every
+ * table head, every badge, every caption, until the texture was the interface.
+ * Here it has one job, the eyebrow — the small line that names the section or
+ * captions the figure under it — and everything that explains stays in the sans
+ * at reading size. It is also earned rather than borrowed: this product's
+ * sections are paragraphs of a document, and paragraphs are on §07's list.
+ *
+ * Tracking is back because open uppercase needs it. 12px, mono, regular weight:
+ * quiet by size and letterform, never by fading the grey. */
+:root {
+  --etikett-family: var(--font-mono);
+  --etikett-size: var(--text-xs);
+  --etikett-weight: 400;
+  --etikett-tracking: 0.06em;
+  --etikett-case: uppercase;
+}
+
+/* The measurement: page numbers, paragraph marks, states, scores. Uppercase at
+   +0.10…+0.20em, and always as data rather than as prose. */
+.matt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A date that has passed.
+ *
+ * This is the shape "overdue" takes in this product, and the reason it has a
+ * shape rather than a colour is written beside --avbrott: a passed date is not
+ * a broken machine and not an unproven claim, so neither of those two colours
+ * may say it. It is arithmetic — and §07 gives arithmetic to the mono.
+ *
+ * What makes it findable at a glance is therefore contrast of *weight*, not of
+ * hue: full-strength ink and a boxed measurement, in a row where every other
+ * cell is muted. The surrounding rule (.rule-overdue) is the same idea at the
+ * scale of a card or a column. */
+.matt--overdue {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 var(--s2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);   /* 11px — a measurement, set below the prose */
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The one edge that says "this one first". Ink, because ink is the strongest
+   thing on paper and the only emphasis that claims nothing. */
+.rule-overdue { box-shadow: inset 3px 0 0 var(--ink); }
+
+/* A quotation is the document speaking. Sans italic, and never paraphrased
+   inside the quotation marks (§09 Röst). */
+.citat {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: var(--text-lg);   /* 17px — level with the answer, italic carries the voice */
+  line-height: 1.42;
+  letter-spacing: 0;
+  color: var(--foreground);
+}
+
+p { margin: 0; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.tabular,
+td.numeric,
+.amount { font-variant-numeric: tabular-nums; }
+
+code, pre, kbd, samp { font-family: var(--font-mono); }
+
+/* ---- scrollbars ---- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: #B3ACA6; background-clip: content-box; }
+
+/* ---- one focus treatment for the whole product ---- */
+/* 2px Handling-blue, 2px offset — the same ring on a primary button, a tab,
+   a link and an input, because focus is an action, not a state. List rows
+   are the one exception: they draw the ring inset (see .thread-row and
+   .invoices-queue) so a card's rounding never clips it, plus a
+   --handling-soft tint. Never reintroduce a 3px glow — design-lock tests it. */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Keyboard hint chip — the shortcut shown where it works ("/" in a filter
+   field). Hidden by the field's :focus-within once the hint has done its job. */
+.kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  padding: var(--s0h) var(--s2);
+  background: var(--skal-raised);
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--r-sm);
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+/* ========================================================================= */
+/* The mark (§02 Geometrin, §03 Tillstånden)                                 */
+/* ========================================================================= */
+
+.traff-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-style: solid;
+  border-radius: 50%;
+  /* The gap is always empty. No tint, no gradient — it is the search. */
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.traff-mark-core {
+  border-radius: 50%;
+  background: currentColor;
+  /* Plays once, exactly when the core mounts — the instant the distance
+     in §02 actually closes, not a generic fade applied on every render.
+     The duration is §03's own 460 ms, through the token, so the core and
+     Högen's lit leaf strike together instead of drifting apart by the 40 ms
+     a hand-typed 0.42s put between them. */
+  animation: traff-core-in var(--d-belagt) cubic-bezier(0.34, 1.4, 0.4, 1) both;
+}
+
+@keyframes traff-core-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  65% { transform: scale(1.16); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Söker: the ring stays fully sökljus-blue at rest (§01 — meaning must never
+   depend on motion alone), and a travelling highlight turns on top of it —
+   light hunting the edge of the gap, additive, never the only carrier of
+   the state. A reduced-motion viewer still sees a plain solid blue ring. */
+.traff-mark-seek {
+  position: absolute;
+  inset: calc(var(--mark-ring) * -1);
+  box-sizing: border-box;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: var(--mark-ring);
+  border-color: transparent;
+  border-top-color: rgb(255 255 255 / 0.85);
+  animation: traff-seek-spin 1s linear infinite;
+}
+
+@keyframes traff-seek-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* A · Varumärket — complete, monochrome, never a state colour. */
+.traff-mark--brand { border-color: currentColor; color: currentColor; }
+
+/* B · Statusmärket — empty until the proof exists. */
+.traff-mark--vila { border-color: currentColor; opacity: 0.3; }
+.traff-mark--soker { border-color: var(--sokljus); }
+.traff-mark--belagt { border-color: var(--belagt); color: var(--belagt); }
+.traff-mark--ejbelagt { border-color: var(--vagran); }
+
+/* At rest the mark may breathe — opacity only, slow — so a waiting screen is
+   never inert. Asked for explicitly (`breathing`), never on by default. */
+.traff-mark--vila.traff-mark--andas { animation: traff-andas 4s ease-in-out infinite; }
+@keyframes traff-andas {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.55; }
+}
+
+/* The flash: a ring that leaves the mark as the core lands. Plays once, on
+   mount, over the belagt beat. */
+.traff-mark-flash {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  pointer-events: none;
+  animation: traff-flash 620ms var(--ease) both;
+}
+@keyframes traff-flash {
+  from { opacity: 0.9; transform: scale(0.8); }
+  to { opacity: 0; transform: scale(1.5); }
+}
+
+/* Below the minimum size the ring stops reading, and the identity's own
+   fallback is the solid dot without a ring. */
+.traff-mark--dot { display: inline-block; border-radius: 50%; background: currentColor; }
+
+/* ========================================================================= */
+/* Controls — the site's own metrics                                         */
+/* ========================================================================= */
+
+/* The one button primitive. 36px default (30px small), 10px radius —
+   spec: docs/design/2026-08-08-unified-system/IMPLEMENTATION.md, Beslut 1. */
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  flex-shrink: 0;
+  height: var(--h-control);
+  padding: 0 var(--s3);
+  border: 1px solid transparent;
+  border-radius: var(--r-control);
+  background: transparent;
+  background-clip: padding-box;
+  color: var(--foreground);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.ui-btn > svg { flex-shrink: 0; width: 15px; height: 15px; }
+
+.ui-btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.ui-btn:disabled,
+.ui-btn[aria-disabled='true'] { opacity: 0.5; pointer-events: none; }
+
+.ui-btn--primary { background: var(--primary); color: var(--primary-foreground); }
+.ui-btn--primary:hover { background: var(--primary-action-hover); }
+
+/* A primary with nothing to do does not keep its ink. Half-opacity on a filled
+   ink pill renders a solid grey slab — three of those met the reader on the
+   case view before anything had been touched, reading as broken rather than as
+   waiting. The inert surface is what "nothing to save yet" looks like; the
+   button earns its fill the moment there is something to send. */
+.ui-btn--primary:disabled,
+.ui-btn--primary[aria-disabled='true'] {
+  background: var(--skal-pressed);
+  color: var(--ink-subtle);
+  opacity: 1;
+}
+
+.ui-btn--outline { border-color: var(--input); }
+.ui-btn--outline:hover { background: var(--surface-accent); }
+
+.ui-btn--secondary { background: var(--secondary); color: var(--secondary-foreground); }
+.ui-btn--secondary:hover { background: var(--muted-hover); }
+
+.ui-btn--ghost { color: var(--muted-foreground); }
+.ui-btn--ghost:hover { background: var(--surface-accent); color: var(--foreground); }
+
+/* Avbrott, and only ever for the two things it means: an operation that failed,
+   or one that is about to destroy something. */
+.ui-btn--destructive {
+  background: var(--avbrott-soft);
+  border-color: var(--avbrott-border);
+  color: var(--avbrott);
+}
+.ui-btn--destructive:hover { background: var(--avbrott-soft-hover); }
+
+/* Vagran — a caution that is not a refusal: "report a problem", never a
+   destructive act (those are --destructive). */
+.ui-btn--warning { background: var(--warn); color: #FFFFFF; }
+.ui-btn--warning:hover { background: #6F4A04; }
+
+/* Chosen — the one state the primitive did not have, and the reason Fakturor's
+   case view grew its own picker instead of using it. A button that selects
+   between things (a tablist of the handlings attached to a case, a toggle) has
+   to say which one is showing, and the alternative to stating it here is every
+   screen inventing an `.active` class of its own. Read off ARIA rather than a
+   class, so the visual state cannot disagree with the one screen readers get. */
+.ui-btn[aria-selected='true'],
+.ui-btn[aria-pressed='true'] {
+  background: var(--secondary);
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+
+/* --h-lg's own comment names its use: "the one action on an empty screen;
+   login". The arrival screens are that screen, and each was carrying a
+   private 40px button between the system's 36 and 44 — the variant belongs
+   here so no screen has to invent that number again. */
+.ui-btn--lg { height: var(--h-lg); padding: 0 var(--s5); }
+.ui-btn--lg > svg { width: 16px; height: 16px; }
+
+.ui-btn--sm { height: 30px; padding: 0 var(--s2h); font-size: var(--text-sm); }
+.ui-btn--sm > svg { width: 14px; height: 14px; }
+.ui-btn--xs { height: 24px; padding: 0 var(--s2h); font-size: var(--text-xs); }
+.ui-btn--xs > svg { width: 13px; height: 13px; }
+
+.ui-btn--icon { width: var(--h-control); padding: 0; }
+.ui-btn--icon.ui-btn--sm { width: 30px; }
+.ui-btn--icon.ui-btn--xs { width: 24px; }
+
+.ui-link {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent-fg);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  /* A link underline on paper should be a shadow of the link, not a second
+     line competing with it. (The value this replaced was a pale blue mixed for
+     a near-black ground and read as a scratch on this one.) */
+  text-decoration-color: rgb(var(--handling-rgb) / 40%);
+  cursor: pointer;
+}
+/* Handling darkens on hover — the pair --handling/--handling-hover exists for
+   exactly this, and a text action that only changes its underline is a text
+   action most readers never notice is one. */
+.ui-link:hover { color: var(--handling-hover); text-decoration-color: currentColor; }
+.ui-link:disabled { color: var(--subtle-foreground); text-decoration: none; cursor: not-allowed; }
+
+/* ---- fields ---- */
+.ui-input,
+.ui-select,
+.ui-textarea {
+  width: 100%;
+  min-width: 0;
+  height: var(--h-md);
+  padding: 0 var(--s3);
+  border: 1px solid var(--kant-kontroll);
+  border-radius: var(--r-sm);
+  background: var(--field);
+  color: var(--foreground);
+  font-size: var(--text-base);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ui-textarea {
+  height: auto;
+  min-height: 64px;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--radius-block);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.ui-input::placeholder,
+.ui-textarea::placeholder { color: var(--subtle-foreground); }
+
+.ui-input:focus-visible,
+.ui-select:focus-visible,
+.ui-textarea:focus-visible {
+  border-color: var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.ui-input:disabled,
+.ui-select:disabled,
+.ui-textarea:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* WebKitGTK draws a closed <select> with the platform widget: without
+   `color-scheme` that is near-black text on a near-black panel and the control
+   renders empty, and without explicit option colours the drop-down it opens
+   does the same. Both are needed, on every select in the product. */
+select, input, textarea { color-scheme: light; }
+select option { background: var(--skal-raised); color: var(--black-900); }
+
+/* The chevron and the suppressed platform widget belong to `select`, not to a
+   class a screen has to remember. Fakturor's four filters were bare `<select>`
+   elements — they got the border and the radius from a stylesheet but never
+   `appearance: none`, so the queue's whole filter row was drawn by the OS: a
+   different height, a different corner and a system arrow sitting inside the
+   product's own field. Four platform widgets in a row is the single loudest
+   way an application announces it is not native to itself.
+
+   Element-level, so a select is right by existing. `.ui-select` stays as an
+   alias for the markup that already asks for it by name. */
+select,
+.ui-select {
+  appearance: none;
+  padding-right: var(--s8);
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+                    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position: calc(100% - 15px) calc(50% + 1px), calc(100% - 11px) calc(50% + 1px);
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.ui-field { display: flex; flex-direction: column; gap: var(--s1h); min-width: 0; }
+
+.ui-field > span,
+.ui-label {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--foreground);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ui-hint { font-size: var(--text-base); line-height: 1.5; color: var(--muted-foreground); }
+
+/* ---- badges: pills, 20px tall, 12px ---- */
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s1h);
+  width: fit-content;
+  flex-shrink: 0;
+  height: 20px;
+  padding: 0 var(--s2);
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+.ui-badge > svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+.ui-badge--outline { border-color: var(--border-strong); color: var(--muted-foreground); }
+.ui-badge--muted { background: var(--muted); color: var(--muted-foreground); }
+.ui-badge--ok { background: var(--ok-soft); border-color: var(--ok-border); color: var(--ok); }
+.ui-badge--warn { background: var(--warn-soft); border-color: var(--warn-border); color: var(--warn); }
+.ui-badge--danger { background: var(--avbrott-soft); border-color: var(--avbrott-border); color: var(--avbrott); }
+.ui-badge--accent { background: var(--accent-soft-bg); border-color: var(--accent-border); color: var(--accent-fg); }
+
+.ui-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--s2);
+  border-radius: var(--r-sm);
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- segmented control ---- */
+.ui-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  height: 38px;
+  padding: var(--s1);
+  border-radius: var(--r-sm);
+  background: var(--muted);
+}
+
+.ui-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  height: 100%;
+  padding: 0 var(--s3h);
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: var(--text-base);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ui-tabs button:hover { color: var(--foreground); }
+.ui-tabs button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.ui-tabs button[aria-selected='true'],
+.ui-tabs button.active {
+  background: var(--surface-accent);
+  color: var(--foreground);
+}
+.ui-tabs button > svg { width: 15px; height: 15px; }
+
+/* ---- surfaces ---- */
+.ui-card {
+  border: 1px solid var(--kant);
+  box-shadow: var(--lyft-1);
+  border-radius: var(--radius-3xl);
+  background: var(--card);
+}
+
+.ui-separator { height: 1px; background: var(--border); border: 0; }
+
+/* ---- table ---- */
+.ui-table { width: 100%; border-collapse: collapse; font-size: var(--text-base); }
+
+.ui-table th {
+  height: 40px;
+  padding: 0 var(--s4);
+  border-bottom: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: var(--text-base);
+  font-weight: 400;
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ui-table td { padding: var(--s3) var(--s4); border-bottom: 1px solid var(--border); vertical-align: middle; }
+.ui-table tbody tr:last-child td { border-bottom: none; }
+.ui-table tbody tr { transition: background-color 0.12s ease; }
+.ui-table tbody tr:hover { background: var(--surface-2); }
+
+/* ---- empty state ---- */
+/* One empty composition for every screen. See EmptyState.jsx for why it lost
+   its glyph and its centring — briefly: in a pilot the empty state is the
+   first thing a board sees, and it was the only thing on these pages that did
+   not begin at the gutter. */
+.ui-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s2);
+  /* The rule stands where the first row would. Without it an empty register
+     reads as a region that failed to render; with it the list is visibly
+     present and visibly empty. A rule, not a box — nothing is drawn *around*
+     emptiness, which is what the dashed card used to do. */
+  border-top: 1px solid var(--kant);
+  padding: var(--s8) 0 var(--s10);
+  text-align: left;
+}
+
+/* Where the empty statement IS the page, it gets the page's field.
+ *
+ * Everything on the empty workspaces sat in the top third and then the surface
+ * ran out as content but not as page. Air is this system's main layout tool,
+ * but air only reads as air when it surrounds something; below the last line
+ * it reads as a screen that stopped loading. Which is the same misreading the
+ * grey ring and the brand-mark-as-illustration were put there to prevent, and
+ * the reason those went was that they were furniture. The fix is placement,
+ * not another element.
+ *
+ * So: the statement takes a little over half the window and sits at the
+ * optical centre of it — bottom padding heavier than top, so it lands above
+ * true middle where the eye expects a title to be. The rule stays at the top
+ * of that field, marking where the first row would have been. Air above the
+ * sentence and air below it, both bounded, both deliberate.
+ *
+ * `:last-child` is the whole condition, and it is derived rather than declared
+ * per screen: an empty statement with something after it — the archive under
+ * "Frågan ställs till", say — is the page's opening line and not the page, so
+ * it stays the size of what it says. No screen has to know which it is. */
+.ui-empty:last-child {
+  min-height: 56vh;
+  justify-content: center;
+  padding-bottom: var(--s14);
+}
+
+/* The state, at the size the section heading it stands in for would have had.
+   It was 14px semibold under a 40px glyph, which is how a screen ends up
+   announcing its condition in the smallest type on the page. */
+.ui-empty-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.33;
+  color: var(--black-900);
+}
+
+.ui-empty-body {
+  margin: 0;
+  max-width: 64ch;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--black-500);
+}
+
+.ui-empty-actions { display: flex; gap: var(--s2h); margin-top: var(--s3); }
+
+/* ---- loading ---- */
+.ui-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--s2h);
+  padding: var(--s5) var(--s0h);
+  color: var(--muted-foreground);
+  font-size: var(--text-base);
+}
+
+.ui-skeleton { border-radius: var(--radius-2xl); background: var(--muted); animation: ui-pulse 1.8s ease-in-out infinite; }
+@keyframes ui-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+.spin { animation: ui-spin 1s linear infinite; }
+@keyframes ui-spin { to { transform: rotate(360deg); } }
+
+/* ---- notices ---- */
+.ui-notice {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--kant);
+  box-shadow: var(--lyft-1);
+  border-radius: var(--radius-xl);
+  background: var(--card);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.ui-notice--error { background: var(--danger-soft); border-color: var(--danger-border); }
+.ui-notice--ok { background: var(--ok-soft); border-color: var(--ok-border); }
+.ui-notice--warn { background: var(--warn-soft); border-color: var(--warn-border); }
+
+/* ---- section heading ---- */
+/* §07 puts the serif between 22 and 200px. Below that it stops being a voice
+   and turns into small print, which is exactly how the 17px version read. */
+.ui-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s2h);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+.ui-section-title > svg { width: 18px; height: 18px; }
+
+.ui-section-title > svg { color: var(--muted-foreground); flex-shrink: 0; }
+
+.ui-eyebrow { font-size: var(--text-xs); font-weight: 500; color: var(--subtle-foreground); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

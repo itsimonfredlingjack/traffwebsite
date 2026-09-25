@@ -1,0 +1,201 @@
+/* Comparison Section - Architectural Limestone & Sculpted White */
+.comparison-section {
+  padding: 6.5rem 2rem;
+  position: relative;
+  background: #EFEFEB;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.section-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.section-head-editorial {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 4rem;
+}
+
+.section-mono-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(15, 17, 21, 0.48);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.section-title-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: #0F1115;
+  line-height: 1.1;
+  margin: 0 0 1.25rem;
+}
+
+.serif-italic {
+  font-style: italic;
+  color: rgba(15, 17, 21, 0.72);
+}
+
+.section-lead-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(15, 17, 21, 0.68);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.comparison-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.comparison-col {
+  border-radius: 20px;
+  padding: 2.75rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Generic AI Card */
+.col-generic {
+  background: #FFFFFF;
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
+}
+
+/* Träff Card */
+.col-traff {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(5, 150, 105, 0.38);
+  box-shadow: 0 22px 50px -10px rgba(5, 150, 105, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.col-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.col-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.col-tag.ej-belagt {
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  color: #D97706;
+}
+
+.col-tag.belagt {
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.28);
+  color: #059669;
+}
+
+.tag-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.col-target-label {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12.5px;
+  color: rgba(15, 17, 21, 0.52);
+  font-weight: 500;
+}
+
+.col-target-label-traff {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 19px;
+  color: #0F1115;
+}
+
+.col-target-name {
+  color: #0F1115;
+}
+
+.col-card-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.85rem;
+  letter-spacing: -0.02em;
+  color: #0F1115;
+  margin: 0 0 0.85rem;
+  line-height: 1.25;
+}
+
+.col-card-summary {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(15, 17, 21, 0.68);
+  margin: 0 0 2rem;
+}
+
+.col-points-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.col-point-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.point-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.col-generic .point-number {
+  color: #D97706;
+}
+
+.col-traff .point-number {
+  color: #059669;
+}
+
+.col-point-item strong {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0F1115;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.col-point-item p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(15, 17, 21, 0.68);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .comparison-columns {
+    grid-template-columns: 1fr;
+  }
+}

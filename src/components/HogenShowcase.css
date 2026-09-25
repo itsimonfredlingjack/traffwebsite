@@ -1,0 +1,196 @@
+/* Högen 3D Isometric Motif (§04 & §06) */
+.hogen-container {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 3.5rem auto 1.5rem;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Cold Sökljus ambient beam */
+.hogen-sokljus-beam {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: min(85vw, 760px);
+  height: 120%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 35%, rgba(207, 224, 255, 0.1), transparent 64%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 3D Perspective Stage */
+.hogen-perspective-stage {
+  perspective: 1400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.hogen-stack-transform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Individual Paper Sheets */
+.hogen-sheet {
+  height: 7px;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.hogen-sheet.s1 { width: 480px; background: linear-gradient(90deg, #2A2E36, #3A3F49); }
+.hogen-sheet.s2 { width: 476px; background: linear-gradient(90deg, #2C3038, #3D424C); }
+.hogen-sheet.s3 { width: 482px; background: linear-gradient(90deg, #2A2E36, #383D46); }
+.hogen-sheet.s4 { width: 474px; background: linear-gradient(90deg, #2E323A, #40454F); }
+.hogen-sheet.s5 { width: 480px; background: linear-gradient(90deg, #2A2E36, #3A3F49); }
+.hogen-sheet.s6 { width: 478px; background: linear-gradient(90deg, #2C3038, #3D424C); }
+.hogen-sheet.s7 { width: 484px; background: linear-gradient(90deg, #2A2E36, #383D46); }
+.hogen-sheet.s8 { width: 472px; background: linear-gradient(90deg, #2E323A, #40454F); }
+
+/* THE LIT LEAF (Den lysande sidan med belägget) */
+.hogen-leaf-lit {
+  position: relative;
+  width: 504px;
+  height: 13px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #E8E5DE, #FFFFFF);
+  box-shadow: 0 0 40px rgba(79, 199, 156, 0.6), 0 0 85px rgba(79, 199, 156, 0.3);
+  margin: 1px 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+}
+
+.hogen-container:hover .hogen-leaf-lit {
+  transform: scaleX(1.02) scaleY(1.1);
+  box-shadow: 0 0 50px rgba(79, 199, 156, 0.8), 0 0 110px rgba(79, 199, 156, 0.45);
+}
+
+.hogen-lit-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: #4FC79C;
+  border-radius: 2px 0 0 2px;
+}
+
+.hogen-lit-glow-line {
+  position: absolute;
+  left: 14px;
+  right: 48px;
+  height: 3px;
+  background: #FFD600; /* Remsgul highlighter */
+  border-radius: 1px;
+  opacity: 0.85;
+}
+
+.hogen-lit-page-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  color: #16181C;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+/* Meta Information Lockup Below 3D Stack */
+.hogen-meta-lockup {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.hogen-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(79, 199, 156, 0.09);
+  border: 1px solid rgba(79, 199, 156, 0.32);
+  transition: all 0.2s ease;
+}
+
+.hogen-container:hover .hogen-status-pill {
+  background: rgba(79, 199, 156, 0.16);
+  border-color: rgba(79, 199, 156, 0.5);
+}
+
+.hogen-mono-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #4FC79C;
+}
+
+.hogen-quote-serif {
+  margin: 0;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: rgba(236, 237, 239, 0.85);
+  text-align: center;
+  max-width: 32ch;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.hogen-jump-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(236, 237, 239, 0.4);
+  transition: color 0.15s ease;
+}
+
+.hogen-container:hover .hogen-jump-hint {
+  color: #8FB2FF;
+}
+
+.hogen-hint-arrow {
+  transition: transform 0.2s ease;
+}
+
+.hogen-container:hover .hogen-hint-arrow {
+  transform: translateY(3px);
+}
+
+@media (max-width: 600px) {
+  .hogen-sheet {
+    width: 280px !important;
+  }
+  .hogen-leaf-lit {
+    width: 295px !important;
+  }
+  .hogen-quote-serif {
+    font-size: 18px;
+  }
+}

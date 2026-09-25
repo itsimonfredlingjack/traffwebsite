@@ -1,0 +1,240 @@
+/* Träff — Architectural Limestone & Sculpted White
+ * Ground: #EFEFEB (Varm Arkitektonisk Kalksten)
+ * Surface: #FFFFFF (Krispigt Vit Skulpterad Form)
+ * Matta: #F3F1EC (Dokumentbordets silkesgrå arkivmatta)
+ * Text: #0F1115 (Djupaste Kolsbläck)
+ * Belagt: #059669 (Precision Emerald)
+ * Ej belagt / Vägran: #D97706 (Warm Amber)
+ * Sökljus: #2563EB (Precision Scan Blue)
+ * Action: #111317 (Taktilt Djupbläck)
+ * Remsgul: #FEF08A (Authentic Highlight Marker)
+ */
+
+:root {
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Architectural Limestone & White Studio Palette */
+  --skal: #EFEFEB;
+  --skal-surface: #FFFFFF;
+  --skal-card: #FFFFFF;
+  --skal-elevated: #FFFFFF;
+  --skal-subtle: #F7F7F5;
+  --matta: #F3F1EC;
+
+  --papper: #FFFFFF;
+  --papper-warm: #FBFBFA;
+  --papper-dark: #111317;
+  
+  --text-main: #0F1115;
+  --text-muted: rgba(15, 17, 21, 0.68);
+  --text-dim: rgba(15, 17, 21, 0.45);
+
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.16);
+  --border-active: rgba(0, 0, 0, 0.28);
+
+  /* Deep Multi-layer Studio Shadows on Limestone */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 12px 35px -10px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+  --shadow-elevated: 0 22px 50px -12px rgba(0, 0, 0, 0.09), 0 0 1px 1px rgba(0, 0, 0, 0.06);
+  --shadow-stage: 0 30px 90px -20px rgba(0, 0, 0, 0.14), 0 0 1px 1px rgba(0, 0, 0, 0.06);
+
+  /* Betydelsefärger - Aldrig till dekor */
+  --belagt: #059669;
+  --belagt-dim: rgba(5, 150, 105, 0.08);
+  --belagt-border: rgba(5, 150, 105, 0.28);
+
+  --ej-belagt: #D97706;
+  --ej-belagt-dim: rgba(217, 119, 6, 0.08);
+  --ej-belagt-border: rgba(217, 119, 6, 0.28);
+
+  --sokljus: #2563EB;
+  --sokljus-dim: rgba(37, 99, 235, 0.07);
+  --sokljus-border: rgba(37, 99, 235, 0.22);
+
+  --handling: #111317;
+  --handling-hover: #262930;
+
+  --remsgul: #FEF08A;
+  --remsgul-border: rgba(202, 138, 4, 0.45);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  height: auto !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--skal);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100vh !important;
+  line-height: 1.6;
+}
+
+/* Page container wrapper with subtle radial studio lighting on limestone */
+.landing-page-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: 
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255, 255, 255, 0.85), rgba(239, 239, 235, 0) 70%),
+    radial-gradient(ellipse 70% 40% at 85% 15%, rgba(245, 245, 240, 0.6), rgba(239, 239, 235, 0) 60%),
+    var(--skal);
+  color: var(--text-main);
+}
+
+main {
+  flex: 1;
+}
+
+/* Interactive Demo Section Container */
+.demo-outer-section {
+  max-width: 1360px;
+  margin: -1.5rem auto 5.5rem;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Section Headings following §07: Serif asserts, Sans explains, Mono measures */
+.section-serif-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+/* PDF Viewer Highlights */
+.pdf-page-canvas-wrap {
+  position: relative;
+  line-height: 0;
+}
+
+.pdf-page-canvas-wrap canvas {
+  display: block;
+}
+
+.pdf-highlight {
+  position: absolute;
+  background: rgba(254, 240, 138, 0.65);
+  outline: 1.5px solid rgba(202, 138, 4, 0.6);
+  border-radius: 2px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  transform-origin: left center;
+  animation: markering-draw 0.46s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes markering-draw {
+  from {
+    transform: scaleX(0);
+    opacity: 0.3;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.pdf-highlight.pulsing {
+  animation: golden-pulse 0.7s ease-in-out 3;
+}
+
+@keyframes golden-pulse {
+  0%, 100% {
+    background: rgba(254, 240, 138, 0.65);
+    outline: 1.5px solid rgba(202, 138, 4, 0.6);
+    filter: none;
+  }
+  50% {
+    background: rgba(254, 240, 138, 0.95);
+    outline: 2px solid rgba(202, 138, 4, 0.95);
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.75));
+  }
+}
+
+.pdf-pane-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(4px);
+  color: var(--sokljus);
+  z-index: 10;
+}
+
+.pdf-pane-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 8px;
+}
+
+.pdf-pane-error-detail {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 400px;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--skal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.16);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
+}

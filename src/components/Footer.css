@@ -1,0 +1,241 @@
+/* Footer - Architectural Limestone & Sculpted White */
+.footer-editorial-root {
+  background: #EFEFEB;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+/* Paper Contrast Card */
+.footer-paper-banner-wrap {
+  max-width: 1240px;
+  margin: 3rem auto 5rem;
+  padding: 0 2rem;
+}
+
+.footer-paper-card {
+  background: #FFFFFF;
+  color: #0F1115;
+  border-radius: 22px;
+  padding: 4.5rem 3.5rem;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.09), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.paper-mono-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(15, 17, 21, 0.48);
+  margin-bottom: 1.25rem;
+}
+
+.paper-serif-headline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  color: #0F1115;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 auto 1.25rem;
+  max-width: 22ch;
+}
+
+.paper-body-lead {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(15, 17, 21, 0.68);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+.paper-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.paper-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 26px;
+  background: #111317;
+  color: #FFFFFF;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.paper-btn-primary:hover {
+  background: #242730;
+  transform: translateY(-1px);
+}
+
+.paper-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #0F1115;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.paper-btn-ghost:hover {
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Light Limestone Footer Base */
+.footer-main-dark {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 4.5rem 2rem 2.5rem;
+  background: #E8E8E3;
+}
+
+.footer-columns-wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.25fr 2fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.footer-brand-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.footer-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0F1115;
+}
+
+.footer-brand-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: #0F1115;
+}
+
+.footer-brand-sub {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(15, 17, 21, 0.65);
+  margin: 0;
+  max-width: 300px;
+}
+
+.footer-eu-mono-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(15, 17, 21, 0.48);
+}
+
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nav-col-mono-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(15, 17, 21, 0.48);
+  margin-bottom: 0.5rem;
+}
+
+.footer-link-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13.5px;
+  color: rgba(15, 17, 21, 0.68);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-link-btn:hover {
+  color: #0F1115;
+}
+
+.nav-static-item {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13.5px;
+  color: rgba(15, 17, 21, 0.45);
+}
+
+.footer-sub-bar {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright-mono,
+.motto-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(15, 17, 21, 0.45);
+}
+
+@media (max-width: 900px) {
+  .footer-columns-wrap {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .footer-paper-card {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-nav-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-sub-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

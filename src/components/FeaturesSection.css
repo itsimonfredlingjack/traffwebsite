@@ -1,0 +1,88 @@
+/* Features Section - Architectural Limestone & Sculpted White */
+.features-section {
+  padding: 6.5rem 2rem;
+  position: relative;
+  background: #EFEFEB;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.features-grid-editorial {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.feature-editorial-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 20px;
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-editorial-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.18);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.09);
+}
+
+.card-top-mono {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(15, 17, 21, 0.38);
+}
+
+.card-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(15, 17, 21, 0.58);
+  background: #F3F1EC;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.card-serif-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #0F1115;
+  line-height: 1.25;
+  margin: 0 0 0.35rem;
+}
+
+.card-sub-lead {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #059669;
+  margin-bottom: 0.85rem;
+}
+
+.card-body-desc {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(15, 17, 21, 0.68);
+  margin: 0;
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .features-grid-editorial {
+    grid-template-columns: 1fr;
+  }
+}
