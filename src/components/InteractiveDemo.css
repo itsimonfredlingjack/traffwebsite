@@ -198,6 +198,8 @@
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.35;
+  /* The h3 element rule supplied this. A paragraph does not. */
+  letter-spacing: -0.005em;
   color: #0F1115;
   margin: 0;
 }

@@ -143,7 +143,6 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
           className={`pdf-highlight${approximate ? ' approximate' : ''}${pulseHighlights ? ' pulsing' : ''}`}
           data-testid="citation-highlight"
           data-highlight-index={i}
-          aria-label="Markerat källcitat"
           style={{ left: b.left, top: b.top, width: b.width, height: b.height, '--i': i }}
         />
       ))}

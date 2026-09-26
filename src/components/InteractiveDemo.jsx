@@ -330,7 +330,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
               <span className="inquiry-mono-step">FRÅGA {activeScenario.questionNum || 1}</span>
               <span className="inquiry-mono-time">{activeScenario.timestamp || '12:07'}</span>
             </div>
-            <h3 className="inquiry-query-title">{activeScenario.question}</h3>
+            <p className="inquiry-query-title">{activeScenario.question}</p>
           </div>
 
           {/* Timeline Node & Status State */}
