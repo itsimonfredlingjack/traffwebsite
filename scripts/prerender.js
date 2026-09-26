@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { createServer } from 'vite';
+import { absoluteUrl, siteUrl } from './site-url.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,37 +59,40 @@ async function prerender() {
       .join('\n');
   }
 
+  const origin = siteUrl();
+  const organizationId = `${origin}#organization`;
+
   // Generate JSON-LD with Organization, SoftwareApplication, and FAQPage
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'Organization',
-        '@id': 'https://traff.app/#organization',
+        '@id': organizationId,
         name: 'Träff',
         alternateName: 'Traff',
-        url: 'https://traff.app/',
+        url: origin,
         email: 'kontakt@traff.se',
-        logo: 'https://traff.app/apple-touch-icon.png',
+        logo: absoluteUrl('apple-touch-icon.png'),
         description: 'Svensk AI för dokument och information.',
       },
       {
         '@type': 'SoftwareApplication',
-        '@id': 'https://traff.app/#software',
+        '@id': `${origin}#software`,
         name: 'Träff',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         inLanguage: 'sv',
-        url: 'https://traff.app/',
+        url: origin,
         description:
           'Svensk AI för dokument och information. Fråga dina avtal, protokoll och rapporter och se svaren med verifierad källhänvisning direkt på sidan.',
         publisher: {
-          '@id': 'https://traff.app/#organization',
+          '@id': organizationId,
         },
       },
       {
         '@type': 'FAQPage',
-        '@id': 'https://traff.app/#faq',
+        '@id': `${origin}#faq`,
         mainEntity: faqs.map((faq) => ({
           '@type': 'Question',
           name: faq.q,
@@ -115,7 +119,19 @@ async function prerender() {
   );
 
   fs.writeFileSync(indexHtmlPath, finalHtml, 'utf-8');
+
+  const lastmod = new Date().toISOString().slice(0, 10);
+  fs.writeFileSync(
+    path.join(distDir, 'robots.txt'),
+    `User-agent: *\nAllow: /\n\nSitemap: ${absoluteUrl('sitemap.xml')}\n`,
+  );
+  fs.writeFileSync(
+    path.join(distDir, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${origin}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>\n`,
+  );
+
   console.log(`✅ Static HTML successfully prerendered into ${indexHtmlPath}`);
+  console.log(`   Site URL: ${origin}`);
   console.log(`   Final HTML size: ${Buffer.byteLength(finalHtml, 'utf-8')} bytes`);
 }
 

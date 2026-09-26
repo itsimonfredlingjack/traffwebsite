@@ -36,10 +36,12 @@ jobs:
         run: npm ci
 
       - name: Build site
-        # Project Pages serves this repo at /traffwebsite/. traff.app uses the default base "/".
+        # Project Pages serves this repo at /traffwebsite/.
+        # traff.app is not the published host yet; see README for the switch.
         run: npm run build
         env:
           VITE_BASE: /traffwebsite/
+          SITE_URL: https://itsimonfredlingjack.github.io/traffwebsite/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

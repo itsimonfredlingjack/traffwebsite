@@ -40,3 +40,24 @@ npm run sync-back -- --diff  # visar bara skillnaden först
 - Uppladdning lägger filen i listan på den här datorn, med märket Ny. Den
   sparas inte; omladdning återställer fixtures.
 - Borttagning tar bara bort raden ur den här sessionen.
+
+## Sajtadress
+
+Canonical, Open Graph, Twitter-bild, JSON-LD, `sitemap.xml` och `robots.txt`
+byggs från miljövariabeln `SITE_URL`. Utan variabeln är adressen den som är
+publicerad i dag:
+
+`https://itsimonfredlingjack.github.io/traffwebsite/`
+
+GitHub Pages-workflowen sätter `SITE_URL` och `VITE_BASE=/traffwebsite/`
+tillsammans. `sitemap.xml` och `robots.txt` skrivs till `dist/` vid `npm run build`
+och ligger inte som statiska filer i `public/`.
+
+När domänen traff.app är säkrad, bygg i stället med:
+
+```bash
+SITE_URL=https://traff.app/ VITE_BASE=/ npm run build
+```
+
+Lägg då också en `CNAME`-fil med innehållet `traff.app` i `public/`, så att
+GitHub Pages svarar på den domänen. Lägg inte in den filen innan domänen pekar hit.
