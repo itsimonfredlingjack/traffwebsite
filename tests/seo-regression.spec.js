@@ -264,3 +264,43 @@ test('axe finds no contrast or target-size violations in any demo state', async 
 
   expect(problems, problems.join('\n')).toEqual([]);
 });
+
+function isPdfRuntime(url) {
+  return /pdf\.worker|pdf\.min|\/pdfjs[-.]|demo-pdf\//.test(url);
+}
+
+test('pdf.js stays unloaded until the demo is on screen, then the story runs', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  const pdfUrls = [];
+  page.on('request', (req) => {
+    if (isPdfRuntime(req.url())) pdfUrls.push(req.url());
+  });
+
+  await page.goto('/', { waitUntil: 'networkidle' });
+  await page.waitForTimeout(400);
+  const placement = await page.locator('#demo-section').evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    const visible = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0));
+    return { ratio: r.height ? visible / r.height : 1, top: r.top, height: r.height };
+  });
+  expect(placement.ratio, JSON.stringify(placement)).toBeLessThan(0.2);
+  expect(pdfUrls, `pdf runtime fetched before scroll:\n${pdfUrls.join('\n')}`).toEqual([]);
+  await expect(page.locator('.state-name-mono')).toHaveText('VILA');
+
+  await page.getByRole('button', { name: 'Öppna meny' }).click();
+  await page.locator('.navbar-mobile-drawer').getByRole('link', { name: 'Demonstration', exact: true }).click();
+  await expect(page).toHaveURL(/#demo-section$/);
+  await expect(page.locator('.state-name-mono')).toHaveText('BELAGT', { timeout: 20000 });
+  await expect.poll(() => pdfUrls.length, { timeout: 15000 }).toBeGreaterThan(0);
+  await page.getByRole('button', { name: /Källdokument/ }).click();
+  await expect.poll(async () => page.locator('.demo-white-sheet canvas').evaluate((c) => c.width), { timeout: 15000 }).toBeGreaterThan(50);
+
+  // A fresh load on the demo hash must arm pdf.js without a second scroll.
+  // The chunk may come from cache, so the check is the painted page, not a second request.
+  await page.goto('/#demo-section', { waitUntil: 'networkidle' });
+  await expect(page.locator('.state-name-mono')).toHaveText('BELAGT', { timeout: 20000 });
+  await page.getByRole('button', { name: /Källdokument/ }).click();
+  await expect.poll(async () => page.locator('.demo-white-sheet canvas').evaluate((c) => c.width), { timeout: 15000 }).toBeGreaterThan(50);
+  const hashed = await page.evaluate(() => performance.getEntriesByType('resource').map((r) => r.name));
+  expect(hashed.some((url) => isPdfRuntime(url)), hashed.filter((url) => /pdf|worker/.test(url)).join('\n')).toBe(true);
+});

@@ -28,13 +28,18 @@ function injectSiteUrl() {
 export default defineConfig(({ isSsrBuild }) => ({
   base: process.env.VITE_BASE || '/',
   plugins: [react(), injectSiteUrl()],
-  build: isSsrBuild
-    ? {
-        rollupOptions: {
-          output: {
-            entryFileNames: 'entry-server.js',
+  build: {
+    // The preload helper was being emitted inside the pdf.js chunk, which
+    // made the entry import that chunk statically. Native import() is enough.
+    modulePreload: false,
+    ...(isSsrBuild
+      ? {
+          rollupOptions: {
+            output: {
+              entryFileNames: 'entry-server.js',
+            },
           },
-        },
-      }
-    : {},
+        }
+      : {}),
+  },
 }));

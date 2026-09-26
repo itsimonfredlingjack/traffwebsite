@@ -10,7 +10,9 @@ import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 let laddning = null;
 export function pdfjs() {
   if (!laddning) {
-    laddning = import('pdfjs-dist').then((m) => {
+    // The min build, and only when a page is actually drawn. The full
+    // pdf.mjs is what a static import pulled into the first screen.
+    laddning = import('pdfjs-dist/build/pdf.min.mjs').then((m) => {
       m.GlobalWorkerOptions.workerSrc = workerUrl;
       return m;
     });

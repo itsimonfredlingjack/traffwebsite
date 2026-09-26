@@ -54,6 +54,14 @@ export default function SourceThread({
   }, [updateCoordinates]);
 
   useEffect(() => {
+    if (!active || !containerRef?.current) return undefined;
+    const container = containerRef.current;
+    const mo = new MutationObserver(() => updateCoordinates());
+    mo.observe(container, { childList: true, subtree: true });
+    return () => mo.disconnect();
+  }, [active, containerRef, updateCoordinates]);
+
+  useEffect(() => {
     window.addEventListener('resize', updateCoordinates);
     const scrollContainer = containerRef?.current;
     if (scrollContainer) {

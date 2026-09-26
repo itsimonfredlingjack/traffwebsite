@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
-import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { Loader2, AlertCircle } from 'lucide-react';
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+import { hamtaPdf } from '../pdfCache';
 
 /**
  * Renders a real PDF page inline (no modal) via pdf.js, with optional
@@ -16,7 +13,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
  * instead of at 1pt = 1px. Overlays follow the same viewport, so the marks
  * land on the lines at any size.
  */
-function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, approximate = false, onRendered = null, fitWidth = null, pulseHighlights = false }) {
+function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, approximate = false, onRendered = null, fitWidth = null, pulseHighlights = false, active = false }) {
   const canvasRef = useRef(null);
   const pdfRef = useRef(null);
   const renderTaskRef = useRef(null);
@@ -36,17 +33,16 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
       setLoading(false);
       return undefined;
     }
+    if (!active) return undefined;
     let cancelled = false;
     setError(null);
     setLoading(true);
     setNumPages(0);
-    const loadingTask = pdfjsLib.getDocument({ url: new URL(url, window.location.href).href });
-    loadingTask.promise
+    // The document stays in pdfCache for the session. Destroying it here
+    // would break the next scenario that asks for the same file.
+    hamtaPdf(url)
       .then((pdf) => {
-        if (cancelled) {
-          pdf.destroy().catch(() => {});
-          return;
-        }
+        if (cancelled) return;
         pdfRef.current = pdf;
         setNumPages(pdf.numPages);
         onNumPages?.(pdf.numPages);
@@ -58,11 +54,10 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
       });
     return () => {
       cancelled = true;
-      loadingTask.destroy().catch(() => {});
       pdfRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [url, active]);
 
   const renderPage = useCallback(async () => {
     const pdf = pdfRef.current;
@@ -133,9 +128,15 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
     );
   }
 
+  // A4 page box. Reserving it up front keeps the column from growing
+  // when pdf.js paints, which was a layout shift under the demo.
+  const reservedStyle = fitWidth
+    ? { width: `${fitWidth}px`, height: `${fitWidth * (842 / 595)}px` }
+    : undefined;
+
   return (
     <div className="pdf-page-canvas-wrap">
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} style={reservedStyle} />
       {overlays.map((b, i) => (
         <div
           key={i}

@@ -67,6 +67,8 @@ export default function InteractiveDemo({ onOpenBooking }) {
   // Phases: 'idle' | 'soker' | 'typing' | 'connecting' | 'verified' | 'hold' | 'resetting'
   const [storyPhase, setStoryPhase] = useState('idle');
   const [isInView, setIsInView] = useState(false);
+  // pdf.js stays out of the first screen until the demo is actually on it.
+  const [pdfReady, setPdfReady] = useState(false);
   const storyTimerRef = useRef(null);
   const typingIntervalRef = useRef(null);
 
@@ -117,6 +119,33 @@ export default function InteractiveDemo({ onOpenBooking }) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  /* ── pdf.js only once the demo is on screen (same 0.2 as the story) ── */
+  useEffect(() => {
+    if (pdfReady) return undefined;
+    const arm = () => setPdfReady(true);
+    if (window.location.hash === '#demo-section' || mobileTab === 'doc') {
+      arm();
+      return undefined;
+    }
+    const el = frameRef.current;
+    if (!el) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) arm();
+      },
+      { threshold: [0, 0.2, 0.5] }
+    );
+    observer.observe(el);
+    const onHash = () => {
+      if (window.location.hash === '#demo-section') arm();
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('hashchange', onHash);
+    };
+  }, [pdfReady, mobileTab]);
 
   /* ── Story cleanup helper ────────────────────────────── */
   const clearStoryTimers = useCallback(() => {
@@ -569,6 +598,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
               <div className="demo-white-sheet">
                 <PdfPane
                   url={activeScenario.pdfUrl}
+                  active={pdfReady}
                   page={currentPage}
                   onNumPages={setNumPages}
                   rects={highlightActive && currentPage === activeCitation.page ? activeCitation.rects : []}

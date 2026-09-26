@@ -114,6 +114,17 @@ main {
   z-index: 10;
 }
 
+/* Features and the footer are below the first screen and were part of a long
+   layout task. The reserved height matches the rendered box at each width. */
+@media (max-width: 980px) {
+  .features-section { content-visibility: auto; contain-intrinsic-size: auto 1968px; }
+  .footer-editorial-root { content-visibility: auto; contain-intrinsic-size: auto 1665px; }
+}
+@media (min-width: 981px) {
+  .features-section { content-visibility: auto; contain-intrinsic-size: auto 1112px; }
+  .footer-editorial-root { content-visibility: auto; contain-intrinsic-size: auto 776px; }
+}
+
 /* Section Headings following §07: Serif asserts, Sans explains, Mono measures */
 .section-serif-title {
   font-family: var(--font-serif);
