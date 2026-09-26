@@ -1,0 +1,46 @@
+[
+  {
+    "name": "baseline",
+    "form": "mobile",
+    "performance": 84,
+    "accessibility": 94,
+    "bestPractices": 100,
+    "seo": 91,
+    "lcp": 3346,
+    "cls": 0.052,
+    "tbt": 85
+  },
+  {
+    "name": "baseline",
+    "form": "desktop",
+    "performance": 99,
+    "accessibility": 86,
+    "bestPractices": 100,
+    "seo": 91,
+    "lcp": 713,
+    "cls": 0.013,
+    "tbt": 33
+  },
+  {
+    "name": "current",
+    "form": "mobile",
+    "performance": 89,
+    "accessibility": 94,
+    "bestPractices": 100,
+    "seo": 100,
+    "lcp": 3058,
+    "cls": 0.041,
+    "tbt": 79
+  },
+  {
+    "name": "current",
+    "form": "desktop",
+    "performance": 100,
+    "accessibility": 87,
+    "bestPractices": 100,
+    "seo": 100,
+    "lcp": 584,
+    "cls": 0.004,
+    "tbt": 57
+  }
+]

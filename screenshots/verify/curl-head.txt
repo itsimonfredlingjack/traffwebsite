@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Träff – AI för dokument med källhänvisning</title>
+    <meta name="description" content="Fråga dina avtal, protokoll och rapporter. Träff visar exakt var svaret står med inringad källhänvisning i originaldokumentet. Svensk AI för företag." />
+    <link rel="canonical" href="https://traff.app/" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Träff – AI för dokument med källhänvisning" />
+    <meta property="og:description" content="Fråga dina avtal, protokoll och rapporter. Träff visar exakt var svaret står med inringad källhänvisning i originaldokumentet. Svensk AI för företag." />
+    <meta property="og:url" content="https://traff.app/" />
+    <meta property="og:image" content="https://traff.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="sv_SE" />
+    <meta property="og:site_name" content="Träff" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Träff – AI för dokument med källhänvisning" />
+    <meta name="twitter:description" content="Fråga dina avtal, protokoll och rapporter. Träff visar exakt var svaret står med inringad källhänvisning i originaldokumentet. Svensk AI för företag." />
+    <meta name="twitter:image" content="https://traff.app/og-image.png" />
+
+    <!-- Brand Icons & Theme -->
+    <meta name="theme-color" content="#EFEFEB" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script type="module" crossorigin src="/assets/index-DQPOxLlt.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Aeacwfnl.css">
+      <link rel="preload" href="/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2" as="font" type="font/woff2" crossorigin />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://traff.app/#organization",
+      "name": "Träff",
+      "alternateName": "Traff",
+      "url": "https://traff.app/",
+      "email": "kontakt@traff.se",
+      "logo": "https://traff.app/apple-touch-icon.png",
+      "description": "Svensk AI för dokument och information."
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://traff.app/#software",
+      "name": "Träff",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "sv",
+      "url": "https://traff.app/",
+      "description": "Svensk AI för dokument och information. Fråga dina avtal, protokoll och rapporter och se svaren med verifierad källhänvisning direkt på sidan.",
+      "publisher": {
+        "@id": "https://traff.app/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://traff.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Hur kan jag lita på att svaren inte är fabricerade (hallucinerade)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Till skillnad från generella AI-chattar som gissar fritt, tvingas Träff att binda varje påstående till en faktisk mening i ert arkiv. Om det inte finns stöd i texten svarar Träff att källan saknas (vägran är en funktion). Dessutom ser du alltid originaldokumentet bredvid chatten med den exakta meningen inringad med remsgul penna så att du kan läsa och godkänna det själv."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Vilka dokumentformat och typer stöds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Träff hanterar PDF-filer av alla slag – både digitalt skapade avtal och inskannade handlingar med OCR. Systemet indexerar leverantörskontrakt, styrelseprotokoll, årsredovisningar, tekniska underhållsplaner, personalhandböcker och interna policys."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hur lång tid tar det att komma igång med Träff?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Eftersom Träff är molnbaserat krävs inga komplexa IT-installationer. Ni kan ladda upp era första dokument och börja ställa frågor inom några minuter. För större organisationer erbjuder vi även direktkoppling mot befintliga dokumenthanteringssystem och molnlagringar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hur fungerar en genomgång med våra egna handlingar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under en 15-minuters genomgång via videosamtal laddar vi upp ett eller ett par av era egna avtal eller protokoll (under sekretess/NDA). Vi ställer de frågor ni brukar behöva leta efter i vardagen, så att ni med egna ögon får se hur Träff hittar rätt sida och ringar in svaret."
+          }
+        }
+      ]
+    }
+  ]
+}
+    </script>
+  
