@@ -186,10 +186,10 @@
   letter-spacing: 0.14em;
 }
 
-.state-indicator-pill.vila .state-label { color: rgba(15, 17, 21, 0.45); }
+.state-indicator-pill.vila .state-label { color: rgba(15, 17, 21, 0.62); }
 .state-indicator-pill.soker .state-label { color: #2563EB; }
-.state-indicator-pill.belagt .state-label { color: #059669; }
-.state-indicator-pill.ej-belagt .state-label { color: #D97706; }
+.state-indicator-pill.belagt .state-label { color: var(--belagt, #137855); }
+.state-indicator-pill.ej-belagt .state-label { color: var(--ej-belagt, #8A5D06); }
 
 .state-arrow {
   color: rgba(15, 17, 21, 0.25);

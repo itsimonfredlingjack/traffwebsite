@@ -28,8 +28,8 @@
   --papper-dark: #111317;
   
   --text-main: #0F1115;
-  --text-muted: rgba(15, 17, 21, 0.68);
-  --text-dim: rgba(15, 17, 21, 0.45);
+  --text-muted: rgba(15, 17, 21, 0.70);
+  --text-dim: rgba(15, 17, 21, 0.62);
 
   --border-subtle: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.16);
@@ -42,13 +42,13 @@
   --shadow-stage: 0 30px 90px -20px rgba(0, 0, 0, 0.14), 0 0 1px 1px rgba(0, 0, 0, 0.06);
 
   /* Betydelsefärger - Aldrig till dekor */
-  --belagt: #059669;
-  --belagt-dim: rgba(5, 150, 105, 0.08);
-  --belagt-border: rgba(5, 150, 105, 0.28);
+  --belagt: #137855;
+  --belagt-dim: rgba(19, 120, 85, 0.08);
+  --belagt-border: rgba(19, 120, 85, 0.32);
 
-  --ej-belagt: #D97706;
-  --ej-belagt-dim: rgba(217, 119, 6, 0.08);
-  --ej-belagt-border: rgba(217, 119, 6, 0.28);
+  --ej-belagt: #8A5D06;
+  --ej-belagt-dim: rgba(138, 93, 6, 0.08);
+  --ej-belagt-border: rgba(138, 93, 6, 0.32);
 
   --sokljus: #2563EB;
   --sokljus-dim: rgba(37, 99, 235, 0.07);

@@ -22,7 +22,7 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: rgba(15, 17, 21, 0.48);
+  color: rgba(15, 17, 21, 0.62);
   margin-bottom: 1rem;
   display: block;
 }
@@ -94,15 +94,15 @@
 }
 
 .col-tag.ej-belagt {
-  background: rgba(217, 119, 6, 0.08);
-  border: 1px solid rgba(217, 119, 6, 0.28);
-  color: #D97706;
+  background: var(--ej-belagt-dim, rgba(138, 93, 6, 0.08));
+  border: 1px solid var(--ej-belagt-border, rgba(138, 93, 6, 0.32));
+  color: var(--ej-belagt, #8A5D06);
 }
 
 .col-tag.belagt {
-  background: rgba(5, 150, 105, 0.08);
-  border: 1px solid rgba(5, 150, 105, 0.28);
-  color: #059669;
+  background: var(--belagt-dim, rgba(19, 120, 85, 0.08));
+  border: 1px solid var(--belagt-border, rgba(19, 120, 85, 0.32));
+  color: var(--belagt, #137855);
 }
 
 .tag-mono {
@@ -115,7 +115,7 @@
 .col-target-label {
   font-family: 'Instrument Sans', sans-serif;
   font-size: 12.5px;
-  color: rgba(15, 17, 21, 0.52);
+  color: rgba(15, 17, 21, 0.62);
   font-weight: 500;
 }
 
@@ -170,11 +170,11 @@
 }
 
 .col-generic .point-number {
-  color: #D97706;
+  color: var(--ej-belagt, #8A5D06);
 }
 
 .col-traff .point-number {
-  color: #059669;
+  color: var(--belagt, #137855);
 }
 
 .col-point-item strong {

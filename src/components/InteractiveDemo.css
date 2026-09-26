@@ -25,7 +25,7 @@
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: rgba(15, 17, 21, 0.48);
+  color: rgba(15, 17, 21, 0.62);
   white-space: nowrap;
 }
 
@@ -93,7 +93,7 @@
   font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba(15, 17, 21, 0.52);
+  color: rgba(15, 17, 21, 0.62);
 }
 
 .demo-scenario-tab-btn.active .tab-category {
@@ -124,7 +124,7 @@
   border: none;
   border-bottom: 2px solid transparent;
   padding: 12px;
-  color: rgba(15, 17, 21, 0.55);
+  color: rgba(15, 17, 21, 0.62);
   font-family: 'Instrument Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -184,13 +184,13 @@
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: rgba(15, 17, 21, 0.48);
+  color: rgba(15, 17, 21, 0.62);
 }
 
 .inquiry-mono-time {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: rgba(15, 17, 21, 0.4);
+  color: rgba(15, 17, 21, 0.60);
 }
 
 .inquiry-query-title {
@@ -257,19 +257,19 @@
 }
 
 .state-badge-row.belagt .state-name-mono {
-  color: #059669;
+  color: var(--belagt, #137855);
 }
 
 .state-badge-row.ejbelagt .state-name-mono {
-  color: #D97706;
+  color: var(--ej-belagt, #8A5D06);
 }
 
 .state-badge-row.vila .state-name-mono {
-  color: rgba(15, 17, 21, 0.4);
+  color: rgba(15, 17, 21, 0.60);
 }
 
 .answer-placeholder {
-  color: rgba(15, 17, 21, 0.38);
+  color: rgba(15, 17, 21, 0.60);
   font-style: italic;
   font-family: 'Instrument Sans', sans-serif;
   font-size: 0.95rem;
@@ -520,7 +520,7 @@
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.1em;
-  color: rgba(15, 17, 21, 0.45);
+  color: rgba(15, 17, 21, 0.60);
 }
 
 /* Right Column: PDF Viewer Workspace (Layer 3: Archival Matta #F3F1EC) */
@@ -585,20 +585,25 @@
   background: #F7F7F5;
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 6px;
-  padding: 3px 6px;
+  padding: 2px 4px;
 }
 
 .demo-nav-btn {
   background: transparent;
   border: none;
-  padding: 2px;
-  color: rgba(15, 17, 21, 0.65);
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  padding: 0;
+  color: rgba(15, 17, 21, 0.70);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   transition: all 0.15s ease;
+  position: relative;
 }
 
 .demo-nav-btn:hover:not(:disabled) {
