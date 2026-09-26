@@ -5,3 +5,7 @@ dist-ssr
 .DS_Store
 .env
 .vite
+screenshots/
+test-results/
+playwright-report/
+blob-report/
