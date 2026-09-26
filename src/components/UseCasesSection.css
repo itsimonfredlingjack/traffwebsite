@@ -170,7 +170,7 @@
 }
 
 .question-quote-mark {
-  color: #059669;
+  color: var(--belagt);
   font-weight: 700;
 }
 

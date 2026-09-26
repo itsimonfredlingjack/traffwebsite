@@ -148,7 +148,7 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: #059669;
+  color: var(--belagt);
 }
 
 .mono-sub-status {
@@ -204,14 +204,14 @@
 
 .status-tab-btn.belagt.active {
   background: #ECFDF5;
-  border-color: rgba(5, 150, 105, 0.28);
-  color: #059669;
+  border-color: color-mix(in srgb, var(--belagt) 28%, transparent);
+  color: var(--belagt);
 }
 
 .status-tab-btn.ejbelagt.active {
   background: #FFFBEB;
-  border-color: rgba(217, 119, 6, 0.28);
-  color: #D97706;
+  border-color: color-mix(in srgb, var(--ej-belagt) 28%, transparent);
+  color: var(--ej-belagt);
 }
 
 .status-tab-btn.soker.active {
@@ -251,8 +251,8 @@
   letter-spacing: 0.16em;
 }
 
-.status-mono-state-badge.belagt { color: #059669; }
-.status-mono-state-badge.ejbelagt { color: #D97706; }
+.status-mono-state-badge.belagt { color: var(--belagt); }
+.status-mono-state-badge.ejbelagt { color: var(--ej-belagt); }
 .status-mono-state-badge.soker { color: #2563EB; }
 .status-mono-state-badge.vila { color: rgba(15, 17, 21, 0.45); }
 

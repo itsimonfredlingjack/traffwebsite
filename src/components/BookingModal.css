@@ -131,8 +131,8 @@
 .modal-select-input:focus,
 .modal-textarea:focus {
   background: #FFFFFF;
-  border-color: #059669;
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+  border-color: var(--belagt);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--belagt) 12%, transparent);
 }
 
 .modal-submit-btn {

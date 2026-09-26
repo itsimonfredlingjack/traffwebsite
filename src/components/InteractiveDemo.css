@@ -227,7 +227,7 @@
 }
 
 .timeline-stem-line.belagt {
-  background: rgba(5, 150, 105, 0.45);
+  background: color-mix(in srgb, var(--belagt) 45%, transparent);
 }
 
 .timeline-stem-line.soker {
@@ -236,7 +236,7 @@
 }
 
 .timeline-stem-line.ejbelagt {
-  background: rgba(217, 119, 6, 0.45);
+  background: color-mix(in srgb, var(--ej-belagt) 45%, transparent);
 }
 
 .timeline-state-body {
@@ -404,15 +404,15 @@
   margin-top: 1rem;
   padding: 10px 14px;
   border-radius: 8px;
-  background: rgba(217, 119, 6, 0.07);
-  border: 1px solid rgba(217, 119, 6, 0.25);
+  background: color-mix(in srgb, var(--ej-belagt) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ej-belagt) 25%, transparent);
   display: flex;
   gap: 10px;
   align-items: flex-start;
 }
 
 .refusal-icon {
-  color: #D97706;
+  color: var(--ej-belagt);
   flex-shrink: 0;
   margin-top: 2px;
 }
