@@ -64,17 +64,17 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
             <TraffMark size={14} variant="status" state="vila" breathing />
             <span className="state-label">VILA</span>
           </div>
-          <span className="state-arrow">→</span>
+          <span className="state-arrow" aria-hidden="true">→</span>
           <div className="state-indicator-pill soker">
             <TraffMark size={14} variant="status" state="soker" />
             <span className="state-label">SÖKER</span>
           </div>
-          <span className="state-arrow">→</span>
+          <span className="state-arrow" aria-hidden="true">→</span>
           <div className="state-indicator-pill belagt">
             <TraffMark size={14} variant="status" state="belagt" />
             <span className="state-label">BELAGT</span>
           </div>
-          <span className="state-divider">/</span>
+          <span className="state-divider" aria-hidden="true">/</span>
           <div className="state-indicator-pill ej-belagt">
             <TraffMark size={14} variant="status" state="ejbelagt" />
             <span className="state-label">EJ BELAGT</span>

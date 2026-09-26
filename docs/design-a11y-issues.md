@@ -1,10 +1,12 @@
 # Kontrast och träffytor att åtgärda i designen
 
+Status 2026-09-26, efter mätning på den renderade sidan: raderna nedan är den ursprungliga mätningen. Färgerna är sedan satta till bläck `#0F1115` med alfa 0,60–0,64 och accenterna `#137855` / `#8A5D06`. Träffytorna för sidbyte och zoom är 24×24 utan att ikonerna flyttats. Kopiera, Gör om och footer-länkarna är kvar i sin synliga storlek eftersom avståndet mellan mitten uppfyller WCAG 2.5.8 (cirka 71 px respektive 34 px). Tabellen är kvar som underlag för vad som mättes, inte som en öppen åtgärdslista.
+
 Mätt 2026-09-26 mot den byggda sidan (`vite preview`), mobil 375×812 och desktop 1280×800.
 Verktyg: Lighthouse 13 (mobil och desktop) och axe-core 4.13 med WCAG 2.0/2.1/2.2 A och AA.
 Axe kördes mot viloläget. Lighthouse kördes mot en vanlig sidladdning. Samma färger föll i båda.
 
-Inga färger eller storlekar är ändrade i koden. Det här är underlaget.
+Mätningen nedan gjordes innan färgjusteringen. Tokens i `src/LandingPage.css` är nu `--belagt: #137855` och `--ej-belagt: #8A5D06`.
 
 Rubrikordning och det otillåtna `aria-label` på markeringen i PDF:en är redan åtgärdade och finns inte med här.
 
@@ -16,9 +18,7 @@ Krav för den här texten är **4,5:1**. Ingen av raderna är stor text. Stor te
 
 Mot vit behöver en grå text vara ungefär **#767676 eller mörkare** för att nå 4,5:1. Flera rader är ljusare än så.
 
-Komponenternas färger är hårdkodade. De använder inte variablerna. Samma värden finns som tokens i `src/LandingPage.css` (`--text-main` #0F1115, `--text-dim` rgba(15, 17, 21, 0.45), `--skal` #EFEFEB, `--skal-subtle` #F7F7F5, `--matta` #F3F1EC, `--belagt` #059669, `--ej-belagt` #D97706). Att bara ändra token ändrar inte det som målas, förrän regeln pekar på token.
-
-`src/theme.css` har andra värden (`--belagt` #137855, `--vagran` #8A5D06, `--ink` #0A0A0A). Sidan använder dem inte för de här texterna.
+När tabellen mättes var de fallande reglerna hårdkodade, så tokenvärdet användes inte. `src/LandingPage.css` har sedan dess `--belagt: #137855` och `--ej-belagt: #8A5D06`, och reglerna pekar på dem. `src/theme.css` har samma `--belagt` och kallar vägran `--vagran: #8A5D06`.
 
 SÖKER-etiketten i heron (`#2563EB` på vit) och den aktiva scenariofliken (vit på `#111317`) klarade 4,5:1 och finns inte med.
 

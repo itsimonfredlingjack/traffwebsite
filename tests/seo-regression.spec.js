@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
+
+const require = createRequire(import.meta.url);
+const axe = require('axe-core');
 
 const NAV = [
   ['Demonstration', '#demo-section'],
@@ -142,4 +146,121 @@ test('mobile menu link updates the hash', async ({ page }) => {
   await expect(page).toHaveURL(/#faq-section$/);
   await expect.poll(async () => page.locator('#faq-section').evaluate((el) => Math.abs(el.getBoundingClientRect().top))).toBeLessThan(4);
   await expect(page.locator('.navbar-mobile-drawer')).toHaveCount(0);
+});
+
+const AXE_SCENARIOS = [
+  ['Stadgar', 'BELAGT'],
+  ['Avtal', 'BELAGT'],
+  ['Protokoll', 'BELAGT'],
+  ['Vägran', 'EJ BELAGT'],
+  ['Policy', 'BELAGT'],
+];
+
+async function axeProblems(page) {
+  return page.evaluate(async () => {
+    const results = await window.axe.run(document, {
+      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] },
+      rules: { 'target-size': { enabled: true } },
+      resultTypes: ['violations'],
+    });
+    return results.violations
+      .filter((rule) => rule.id === 'color-contrast' || rule.id === 'target-size')
+      .flatMap((rule) => rule.nodes.map((node) => `${rule.id} ${node.target.join(' ')}`));
+  });
+}
+
+async function scanInView(page, selector) {
+  if (selector) await page.locator(selector).first().scrollIntoViewIfNeeded();
+  return axeProblems(page);
+}
+
+async function setHold(page, phase) {
+  await page.evaluate((phase) => {
+    document.documentElement.setAttribute('data-demo-hold', phase);
+  }, phase);
+}
+
+async function showScenario(page, tag) {
+  await page.locator('#demo-section').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const active = (await page.locator('.demo-scenario-tab-btn.active .tab-category').innerText()).trim();
+  if (active === tag) {
+    const other = tag === 'Stadgar' ? 'Avtal' : 'Stadgar';
+    await page.getByRole('tab', { name: new RegExp(`^${other}:`) }).click();
+  }
+  await page.getByRole('tab', { name: new RegExp(`^${tag}:`) }).click();
+}
+
+test('axe finds no contrast or target-size violations in any demo state', async ({ page }) => {
+  test.setTimeout(240_000);
+  const problems = [];
+  await page.addInitScript(() => {
+    document.documentElement.setAttribute('data-demo-hold', 'vila');
+  });
+
+  for (const width of [1280, 375]) {
+    await page.setViewportSize({ width, height: width === 1280 ? 800 : 812 });
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await page.addScriptTag({ content: axe.source });
+    await page.evaluate(() => document.fonts.ready);
+    await page.locator('#demo-section').scrollIntoViewIfNeeded();
+
+    const paint = await page.evaluate(() => {
+      const color = (selector) => getComputedStyle(document.querySelector(selector)).color;
+      const root = getComputedStyle(document.documentElement);
+      return {
+        belagt: root.getPropertyValue('--belagt').trim(),
+        ejBelagt: root.getPropertyValue('--ej-belagt').trim(),
+        label: color('.state-indicator-pill.belagt .state-label'),
+        refusal: color('.hero-assertion-refusal'),
+        kicker: color('.hero-mono-kicker'),
+        brand: color('.navbar-mono-label'),
+      };
+    });
+    expect(paint.belagt).toBe('#137855');
+    expect(paint.ejBelagt).toBe('#8a5d06');
+    expect(paint.label).toBe('rgb(19, 120, 85)');
+    expect(paint.refusal).toBe('rgba(15, 17, 21, 0.62)');
+    expect(paint.kicker).toBe('rgba(15, 17, 21, 0.62)');
+    expect(paint.brand).toBe('rgba(15, 17, 21, 0.62)');
+
+    const note = async (where, selector) => {
+      for (const hit of await scanInView(page, selector)) problems.push(`${width} ${where} ${hit}`);
+    };
+
+    await note('vila', '.hero-assertion-refusal');
+    if (width === 375) {
+      await page.getByRole('button', { name: /Källdokument/ }).click();
+      await note('vila doc', '.demo-doc-header');
+      await page.getByRole('button', { name: /Ärende/ }).click();
+    }
+
+    for (const [tag, terminal] of AXE_SCENARIOS) {
+      await setHold(page, 'soker');
+      await showScenario(page, tag);
+      await page.locator('.state-soker-label').waitFor({ timeout: 8000 });
+      await note(`${tag} soker`, '.state-soker-sub');
+
+      await setHold(page, 'typing');
+      await page.locator('.demo-cursor-blink').waitFor({ timeout: 8000 });
+      await note(`${tag} typing`, '.demo-cursor-blink');
+
+      await setHold(page, 'result');
+      await page.waitForFunction((terminal) => {
+        const el = document.querySelector('.state-name-mono');
+        return el && el.textContent.trim() === terminal;
+      }, terminal, { timeout: 20000 });
+      await page.locator('.inquiry-citations-index').waitFor({ timeout: 5000 });
+      await note(`${tag} result`, '.index-num');
+      await note(`${tag} result-pill`, '.citation-num-pill');
+
+      if (width === 375) {
+        await page.getByRole('button', { name: /Källdokument/ }).click();
+        await note(`${tag} doc`, 'button[aria-label="Nästa sida"]');
+        await page.getByRole('button', { name: /Ärende/ }).click();
+      }
+    }
+  }
+
+  expect(problems, problems.join('\n')).toEqual([]);
 });

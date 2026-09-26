@@ -152,6 +152,8 @@ export default function InteractiveDemo({ onOpenBooking }) {
   const runStory = useCallback(() => {
     const sc = DEMO_SCENARIOS[selectedScenarioIndex];
     clearStoryTimers();
+    // Tests set data-demo-hold to pause on a phase. Absent, the story is unchanged.
+    const hold = () => document.documentElement.getAttribute('data-demo-hold');
 
     // Phase 1: SÖKER
     setStoryPhase('soker');
@@ -160,13 +162,18 @@ export default function InteractiveDemo({ onOpenBooking }) {
     setShowCitation(false);
     setPulseHighlights(false);
 
-    storyTimerRef.current = setTimeout(() => {
+    const beginTyping = () => {
+      if (hold() === 'soker') {
+        storyTimerRef.current = setTimeout(beginTyping, 80);
+        return;
+      }
       // Phase 2: TYPING
       setStoryPhase('typing');
       const fullText = sc.answer;
       let currentLength = 0;
 
       typingIntervalRef.current = setInterval(() => {
+        if (hold() === 'typing') return;
         currentLength += TYPE_STEP;
         if (currentLength >= fullText.length) {
           setDisplayedAnswer(fullText);
@@ -190,7 +197,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
                 setStoryPhase('hold');
 
                 const checkAndAdvance = () => {
-                  if (isHoveredRef.current) {
+                  if (isHoveredRef.current || document.documentElement.getAttribute('data-demo-hold') === 'result') {
                     // User is hovering / reading — hold and check again in 1s
                     storyTimerRef.current = setTimeout(checkAndAdvance, 1000);
                     return;
@@ -214,15 +221,19 @@ export default function InteractiveDemo({ onOpenBooking }) {
           setDisplayedAnswer(fullText.slice(0, currentLength));
         }
       }, TYPE_SPEED);
+    };
 
-    }, STORY_TIMING.soker);
+    storyTimerRef.current = setTimeout(beginTyping, STORY_TIMING.soker);
   }, [selectedScenarioIndex, clearStoryTimers, resetForScenario]);
 
   /* ── Start story when in view + idle ─────────────────── */
   useEffect(() => {
     if (isInView && storyPhase === 'idle') {
       // Small delay so the reset transition has settled
-      const kickoff = setTimeout(() => runStory(), 200);
+      const kickoff = setTimeout(() => {
+        if (document.documentElement.getAttribute('data-demo-hold') === 'vila') return;
+        runStory();
+      }, 200);
       return () => clearTimeout(kickoff);
     }
     // If the demo scrolls out of view mid-story, we let it finish
@@ -319,7 +330,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
           targetSelector="#pdf-highlight-0"
           containerRef={splitContainerRef}
           active={threadActive}
-          color={activeScenario.state === 'ejbelagt' ? '#D97706' : '#059669'}
+          color={activeScenario.state === 'ejbelagt' ? 'var(--ej-belagt)' : 'var(--belagt)'}
         />
 
         {/* Left Column: Authentic Träff Inquiry Flow */}

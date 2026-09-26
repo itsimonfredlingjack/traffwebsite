@@ -145,7 +145,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #059669;
+  background: var(--belagt, #137855);
 }
 
 /* Main Split Grid (Layer 2) */
@@ -293,7 +293,7 @@
 .state-soker-sub {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9.5px;
-  color: rgba(15, 17, 21, 0.55);
+  color: rgba(15, 17, 21, 0.62);
   letter-spacing: 0.1em;
   display: flex;
   flex-direction: column;
@@ -344,7 +344,7 @@
 
 .demo-cursor-blink {
   display: inline-block;
-  color: #059669;
+  color: var(--belagt, #137855);
   font-weight: bold;
   animation: blink 0.8s infinite;
 }
@@ -386,17 +386,17 @@
 }
 
 .citation-num-pill.active {
-  background: #059669;
-  border-color: #059669;
+  background: var(--belagt, #137855);
+  border-color: var(--belagt, #137855);
   color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 2px 6px rgba(19, 120, 85, 0.3);
 }
 
 .citation-num-pill.active.ejbelagt {
-  background: #D97706;
-  border-color: #D97706;
+  background: var(--ej-belagt, #8A5D06);
+  border-color: var(--ej-belagt, #8A5D06);
   color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 2px 6px rgba(138, 93, 6, 0.3);
 }
 
 /* Warning alert box */
@@ -451,15 +451,15 @@
 }
 
 .citation-index-row.active {
-  background: rgba(5, 150, 105, 0.06);
-  border-color: rgba(5, 150, 105, 0.18);
+  background: var(--belagt-dim, rgba(19, 120, 85, 0.08));
+  border-color: var(--belagt-border, rgba(19, 120, 85, 0.32));
 }
 
 .index-num {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 700;
-  color: #059669;
+  color: var(--belagt, #137855);
 }
 
 .index-doc-name {
@@ -477,7 +477,7 @@
 .index-page-ref {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10.5px;
-  color: rgba(15, 17, 21, 0.45);
+  color: rgba(15, 17, 21, 0.62);
 }
 
 /* Bottom Metadata Bar */
@@ -585,17 +585,19 @@
   background: #F7F7F5;
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 6px;
-  padding: 2px 4px;
+  padding: 3px 6px;
 }
 
 .demo-nav-btn {
   background: transparent;
   border: none;
-  width: 26px;
-  height: 26px;
-  min-width: 26px;
-  min-height: 26px;
+  /* 24px hit box. Negative margin keeps the original 18px page-button footprint. */
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   padding: 0;
+  margin: -3px;
   color: rgba(15, 17, 21, 0.70);
   cursor: pointer;
   display: flex;
@@ -604,6 +606,25 @@
   border-radius: 4px;
   transition: all 0.15s ease;
   position: relative;
+}
+
+/* 24px boxes grow away from each other so the 13px icons stay put and the boxes do not overlap. */
+.demo-zoom-box .demo-nav-btn:first-child {
+  margin: -3.5px -1px -3.5px -6px;
+}
+.demo-zoom-box .demo-nav-btn:last-child {
+  margin: -3.5px -6px -3.5px -1px;
+}
+.demo-zoom-box .demo-nav-btn svg {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.demo-zoom-box .demo-nav-btn:first-child svg {
+  left: calc(50% + 2.5px);
+}
+.demo-zoom-box .demo-nav-btn:last-child svg {
+  left: calc(50% - 2.5px);
 }
 
 .demo-nav-btn:hover:not(:disabled) {
