@@ -42,6 +42,7 @@ jobs:
         env:
           VITE_BASE: /traffwebsite/
           SITE_URL: https://itsimonfredlingjack.github.io/traffwebsite/
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

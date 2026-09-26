@@ -53,6 +53,11 @@ GitHub Pages-workflowen sätter `SITE_URL` och `VITE_BASE=/traffwebsite/`
 tillsammans. `sitemap.xml` och `robots.txt` skrivs till `dist/` vid `npm run build`
 och ligger inte som statiska filer i `public/`.
 
+Search Console verifieras med repository-variabeln `GOOGLE_SITE_VERIFICATION`
+(Actions → Variables, inte en incheckad kod). Om den är satt skriver bygget
+`<meta name="google-site-verification">` i sidhuvudet. Utan variabeln blir
+taggen inte med.
+
 När domänen traff.app är säkrad, bygg i stället med:
 
 ```bash
