@@ -13,7 +13,16 @@ function injectSiteUrl() {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   base: process.env.VITE_BASE || '/',
   plugins: [react(), injectSiteUrl()],
-});
+  build: isSsrBuild
+    ? {
+        rollupOptions: {
+          output: {
+            entryFileNames: 'entry-server.js',
+          },
+        },
+      }
+    : {},
+}));

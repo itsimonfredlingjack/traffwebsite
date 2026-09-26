@@ -1,16 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { createServer } from 'vite';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { absoluteUrl, siteUrl } from './site-url.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const distDir = path.resolve(rootDir, 'dist');
+const distDir = path.resolve(__dirname, '..', 'dist');
 const indexHtmlPath = path.resolve(distDir, 'index.html');
+const serverEntryPath = path.resolve(distDir, 'server', 'entry-server.js');
 
 async function prerender() {
   console.log('⚡ Starting static HTML prerendering...');
@@ -18,30 +15,15 @@ async function prerender() {
   if (!fs.existsSync(indexHtmlPath)) {
     throw new Error(`dist/index.html not found at ${indexHtmlPath}. Please run vite build first.`);
   }
+  if (!fs.existsSync(serverEntryPath)) {
+    throw new Error(`SSR bundle not found at ${serverEntryPath}. Run vite build --ssr src/entry-server.jsx first.`);
+  }
 
   const template = fs.readFileSync(indexHtmlPath, 'utf-8');
-
-  // Start Vite SSR runner
-  const vite = await createServer({
-    root: rootDir,
-    server: { middlewareMode: true },
-    appType: 'custom',
-    base: process.env.VITE_BASE || '/',
-  });
-
-  let appHtml = '';
-  let faqs = [];
-
-  try {
-    const { default: App } = await vite.ssrLoadModule('/src/App.jsx');
-    const { FAQS } = await vite.ssrLoadModule('/src/data/faqs.js');
-    faqs = FAQS || [];
-
-    appHtml = renderToString(React.createElement(App));
-    console.log(`✓ Rendered <App /> to string (${appHtml.length} characters)`);
-  } finally {
-    await vite.close();
-  }
+  const { render, FAQS } = await import(pathToFileURL(serverEntryPath).href);
+  const faqs = FAQS || [];
+  const appHtml = render();
+  console.log(`✓ Rendered production bundle to string (${appHtml.length} characters)`);
 
   // Find font files in dist/assets for preload
   let fontPreloadTags = '';
