@@ -17,7 +17,7 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
 
         {/* Main Display Headline in Instrument Serif */}
         <h1 className="hero-title-serif">
-          Fråga dina dokument.
+          {'Fråga dina dokument. '}
           <br />
           <span className="hero-title-italic">Se svaren på sidan.</span>
         </h1>
@@ -41,10 +41,17 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
 
         {/* Action Buttons (Taktilt Djupbläck #111317) */}
         <div className="hero-actions-row">
-          <button className="hero-btn-action" onClick={onScrollToDemo}>
+          <a
+            href="#demo-section"
+            className="hero-btn-action"
+            onClick={(e) => {
+              e.preventDefault();
+              onScrollToDemo();
+            }}
+          >
             <span>Testa den interaktiva sökningen</span>
             <ArrowDown size={15} />
-          </button>
+          </a>
           <button className="hero-btn-secondary" onClick={onOpenBooking}>
             <span>Boka genomgång för ert bolag</span>
             <ArrowRight size={14} />

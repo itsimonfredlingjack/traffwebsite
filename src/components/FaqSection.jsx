@@ -1,35 +1,18 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { FAQS } from '../data/faqs';
 import './FaqSection.css';
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
-
-  const faqs = [
-    {
-      q: 'Hur kan jag lita på att svaren inte är fabricerade (hallucinerade)?',
-      a: 'Till skillnad från generella AI-chattar som gissar fritt, tvingas Träff att binda varje påstående till en faktisk mening i ert arkiv. Om det inte finns stöd i texten svarar Träff att källan saknas (vägran är en funktion). Dessutom ser du alltid originaldokumentet bredvid chatten med den exakta meningen inringad med remsgul penna så att du kan läsa och godkänna det själv.',
-    },
-    {
-      q: 'Vilka dokumentformat och typer stöds?',
-      a: 'Träff hanterar PDF-filer av alla slag – både digitalt skapade avtal och inskannade handlingar med OCR. Systemet indexerar leverantörskontrakt, styrelseprotokoll, årsredovisningar, tekniska underhållsplaner, personalhandböcker och interna policys.',
-    },
-    {
-      q: 'Hur lång tid tar det att komma igång med Träff?',
-      a: 'Eftersom Träff är molnbaserat krävs inga komplexa IT-installationer. Ni kan ladda upp era första dokument och börja ställa frågor inom några minuter. För större organisationer erbjuder vi även direktkoppling mot befintliga dokumenthanteringssystem och molnlagringar.',
-    },
-    {
-      q: 'Hur fungerar en genomgång med våra egna handlingar?',
-      a: 'Under en 15-minuters genomgång via videosamtal laddar vi upp ett eller ett par av era egna avtal eller protokoll (under sekretess/NDA). Vi ställer de frågor ni brukar behöva leta efter i vardagen, så att ni med egna ögon får se hur Träff hittar rätt sida och ringar in svaret.',
-    },
-  ];
+  const faqs = FAQS;
 
   return (
-    <section className="faq-section" id="faq-section">
+    <section className="faq-section" id="faq-section" role="region" aria-labelledby="faq-heading">
       <div className="section-container">
         <div className="section-head-editorial">
           <span className="section-mono-kicker">04 · FRÅGOR OCH SVAR</span>
-          <h2 className="section-title-serif">
+          <h2 className="section-title-serif" id="faq-heading">
             Vanliga <span className="serif-italic">funderingar</span>
           </h2>
           <p className="section-lead-text">
@@ -49,6 +32,7 @@ export default function FaqSection() {
                 <button
                   className="faq-question-editorial-btn"
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setOpenIndex(isOpen ? null : index);
@@ -59,11 +43,9 @@ export default function FaqSection() {
                     <ChevronDown size={17} />
                   </span>
                 </button>
-                {isOpen && (
-                  <div className="faq-answer-block">
-                    <p className="faq-answer-copy">{faq.a}</p>
-                  </div>
-                )}
+                <div className="faq-answer-block" id={`faq-answer-${index}`} hidden={!isOpen}>
+                  <p className="faq-answer-copy">{faq.a}</p>
+                </div>
               </div>
             );
           })}

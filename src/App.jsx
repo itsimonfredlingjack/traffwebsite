@@ -19,15 +19,19 @@ export default function App() {
     if (demoEl) {
       demoEl.scrollIntoView({ behavior: 'smooth' });
     }
+    if (window.location.hash !== '#demo-section') {
+      history.pushState(null, '', '#demo-section');
+    }
   };
 
   return (
     <div className="landing-page-root">
+      <a href="#main-content" className="skip-link">Hoppa till innehåll</a>
       {/* Top Sticky Navigation */}
       <Navbar onOpenBooking={() => setBookingOpen(true)} />
 
       {/* Main Content Sections: Value-first flow */}
-      <main>
+      <main id="main-content" tabIndex={-1}>
         {/* Hero Section */}
         <HeroHeader
           onOpenBooking={() => setBookingOpen(true)}

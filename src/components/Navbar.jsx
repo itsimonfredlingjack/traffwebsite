@@ -21,6 +21,9 @@ export default function Navbar({ onOpenBooking }) {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
+    if (window.location.hash !== `#${id}`) {
+      history.pushState(null, '', `#${id}`);
+    }
   };
 
   return (
@@ -28,7 +31,7 @@ export default function Navbar({ onOpenBooking }) {
       <div className="navbar-container">
         {/* Brand Lockup §05: ◉ Träff */}
         <a
-          href="#"
+          href="/"
           className="navbar-brand-lockup"
           onClick={(e) => {
             e.preventDefault();
@@ -42,28 +45,70 @@ export default function Navbar({ onOpenBooking }) {
 
         {/* Desktop Navigation Links */}
         <nav className="navbar-links">
-          <button className="navbar-link" onClick={() => scrollTo('demo-section')}>
+          <a
+            href="#demo-section"
+            className="navbar-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('demo-section');
+            }}
+          >
             Demonstration
-          </button>
-          <button className="navbar-link" onClick={() => scrollTo('comparison-section')}>
+          </a>
+          <a
+            href="#comparison-section"
+            className="navbar-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('comparison-section');
+            }}
+          >
             Principen
-          </button>
-          <button className="navbar-link" onClick={() => scrollTo('use-cases-section')}>
+          </a>
+          <a
+            href="#use-cases-section"
+            className="navbar-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('use-cases-section');
+            }}
+          >
             Tillämpning
-          </button>
-          <button className="navbar-link" onClick={() => scrollTo('features-section')}>
+          </a>
+          <a
+            href="#features-section"
+            className="navbar-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('features-section');
+            }}
+          >
             Arkitektur &amp; trygghet
-          </button>
-          <button className="navbar-link" onClick={() => scrollTo('faq-section')}>
+          </a>
+          <a
+            href="#faq-section"
+            className="navbar-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('faq-section');
+            }}
+          >
             Frågor &amp; svar
-          </button>
+          </a>
         </nav>
 
         {/* Actions */}
         <div className="navbar-actions">
-          <button className="navbar-btn-demo" onClick={() => scrollTo('demo-section')}>
+          <a
+            href="#demo-section"
+            className="navbar-btn-demo"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('demo-section');
+            }}
+          >
             Testa sökningen
-          </button>
+          </a>
           <button className="navbar-btn-action" onClick={onOpenBooking}>
             <span>Boka genomgång</span>
             <ArrowRight size={14} />
@@ -81,21 +126,56 @@ export default function Navbar({ onOpenBooking }) {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="navbar-mobile-drawer">
-          <button className="navbar-mobile-link" onClick={() => scrollTo('demo-section')}>
+          <a
+            href="#demo-section"
+            className="navbar-mobile-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('demo-section');
+            }}
+          >
             Demonstration
-          </button>
-          <button className="navbar-mobile-link" onClick={() => scrollTo('comparison-section')}>
+          </a>
+          <a
+            href="#comparison-section"
+            className="navbar-mobile-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('comparison-section');
+            }}
+          >
             Principen
-          </button>
-          <button className="navbar-mobile-link" onClick={() => scrollTo('use-cases-section')}>
+          </a>
+          <a
+            href="#use-cases-section"
+            className="navbar-mobile-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('use-cases-section');
+            }}
+          >
             Tillämpning
-          </button>
-          <button className="navbar-mobile-link" onClick={() => scrollTo('features-section')}>
+          </a>
+          <a
+            href="#features-section"
+            className="navbar-mobile-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('features-section');
+            }}
+          >
             Arkitektur &amp; trygghet
-          </button>
-          <button className="navbar-mobile-link" onClick={() => scrollTo('faq-section')}>
+          </a>
+          <a
+            href="#faq-section"
+            className="navbar-mobile-link"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo('faq-section');
+            }}
+          >
             Frågor &amp; svar
-          </button>
+          </a>
           <div className="navbar-mobile-cta">
             <button
               className="navbar-btn-action full-width"

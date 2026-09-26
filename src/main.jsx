@@ -1,6 +1,11 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { hydrateRoot, createRoot } from 'react-dom/client';
 import App from './App';
 import './theme.css';
 
-createRoot(document.getElementById('root')).render(<App />);
+const container = document.getElementById('root');
+if (container && container.hasChildNodes()) {
+  hydrateRoot(container, <App />);
+} else if (container) {
+  createRoot(container).render(<App />);
+}

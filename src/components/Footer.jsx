@@ -7,6 +7,9 @@ export default function Footer({ onOpenBooking }) {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (window.location.hash !== `#${id}`) {
+      history.pushState(null, '', `#${id}`);
+    }
   };
 
   return (
@@ -27,9 +30,16 @@ export default function Footer({ onOpenBooking }) {
               <span>Boka personlig genomgång</span>
               <ArrowRight size={14} />
             </button>
-            <button className="paper-btn-ghost" onClick={() => scrollTo('demo-section')}>
+            <a
+              href="#demo-section"
+              className="paper-btn-ghost"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo('demo-section');
+              }}
+            >
               <span>Testa sökningen igen</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -53,28 +63,70 @@ export default function Footer({ onOpenBooking }) {
           <div className="footer-nav-grid">
             <div className="footer-nav-col">
               <span className="nav-col-mono-title">PRODUKT</span>
-              <button className="footer-link-btn" onClick={() => scrollTo('demo-section')}>
+              <a
+                href="#demo-section"
+                className="footer-link-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('demo-section');
+                }}
+              >
                 Demonstration
-              </button>
-              <button className="footer-link-btn" onClick={() => scrollTo('comparison-section')}>
+              </a>
+              <a
+                href="#comparison-section"
+                className="footer-link-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('comparison-section');
+                }}
+              >
                 Principen
-              </button>
-              <button className="footer-link-btn" onClick={() => scrollTo('use-cases-section')}>
+              </a>
+              <a
+                href="#use-cases-section"
+                className="footer-link-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('use-cases-section');
+                }}
+              >
                 Tillämpning
-              </button>
-              <button className="footer-link-btn" onClick={() => scrollTo('features-section')}>
+              </a>
+              <a
+                href="#features-section"
+                className="footer-link-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('features-section');
+                }}
+              >
                 Arkitektur &amp; trygghet
-              </button>
+              </a>
             </div>
 
             <div className="footer-nav-col">
               <span className="nav-col-mono-title">SÄKERHET</span>
-              <button className="footer-link-btn" onClick={() => scrollTo('features-section')}>
+              <a
+                href="#features-section"
+                className="footer-link-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('features-section');
+                }}
+              >
                 Integritet &amp; GDPR
-              </button>
-              <button className="footer-link-btn" onClick={() => scrollTo('faq-section')}>
+              </a>
+              <a
+                href="#faq-section"
+                className="footer-link-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('faq-section');
+                }}
+              >
                 Frågor &amp; svar
-              </button>
+              </a>
               <span className="nav-static-item">Databehandlaravtal (DPA)</span>
               <span className="nav-static-item">Noll hallucinationer</span>
             </div>
