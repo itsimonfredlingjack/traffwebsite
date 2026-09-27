@@ -38,7 +38,7 @@ export default function Navbar({ onOpenBooking }) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <TraffWordmark height={25} draw />
+          <TraffWordmark height={25} />
           <span className="navbar-mono-label">DOKUMENT-AI</span>
         </a>
 

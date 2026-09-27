@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { hamtaPdf } from '../pdfCache';
+import PenStroke from './PenStroke';
 
 /**
  * Renders a real PDF page inline (no modal) via pdf.js, with optional
@@ -13,7 +14,20 @@ import { hamtaPdf } from '../pdfCache';
  * instead of at 1pt = 1px. Overlays follow the same viewport, so the marks
  * land on the lines at any size.
  */
-function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, approximate = false, onRendered = null, fitWidth = null, pulseHighlights = false, active = false }) {
+function PdfPane({
+  url,
+  page,
+  onNumPages,
+  rects = [],
+  citationIds = [],
+  highlightPage = null,
+  approximate = false,
+  onRendered = null,
+  fitWidth = null,
+  active = false,
+  penPhase = 'wait',
+  onPenDone = null,
+}) {
   const canvasRef = useRef(null);
   const pdfRef = useRef(null);
   const renderTaskRef = useRef(null);
@@ -91,15 +105,21 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
         const pageHeightPts = pdfPage.view[3] - pdfPage.view[1];
         const [a, b, c, d, e, f] = cssViewport.transform;
         const tx = (x, y) => [a * x + c * y + e, b * x + d * y + f];
-        setOverlays(rects.map(([x0, y0, x1, y1]) => {
+        setOverlays(rects.map(([x0, y0, x1, y1], i) => {
           // top-left-origin points → PDF user space (y-up) → viewport CSS px
           const p1 = tx(x0, pageHeightPts - y1);
           const p2 = tx(x1, pageHeightPts - y0);
+          const width = Math.abs(p2[0] - p1[0]);
+          const height = Math.abs(p2[1] - p1[1]);
           return {
             left: Math.min(p1[0], p2[0]),
             top: Math.min(p1[1], p2[1]),
-            width: Math.abs(p2[0] - p1[0]),
-            height: Math.abs(p2[1] - p1[1]),
+            width,
+            height,
+            citationId: citationIds[i] ?? 0,
+            lead: i === 0 || citationIds[i] !== citationIds[i - 1],
+            tilt: width < height * 7 ? -6 : -1.25,
+            rise: width * Math.tan(((width < height * 7 ? 6 : 1.25) * Math.PI) / 180),
           };
         }));
       }
@@ -110,7 +130,7 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
     } finally {
       if (task === null || renderTaskRef.current === task) setLoading(false);
     }
-  }, [page, rects, highlightPage, fitWidth]);
+  }, [page, rects, citationIds, highlightPage, fitWidth]);
 
   useEffect(() => {
     if (numPages > 0) renderPage();
@@ -139,13 +159,22 @@ function PdfPane({ url, page, onNumPages, rects = [], highlightPage = null, appr
       <canvas ref={canvasRef} style={reservedStyle} />
       {overlays.map((b, i) => (
         <div
-          key={i}
-          id={`pdf-highlight-${i}`}
-          className={`pdf-highlight${approximate ? ' approximate' : ''}${pulseHighlights ? ' pulsing' : ''}`}
+          key={`${b.citationId}-${i}`}
+          id={b.lead ? `pdf-highlight-${b.citationId}` : undefined}
+          className={`pdf-highlight${approximate ? ' approximate' : ''}`}
           data-testid="citation-highlight"
           data-highlight-index={i}
-          style={{ left: b.left, top: b.top, width: b.width, height: b.height, '--i': i }}
-        />
+          style={{ left: b.left, top: b.top, width: b.width, height: b.height }}
+        >
+          <PenStroke
+            tilt={b.tilt}
+            rise={b.rise}
+            boxHeight={b.height}
+            phase={penPhase}
+            delay={i * 110}
+            onDone={i === overlays.length - 1 ? onPenDone : undefined}
+          />
+        </div>
       ))}
       {loading && (
         <div className="pdf-pane-loading"><Loader2 size={24} className="spin" /></div>

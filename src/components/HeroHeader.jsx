@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import TraffMark from './TraffMark';
+import PenStroke from './PenStroke';
 import './HeroHeader.css';
 
 export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
@@ -19,7 +20,12 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
         <h1 className="hero-title-serif">
           {'Fråga dina dokument. '}
           <br />
-          <span className="hero-title-italic">Se svaren på sidan.</span>
+          <span className="hero-title-italic hero-pen-target">
+            Se svaren på sidan.
+            <span className="hero-pen-layer" aria-hidden="true">
+              <PenStroke variant="hero" />
+            </span>
+          </span>
         </h1>
 
         {/* Core Assertion & Voice */}

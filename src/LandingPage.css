@@ -55,9 +55,6 @@
 
   --handling: #111317;
   --handling-hover: #262930;
-
-  --remsgul: #FEF08A;
-  --remsgul-border: rgba(202, 138, 4, 0.45);
 }
 
 *, *::before, *::after {
@@ -152,41 +149,14 @@ main {
 
 .pdf-highlight {
   position: absolute;
-  background: color-mix(in srgb, var(--strykgul) 65%, transparent);
-  outline: 1.5px solid color-mix(in srgb, var(--strykgul) 55%, #8a5d06);
-  border-radius: 2px;
   pointer-events: none;
   mix-blend-mode: multiply;
-  transform-origin: left center;
-  animation: markering-draw 0.46s cubic-bezier(0.2, 0, 0, 1) both;
+  line-height: 0;
+  overflow: visible;
 }
 
-@keyframes markering-draw {
-  from {
-    transform: scaleX(0);
-    opacity: 0.3;
-  }
-  to {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
-.pdf-highlight.pulsing {
-  animation: golden-pulse 0.7s ease-in-out 3;
-}
-
-@keyframes golden-pulse {
-  0%, 100% {
-    background: color-mix(in srgb, var(--strykgul) 65%, transparent);
-    outline: 1.5px solid color-mix(in srgb, var(--strykgul) 55%, #8a5d06);
-    filter: none;
-  }
-  50% {
-    background: color-mix(in srgb, var(--strykgul) 95%, transparent);
-    outline: 2px solid var(--strykgul);
-    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--strykgul) 75%, transparent));
-  }
+.pdf-highlight.approximate {
+  opacity: 0.75;
 }
 
 .pdf-pane-loading {

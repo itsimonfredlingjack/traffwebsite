@@ -1,4 +1,4 @@
-const BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') + '/';
+const BASE = (import.meta.env?.BASE_URL || '/').replace(/\/$/, '') + '/';
 
 export const DEMO_SCENARIOS = [
   {
@@ -20,7 +20,7 @@ export const DEMO_SCENARIOS = [
         page: 6,
         docName: 'Stadgar Brf Björken',
         quote: 'En bostadsrättshavare får upplåta sin lägenhet i andra hand till annan för självständigt brukande endast om styrelsen ger sitt samtycke.',
-        rects: [[70, 174, 515, 194]],
+        rects: [[71, 178, 547, 187], [71, 193, 194, 202]],
       },
       {
         id: 2,
@@ -28,7 +28,7 @@ export const DEMO_SCENARIOS = [
         page: 6,
         docName: 'Stadgar Brf Björken',
         quote: 'Ett tillstånd till andrahandsupplåtelse kan begränsas till viss tid och förenas med villkor.',
-        rects: [[70, 192, 430, 207]],
+        rects: [[71, 208, 458, 217]],
       },
       {
         id: 3,
@@ -36,7 +36,7 @@ export const DEMO_SCENARIOS = [
         page: 6,
         docName: 'Stadgar Brf Björken',
         quote: 'Vägrar styrelsen att ge sitt samtycke till en andrahandsupplåtelse får bostadsrättshavaren ändå upplåta sin lägenhet i andra hand om hyresnämnden lämnar tillstånd.',
-        rects: [[70, 215, 515, 245]],
+        rects: [[71, 233, 587, 242], [71, 248, 284, 257]],
       },
       {
         id: 4,
@@ -44,7 +44,7 @@ export const DEMO_SCENARIOS = [
         page: 6,
         docName: 'Stadgar Brf Björken',
         quote: 'Bostadsrättshavaren får inte inrymma utomstående personer i lägenheten om det kan medföra men för föreningen.',
-        rects: [[70, 340, 515, 360]],
+        rects: [[71, 378, 581, 387]],
       },
       {
         id: 5,
@@ -52,7 +52,7 @@ export const DEMO_SCENARIOS = [
         page: 6,
         docName: 'Stadgar Brf Björken',
         quote: 'Bostadsrättshavaren får inte använda lägenheten för något annat ändamål än det avsedda.',
-        rects: [[70, 400, 515, 420]],
+        rects: [[71, 438, 477, 447]],
       },
     ],
     pagesWithHits: [6],
@@ -78,7 +78,7 @@ export const DEMO_SCENARIOS = [
         page: 2,
         docName: 'Tjänsteavtal – IT-drift & Moln',
         quote: '7.2 Avtalet gäller tills vidare med en ömsesidig uppsägningstid om tre (3) månader före avtalsperiodens utgång.',
-        rects: [[70, 161, 515, 177]],
+        rects: [[71, 163, 566, 172]],
       },
       {
         id: 2,
@@ -86,7 +86,7 @@ export const DEMO_SCENARIOS = [
         page: 2,
         docName: 'Tjänsteavtal – IT-drift & Moln',
         quote: '7.1 Detta avtal träder i kraft vid båda parters undertecknande för en initial period om 12 månader.',
-        rects: [[70, 142, 515, 158]],
+        rects: [[71, 143, 503, 152]],
       },
       {
         id: 3,
@@ -94,7 +94,7 @@ export const DEMO_SCENARIOS = [
         page: 2,
         docName: 'Tjänsteavtal – IT-drift & Moln',
         quote: '7.3 Uppsägning ska för att vara giltig ske skriftligen via rekommenderat brev eller bekräftad e-post.',
-        rects: [[70, 180, 515, 196]],
+        rects: [[71, 183, 511, 192]],
       },
     ],
     pagesWithHits: [2],
@@ -120,7 +120,7 @@ export const DEMO_SCENARIOS = [
         page: 2,
         docName: 'Styrelseprotokoll nr 02-2026',
         quote: 'Styrelsen beslutade enhälligt att godkänna investeringen i ny central brandvägg och nolltillitsarkitektur med en budgetram om maximalt 450 000 SEK under Q2 2026.',
-        rects: [[70, 161, 515, 177]],
+        rects: [[71, 163, 559, 172], [71, 178, 315, 187]],
       },
     ],
     pagesWithHits: [2],
@@ -147,10 +147,10 @@ export const DEMO_SCENARIOS = [
         page: 7,
         docName: 'Stadgar Brf Björken',
         quote: 'Beslut om ändring av dessa stadgar fattas i den ordning som föreskrivs i bostadsrättslagen.',
-        rects: [[70, 185, 515, 205]],
+        rects: [],
       },
     ],
-    pagesWithHits: [7],
+    pagesWithHits: [],
     page: 7,
     totalPages: 11,
   },
@@ -173,7 +173,7 @@ export const DEMO_SCENARIOS = [
         page: 1,
         docName: 'Personalhandbok & Riktlinjer',
         quote: '3.2 Medarbetare har möjlighet att arbeta på distans upp till två (2) dagar per vecka efter överenskommelse med närmaste chef.',
-        rects: [[70, 331, 515, 347]],
+        rects: [[71, 333, 566, 342], [71, 348, 139, 357]],
       },
     ],
     pagesWithHits: [1],

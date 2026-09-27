@@ -189,6 +189,9 @@ async function showScenario(page, tag) {
     await page.getByRole('tab', { name: new RegExp(`^${other}:`) }).click();
   }
   await page.getByRole('tab', { name: new RegExp(`^${tag}:`) }).click();
+  // The tab sits at the top of a tall frame. Focusing it can scroll that
+  // edge to the viewport and leave the demo below the autoplay threshold.
+  await page.locator('#demo-section').evaluate((el) => el.scrollIntoView({ block: 'center' }));
 }
 
 test('axe finds no contrast or target-size violations in any demo state', async ({ page }) => {
@@ -339,6 +342,7 @@ test('status mark draws a core only when a passage is verified', async ({ page }
   await expect(page.locator('.navbar-brand-name')).toHaveCount(0);
   await expect(page.locator('.traff-mark--brand')).toHaveCount(0);
   await expect(page.locator('.navbar-brand-lockup').getByRole('img', { name: 'Träff' })).toHaveCount(1);
+  await expect(page.locator('.navbar-brand-lockup .traff-wordmark--draw')).toHaveCount(0);
 
   const logoUrl = await page.locator('script[type="application/ld+json"]').evaluate((el) => {
     const graph = JSON.parse(el.textContent)['@graph'];
@@ -362,7 +366,7 @@ test('status mark draws a core only when a passage is verified', async ({ page }
       seek: name('.traff-mark--soker .traff-mark-seek'),
       core: name('.traff-mark--belagt .traff-mark-core'),
       stamp: name('.traff-mark--ejbelagt .traff-mark-stamp'),
-      pen: name('.traff-wordmark--draw .traff-wordmark-pen'),
+      pen: name('.pen-stroke-hero'),
     };
   });
   expect(motion).toEqual({ seek: 'none', core: 'none', stamp: 'none', pen: 'none' });

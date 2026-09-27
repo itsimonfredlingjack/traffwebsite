@@ -64,11 +64,10 @@
 
 /* Yellow hit indicator bar inside miniature */
 .mini-hit-highlight {
-  height: 3px;
-  background: #FFD600;
+  height: 2.5px;
+  background: var(--strykgul, #FFD84A);
   border-radius: 1px;
   width: 90%;
-  box-shadow: 0 0 2px rgba(255, 214, 0, 0.8);
   margin: 1px 0;
 }
 

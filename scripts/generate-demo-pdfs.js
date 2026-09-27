@@ -357,11 +357,13 @@ HeaderBar
 72 690 moveto
 (${psEscape('VD föredrog underlag rörande uppgradering av bolagets datacenter och molnsäkerhet.')}) show
 
-% TARGET SENTENCE FOR HIGHLIGHT (Page 2, Y=668, height=14, X=72 to 515)
+% TARGET SENTENCE FOR HIGHLIGHT. Wrapped so the line stays inside the page.
 72 670 moveto
-(${psEscape('Styrelsen beslutade enhälligt att godkänna investeringen i ny central brandvägg och nolltillitsarkitektur med en budgetram om maximalt 450 000 SEK under Q2 2026.')}) show
+(${psEscape('Styrelsen beslutade enhälligt att godkänna investeringen i ny central brandvägg och nolltillitsarkitektur med en')}) show
+72 655 moveto
+(${psEscape('budgetram om maximalt 450 000 SEK under Q2 2026.')}) show
 
-72 650 moveto
+72 635 moveto
 (${psEscape('Upphandlingen delegeras till VD med återrapportering vid ordinarie styrelsemöte i maj.')}) show
 
 /Helvetica-Bold-ISO findfont 12 scalefont setfont
@@ -460,11 +462,13 @@ HeaderBar
 72 520 moveto
 (${psEscape('3.1 Vi tror på flexibilitet och att ge varje team bäst förutsättningar att lösa sina uppgifter.')}) show
 
-% TARGET SENTENCE FOR HIGHLIGHT 1 (Page 1, Y=498, height=14, X=72 to 510)
+% TARGET SENTENCE FOR HIGHLIGHT 1. Wrapped so the line stays inside the page.
 72 500 moveto
-(${psEscape('3.2 Medarbetare har möjlighet att arbeta på distans upp till två (2) dagar per vecka efter överenskommelse med närmaste chef.')}) show
+(${psEscape('3.2 Medarbetare har möjlighet att arbeta på distans upp till två (2) dagar per vecka efter överenskommelse med')}) show
+72 485 moveto
+(${psEscape('närmaste chef.')}) show
 
-72 480 moveto
+72 465 moveto
 (${psEscape('3.3 Vid distansarbete ansvarar medarbetaren för att en god och ergonomisk arbetsmiljö upprätthålls.')}) show
 
 /Helvetica-ISO findfont 9 scalefont setfont
@@ -586,46 +590,50 @@ HeaderBar
 72 685 moveto
 (${psEscape('§ 14. Andrahandsuthyrning')}) show
 
-% TARGET 1: § 14 Main rule (Y=645..662)
+% § 14. Lines that used to run past the page edge are wrapped.
 /Helvetica-ISO findfont 10 scalefont setfont
 0.2 0.2 0.2 setrgbcolor
 72 655 moveto
-(${psEscape('En bostadsrättshavare får upplåta sin lägenhet i andra hand till annan för självständigt brukande endast om styrelsen ger sitt samtycke.')}) show
+(${psEscape('En bostadsrättshavare får upplåta sin lägenhet i andra hand till annan för självständigt brukande endast om')}) show
 72 640 moveto
+(${psEscape('styrelsen ger sitt samtycke.')}) show
+72 625 moveto
 (${psEscape('Ett tillstånd till andrahandsupplåtelse kan begränsas till viss tid och förenas med villkor.')}) show
 
-72 615 moveto
-(${psEscape('Vägrar styrelsen att ge sitt samtycke till en andrahandsupplåtelse får bostadsrättshavaren ändå upplåta sin lägenhet')}) show
 72 600 moveto
-(${psEscape('i andra hand om hyresnämnden lämnar tillstånd till upplåtelsen. Tillstånd ska lämnas om bostadsrättshavaren har')}) show
+(${psEscape('Vägrar styrelsen att ge sitt samtycke till en andrahandsupplåtelse får bostadsrättshavaren ändå upplåta sin lägenhet')}) show
 72 585 moveto
+(${psEscape('i andra hand om hyresnämnden lämnar tillstånd till upplåtelsen. Tillstånd ska lämnas om bostadsrättshavaren har')}) show
+72 570 moveto
 (${psEscape('beaktansvärda skäl för upplåtelsen och föreningen inte har någon befogad anledning att vägra.')}) show
 
-72 560 moveto
-(${psEscape('Bostadsrättshavare som önskar upplåta sin lägenhet i andra hand ska skriftligen hos styrelsen ansöka om medgivande')}) show
 72 545 moveto
+(${psEscape('Bostadsrättshavare som önskar upplåta sin lägenhet i andra hand ska')}) show
+72 530 moveto
+(${psEscape('skriftligen hos styrelsen ansöka om medgivande')}) show
+72 515 moveto
 (${psEscape('till upplåtelsen och i ansökan ska anges skälet till upplåtelsen samt namnet på den till vilken lägenheten ska upplåtas.')}) show
 
 /Helvetica-Bold-ISO findfont 12 scalefont setfont
 0.1 0.1 0.1 setrgbcolor
-72 505 moveto
+72 475 moveto
 (${psEscape('§ 15. Inneboende')}) show
 
 /Helvetica-ISO findfont 10 scalefont setfont
 0.2 0.2 0.2 setrgbcolor
-72 485 moveto
+72 455 moveto
 (${psEscape('Bostadsrättshavaren får inte inrymma utomstående personer i lägenheten om det kan medföra men för föreningen.')}) show
 
 /Helvetica-Bold-ISO findfont 12 scalefont setfont
 0.1 0.1 0.1 setrgbcolor
-72 445 moveto
+72 415 moveto
 (${psEscape('§ 16. Användning av lägenheten')}) show
 
 /Helvetica-ISO findfont 10 scalefont setfont
 0.2 0.2 0.2 setrgbcolor
-72 425 moveto
+72 395 moveto
 (${psEscape('Bostadsrättshavaren får inte använda lägenheten för något annat ändamål än det avsedda.')}) show
-72 410 moveto
+72 380 moveto
 (${psEscape('Upplåts lägenheten i strid med detta kan det leda till förverkande och uppsägning.')}) show
 
 /Helvetica-ISO findfont 9 scalefont setfont

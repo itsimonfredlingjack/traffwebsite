@@ -42,6 +42,14 @@
   letter-spacing: 0.16em;
   color: rgba(15, 17, 21, 0.62);
   padding-left: 4px;
+  white-space: nowrap;
+}
+
+/* The booking button and the menu already fill a 320–390 header. */
+@media (max-width: 520px) {
+  .navbar-mono-label {
+    display: none;
+  }
 }
 
 .navbar-links {

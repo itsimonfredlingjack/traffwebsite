@@ -1,0 +1,93 @@
+/* Headline pen. Same box and draw as the approved hero, settled pixels included. */
+.pen-stroke-hero {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: left center;
+  animation: pen-hero-draw var(--pen-duration, 0.82s) cubic-bezier(0.6, 0, 0.3, 1) 0.22s both;
+}
+
+@keyframes pen-hero-draw {
+  from {
+    transform: scaleX(0);
+    opacity: 0.15;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* One text line. Ends keep a fixed aspect; only the middle stretches. */
+.pen-stroke--line {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Bottom edge stays on the baseline. The top edge rises at the visual angle,
+   so a long line still covers the letters instead of climbing off them. */
+.pen-rot {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: calc(100% + var(--pen-rise, 0px));
+}
+
+.pen-clip {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.pen-cap {
+  width: auto;
+  aspect-ratio: 0.26;
+  flex: 0 0 auto;
+  display: block;
+  max-width: 42%;
+  align-self: flex-end;
+}
+
+.pen-cap-l { height: calc(100% - var(--pen-rise, 0px)); }
+.pen-cap-r { height: 100%; }
+
+.pen-cap-l { margin-right: -1px; }
+.pen-cap-r { margin-left: -1px; }
+
+.pen-mid {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  align-self: flex-end;
+  display: block;
+}
+
+.pen-stroke--wait .pen-clip {
+  clip-path: inset(0 100% 0 0);
+}
+
+.pen-stroke--play .pen-clip {
+  animation: pen-line-draw var(--pen-duration, 0.52s) cubic-bezier(0.6, 0, 0.3, 1) var(--pen-delay, 0ms) both;
+}
+
+@keyframes pen-line-draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pen-stroke-hero,
+  .pen-stroke--play .pen-clip,
+  .pen-stroke--wait .pen-clip {
+    animation: none;
+    transform: none;
+    clip-path: none;
+    opacity: 1;
+  }
+}

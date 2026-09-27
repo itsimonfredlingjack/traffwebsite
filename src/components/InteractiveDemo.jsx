@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import {
   FileText, ArrowRight, ChevronLeft, ChevronRight,
   ZoomIn, ZoomOut, Eye, Copy, RotateCcw, AlertTriangle
@@ -76,34 +76,38 @@ export default function InteractiveDemo({ onOpenBooking }) {
   const [displayedAnswer, setDisplayedAnswer] = useState('');
   const [showCitation, setShowCitation] = useState(false);
   const [searchState, setSearchState] = useState('vila'); // 'vila' | 'soker' | 'belagt' | 'ejbelagt'
-  const [pulseHighlights, setPulseHighlights] = useState(false);
 
   /* ── Mobile tab state: 'chat' | 'doc' ───────────────── */
   const [mobileTab, setMobileTab] = useState('chat');
 
   /* ── Cycle counter for re-keying SourceThread ─────────── */
   const [storyCycle, setStoryCycle] = useState(0);
+  const [penPhase, setPenPhase] = useState('wait');
 
   /* ── DOM Refs ────────────────────────────────────────── */
   const frameRef = useRef(null);
   const splitContainerRef = useRef(null);
   const activePillRef = useRef(null);
   const pdfContainerRef = useRef(null);
+  const canvasViewportRef = useRef(null);
   const isHoveredRef = useRef(false);
+  const penPhaseRef = useRef(new Map());
+  const penKeyRef = useRef('');
 
-  /* ── Measure container width for PDF fitWidth ────────── */
-  useEffect(() => {
-    if (!pdfContainerRef.current) return;
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.contentRect.width > 0) {
-          setContainerWidth(Math.floor(entry.contentRect.width - 40));
-        }
-      }
-    });
-    observer.observe(pdfContainerRef.current);
+  /* The page is drawn at the width of the paper column, never wider. */
+  useLayoutEffect(() => {
+    const el = canvasViewportRef.current;
+    if (!el) return undefined;
+    const measure = () => {
+      const style = getComputedStyle(el);
+      const inner = el.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+      if (inner > 40) setContainerWidth(Math.floor(inner));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [mobileTab]);
 
   /* ── IntersectionObserver — autoplay trigger ─────────── */
   useEffect(() => {
@@ -172,7 +176,6 @@ export default function InteractiveDemo({ onOpenBooking }) {
     setDisplayedAnswer('');
     setShowCitation(false);
     setSearchState('vila');
-    setPulseHighlights(false);
     setStoryPhase('idle');
     setMobileTab('chat');
   }, [clearStoryTimers]);
@@ -189,7 +192,6 @@ export default function InteractiveDemo({ onOpenBooking }) {
     setSearchState('soker');
     setDisplayedAnswer('');
     setShowCitation(false);
-    setPulseHighlights(false);
 
     const beginTyping = () => {
       if (hold() === 'soker') {
@@ -216,10 +218,9 @@ export default function InteractiveDemo({ onOpenBooking }) {
             setSearchState(sc.state || 'belagt');
             setStoryCycle((c) => c + 1); // re-key SourceThread for fresh draw-on
 
-            // Phase 4: VERIFIED — golden pulse
+            // Phase 4: VERIFIED
             storyTimerRef.current = setTimeout(() => {
               setStoryPhase('verified');
-              setPulseHighlights(true);
 
               // Phase 5: HOLD — generous reading time, pauses if user hovers
               storyTimerRef.current = setTimeout(() => {
@@ -289,8 +290,49 @@ export default function InteractiveDemo({ onOpenBooking }) {
 
   /* ── Derived state ───────────────────────────────────── */
   const isTyping = storyPhase === 'typing';
+  const isBelagt = activeScenario.state !== 'ejbelagt';
+  const pageMarks = useMemo(() => {
+    if (!highlightActive || !showCitation || !isBelagt) return [];
+    const marks = [];
+    for (const cit of activeScenario.citations || []) {
+      if (cit.page !== currentPage) continue;
+      for (const rect of cit.rects || []) marks.push({ rect, id: cit.id });
+    }
+    return marks;
+  }, [highlightActive, showCitation, isBelagt, activeScenario, currentPage]);
+  const showDocumentHighlight = pageMarks.length > 0;
+  const markRects = useMemo(() => pageMarks.map((mark) => mark.rect), [pageMarks]);
+  const markIds = useMemo(() => pageMarks.map((mark) => mark.id), [pageMarks]);
+  const penKey = `${activeScenario.id}:${storyCycle}:${currentPage}`;
+  penKeyRef.current = penKey;
+  const shownPenPhase = penPhaseRef.current.get(penKey) || 'wait';
   const threadActive = ['connecting', 'verified', 'hold'].includes(storyPhase) &&
-    showCitation && highlightActive && currentPage === activeCitation.page && mobileTab === 'chat';
+    showDocumentHighlight && mobileTab === 'chat';
+
+  /* The document pen draws once per verified passage, and only once the page is on screen. */
+  useEffect(() => {
+    const el = canvasViewportRef.current;
+    if (!el || !showDocumentHighlight) return undefined;
+    const stored = penPhaseRef.current.get(penKey);
+    if (stored) {
+      setPenPhase(stored);
+      return undefined;
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      penPhaseRef.current.set(penKey, 'done');
+      setPenPhase('done');
+      return undefined;
+    }
+    setPenPhase('wait');
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      if (penPhaseRef.current.get(penKey)) return;
+      penPhaseRef.current.set(penKey, 'play');
+      setPenPhase('play');
+    }, { threshold: 0.15 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [penKey, showDocumentHighlight, mobileTab]);
 
   // Container classes for fade transitions
   const splitClasses = [
@@ -344,7 +386,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
           onClick={() => setMobileTab('doc')}
         >
           <span>Källdokument (Sida {currentPage})</span>
-          {highlightActive && currentPage === activeCitation.page && (
+          {highlightActive && isBelagt && currentPage === activeCitation.page && (
             <span className="demo-belagt-dot" />
           )}
         </button>
@@ -356,7 +398,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
         <SourceThread
           key={`thread-${storyCycle}`}
           startRef={activePillRef}
-          targetSelector="#pdf-highlight-0"
+          targetSelector={`#pdf-highlight-${activeCitationId}`}
           containerRef={splitContainerRef}
           active={threadActive}
           color={activeScenario.state === 'ejbelagt' ? 'var(--ej-belagt)' : 'var(--belagt)'}
@@ -501,7 +543,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
             </div>
 
             <div className="inquiry-model-tag">
-              <span>{(activeScenario.citations || []).length || 1} KÄLLOR · GEMMA 4 12B · SELF-HOSTED · {activeScenario.timestamp || '12:09'}</span>
+              <span>{(activeScenario.citations || []).length} KÄLLOR · GEMMA 4 12B · SELF-HOSTED · {activeScenario.timestamp || '12:09'}</span>
             </div>
           </div>
         </div>
@@ -581,11 +623,11 @@ export default function InteractiveDemo({ onOpenBooking }) {
             totalPages={numPages}
             currentPage={currentPage}
             onSelectPage={(p) => setCurrentPage(p)}
-            pagesWithHits={activeScenario.pagesWithHits || [activeScenario.page]}
+            pagesWithHits={activeScenario.pagesWithHits ?? [activeScenario.page]}
           />
 
           {/* Document Canvas Surface on Paper Matta */}
-          <div className="demo-canvas-viewport">
+          <div className="demo-canvas-viewport" ref={canvasViewportRef}>
             <div
               className="demo-paper-frame"
               style={{
@@ -599,24 +641,31 @@ export default function InteractiveDemo({ onOpenBooking }) {
                   active={pdfReady}
                   page={currentPage}
                   onNumPages={setNumPages}
-                  rects={highlightActive && currentPage === activeCitation.page ? activeCitation.rects : []}
-                  highlightPage={activeCitation.page}
-                  fitWidth={Math.max(340, containerWidth)}
-                  pulseHighlights={pulseHighlights}
+                  rects={markRects}
+                  citationIds={markIds}
+                  highlightPage={currentPage}
+                  penPhase={shownPenPhase}
+                  onPenDone={() => {
+                    const key = penKeyRef.current;
+                    if (penPhaseRef.current.get(key) !== 'play') return;
+                    penPhaseRef.current.set(key, 'done');
+                    setPenPhase('done');
+                  }}
+                  fitWidth={containerWidth}
                 />
               </div>
             </div>
 
             {/* Citation Notification Pill */}
-            {highlightActive && currentPage === activeCitation.page && showCitation && (
-              <div className={`demo-belagt-floating-badge ${activeScenario.state === 'ejbelagt' ? 'ejbelagt' : ''}`}>
+            {showDocumentHighlight && (
+              <div className="demo-belagt-floating-badge">
                 <TraffMark
                   size={15}
-                  state={activeScenario.state || 'belagt'}
+                  state="belagt"
                   decorative
                 />
                 <span className="badge-mono-text">
-                  {activeScenario.state === 'ejbelagt' ? 'EJ BELAGT' : 'BELAGT'} · {activeCitation.label?.toUpperCase() || 'ORDAGRANT'}
+                  BELAGT · {activeCitation.label?.toUpperCase() || 'ORDAGRANT'}
                 </span>
               </div>
             )}

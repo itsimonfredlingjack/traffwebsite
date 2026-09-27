@@ -672,6 +672,7 @@
   flex: 1;
   position: relative;
   overflow: auto;
+  scrollbar-gutter: stable;
   padding: 2.25rem 1.75rem;
   display: flex;
   justify-content: center;
