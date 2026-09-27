@@ -334,6 +334,17 @@ export default function InteractiveDemo({ onOpenBooking }) {
     return () => observer.disconnect();
   }, [penKey, showDocumentHighlight, mobileTab]);
 
+  /* On a phone the document pane replaces the chat below the fold. Bring the
+     rendered page up so the pen can draw when that tab opens. */
+  useEffect(() => {
+    if (mobileTab !== 'doc') return;
+    const el = canvasViewportRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const visible = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+    if (visible < rect.height * 0.15) el.scrollIntoView({ block: 'center', inline: 'nearest' });
+  }, [mobileTab]);
+
   // Container classes for fade transitions
   const splitClasses = [
     'demo-split-container',
