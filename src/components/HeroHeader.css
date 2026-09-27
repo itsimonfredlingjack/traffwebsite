@@ -227,11 +227,9 @@
   .hero-title-serif {
     font-size: clamp(2.5rem, 13vw, 3.4rem);
   }
-  /* Chrome sizes the H1 from its text, not its box. On a phone the
-     paragraph would otherwise be the largest paint. */
   .hero-body-text {
-    font-size: 0.87rem;
-    line-height: 1.2;
+    font-size: 1.05rem;
+    line-height: 1.6;
   }
   .hero-actions-row {
     flex-direction: column;
