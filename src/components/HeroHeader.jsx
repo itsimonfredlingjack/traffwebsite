@@ -61,22 +61,22 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
         {/* The 4 States in Mono Pills */}
         <div className="hero-states-strip">
           <div className="state-indicator-pill vila">
-            <TraffMark size={14} variant="status" state="vila" breathing />
+            <TraffMark size={14} state="vila" />
             <span className="state-label">VILA</span>
           </div>
           <span className="state-arrow" aria-hidden="true">→</span>
           <div className="state-indicator-pill soker">
-            <TraffMark size={14} variant="status" state="soker" />
+            <TraffMark size={14} state="soker" />
             <span className="state-label">SÖKER</span>
           </div>
           <span className="state-arrow" aria-hidden="true">→</span>
           <div className="state-indicator-pill belagt">
-            <TraffMark size={14} variant="status" state="belagt" />
+            <TraffMark size={14} state="belagt" />
             <span className="state-label">BELAGT</span>
           </div>
           <span className="state-divider" aria-hidden="true">/</span>
           <div className="state-indicator-pill ej-belagt">
-            <TraffMark size={14} variant="status" state="ejbelagt" />
+            <TraffMark size={14} state="ejbelagt" />
             <span className="state-label">EJ BELAGT</span>
           </div>
         </div>

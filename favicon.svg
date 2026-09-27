@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Träff">
-  <!-- §08 Ikon och bruk. The icon carries the BRAND mark: complete, monochrome,
-       never a state colour — not even when there are new hits. Geometry is §02
-       and is not free-hand: diameter 52 % of the field, ring 8 % of the
-       diameter, core 46 % of the inner measure, always concentric. -->
-  <rect width="512" height="512" rx="112" fill="#07080B"/>
-  <circle cx="256" cy="256" r="122.4704" fill="none" stroke="#ECEDEF" stroke-width="21.2992"/>
-  <circle cx="256" cy="256" r="51.4376" fill="#ECEDEF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-263 -1032 1300 1300" role="img" aria-label="Träff">
+  <defs>
+    <clipPath id="traff-icon-round">
+      <rect x="-263" y="-1032" width="1300" height="1300" rx="284" ry="284"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#traff-icon-round)">
+    <rect x="-263" y="-1032" width="1300" height="1300" fill="#E8E5DE"></rect><path d="M -60,-91 L 50,-468 L 103,-465 L 156,-471 L 209,-467 L 262,-464 L 316,-470 L 369,-467 L 422,-467 L 475,-465 L 528,-476 L 581,-475 L 634,-463 L 688,-467 L 741,-473 L 794,-467 L 847,-475 L 900,-472 L 790,-86 L 737,-86 L 684,-94 L 631,-91 L 578,-91 L 524,-88 L 471,-96 L 418,-93 L 365,-96 L 312,-83 L 259,-88 L 206,-93 L 152,-88 L 99,-90 L 46,-95 L -7,-94 L -60,-91 Z" fill="#FFD84A" fill-opacity="0.92" stroke="#FFD84A" stroke-opacity="0.92" stroke-width="10" stroke-linejoin="round" transform="rotate(-6 420 -280)" style="mix-blend-mode:multiply"></path><path transform="scale(1,-1)" d="M642 750Q647 750 653.5 751.5Q660 753 667 760Q671 764 676 764Q684 764 688 755L767 609Q770 603 770 600Q770 592 762 588L720 565Q714 562 710 562Q704 562 699 571L696 577Q671 627 624.0 648.0Q577 669 516 669H467V155Q467 115 482.0 87.5Q497 60 535 60H542Q557 60 557 45V15Q557 0 542 0H234Q219 0 219 15V45Q219 60 234 60H240Q278 60 293.0 87.5Q308 115 308 155V669H259Q198 669 151.0 648.0Q104 627 79 577L76 571Q71 562 65 562Q61 562 55 565L13 588Q5 592 5 600Q5 603 8 609L87 755Q92 764 99 764Q104 764 108 760Q115 753 121.5 751.5Q128 750 133 750Z" fill="#111111"></path>
+  </g>
 </svg>

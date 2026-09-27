@@ -55,7 +55,7 @@ async function prerender() {
         alternateName: 'Traff',
         url: origin,
         email: 'kontakt@traff.se',
-        logo: absoluteUrl('apple-touch-icon.png'),
+        logo: absoluteUrl('logo.png'),
         description: 'Svensk AI för dokument och information.',
       },
       {

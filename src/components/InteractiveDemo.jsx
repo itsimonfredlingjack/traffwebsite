@@ -378,9 +378,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
             <div className="timeline-spine-track">
               <TraffMark
                 size={22}
-                variant="status"
                 state={searchState}
-                breathing={searchState === 'soker'}
                 decorative
               />
               <div className={`timeline-stem-line ${searchState}`} />
@@ -614,7 +612,6 @@ export default function InteractiveDemo({ onOpenBooking }) {
               <div className={`demo-belagt-floating-badge ${activeScenario.state === 'ejbelagt' ? 'ejbelagt' : ''}`}>
                 <TraffMark
                   size={15}
-                  variant="status"
                   state={activeScenario.state || 'belagt'}
                   decorative
                 />

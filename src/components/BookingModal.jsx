@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, Loader2, Check } from 'lucide-react';
-import TraffMark from './TraffMark';
+import TraffWordmark from './TraffWordmark';
 import './BookingModal.css';
 
 export default function BookingModal({ isOpen, onClose }) {
@@ -57,8 +57,7 @@ export default function BookingModal({ isOpen, onClose }) {
           <>
             <div className="modal-header-block">
               <div className="modal-brand-lockup">
-                <TraffMark size={18} variant="brand" />
-                <span className="modal-brand-name">Träff</span>
+                <TraffWordmark height={22} />
                 <span className="modal-mono-badge">DEMO</span>
               </div>
               <h3 className="modal-serif-title">Boka personlig genomgång</h3>

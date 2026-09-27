@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
-import TraffMark from './TraffMark';
+import TraffWordmark from './TraffWordmark';
 import './Navbar.css';
 
 export default function Navbar({ onOpenBooking }) {
@@ -38,8 +38,7 @@ export default function Navbar({ onOpenBooking }) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <TraffMark size={20} variant="brand" />
-          <span className="navbar-brand-name">Träff</span>
+          <TraffWordmark height={25} draw />
           <span className="navbar-mono-label">DOKUMENT-AI</span>
         </a>
 

@@ -23,7 +23,6 @@
   --skal-subtle: #F7F7F5;
   --matta: #F3F1EC;
 
-  --papper: #FFFFFF;
   --papper-warm: #FBFBFA;
   --papper-dark: #111317;
   
@@ -153,8 +152,8 @@ main {
 
 .pdf-highlight {
   position: absolute;
-  background: rgba(254, 240, 138, 0.65);
-  outline: 1.5px solid rgba(202, 138, 4, 0.6);
+  background: color-mix(in srgb, var(--strykgul) 65%, transparent);
+  outline: 1.5px solid color-mix(in srgb, var(--strykgul) 55%, #8a5d06);
   border-radius: 2px;
   pointer-events: none;
   mix-blend-mode: multiply;
@@ -179,14 +178,14 @@ main {
 
 @keyframes golden-pulse {
   0%, 100% {
-    background: rgba(254, 240, 138, 0.65);
-    outline: 1.5px solid rgba(202, 138, 4, 0.6);
+    background: color-mix(in srgb, var(--strykgul) 65%, transparent);
+    outline: 1.5px solid color-mix(in srgb, var(--strykgul) 55%, #8a5d06);
     filter: none;
   }
   50% {
-    background: rgba(254, 240, 138, 0.95);
-    outline: 2px solid rgba(202, 138, 4, 0.95);
-    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.75));
+    background: color-mix(in srgb, var(--strykgul) 95%, transparent);
+    outline: 2px solid var(--strykgul);
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--strykgul) 75%, transparent));
   }
 }
 

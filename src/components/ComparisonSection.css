@@ -122,13 +122,9 @@
 .col-target-label-traff {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  min-height: calc(19px * 1.6);
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: 19px;
-  color: #0F1115;
-}
-
-.col-target-name {
   color: #0F1115;
 }
 

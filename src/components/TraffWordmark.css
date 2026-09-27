@@ -1,0 +1,31 @@
+.traff-wordmark {
+  display: inline-block;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+.traff-wordmark svg {
+  display: block;
+}
+
+/* The pen draws once, left to right, on the start screen. */
+.traff-wordmark-pen {
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+.traff-wordmark--draw .traff-wordmark-pen {
+  will-change: transform;
+  animation: traff-pen-draw 0.8s cubic-bezier(0.6, 0, 0.3, 1) both;
+}
+
+@keyframes traff-pen-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .traff-wordmark--draw .traff-wordmark-pen {
+    animation: none;
+  }
+}

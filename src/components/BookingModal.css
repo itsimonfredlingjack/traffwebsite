@@ -62,12 +62,6 @@
   margin-bottom: 0.85rem;
 }
 
-.modal-brand-name {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 20px;
-  color: #0F1115;
-}
-
 .modal-mono-badge {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;

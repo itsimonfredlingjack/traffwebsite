@@ -128,14 +128,7 @@
 .footer-brand-lockup {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: #0F1115;
-}
-
-.footer-brand-title {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 26px;
-  letter-spacing: -0.02em;
+  min-height: calc(26px * 1.6);
   color: #0F1115;
 }
 

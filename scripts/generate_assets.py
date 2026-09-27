@@ -104,7 +104,6 @@ def create_apple_touch_icon(output_path):
     print(f'Saved Apple Touch Icon to {output_path}')
 
 if __name__ == '__main__':
-    os.makedirs('public', exist_ok=True)
-    # The share image is rendered from HTML (scripts/render-og.mjs) so it uses
-    # the site's own fonts. This script only keeps the touch icon.
-    create_apple_touch_icon('public/apple-touch-icon.png')
+    # Icons and the share image are rendered from the brand SVGs by
+    # scripts/render-og.mjs. This file no longer paints the old ring.
+    raise SystemExit('run: node scripts/render-og.mjs')

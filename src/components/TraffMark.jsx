@@ -1,27 +1,7 @@
 /**
- * Träff's mark. Two marks, one form — the identity's hardest rule.
- *
- * `variant="brand"` is **A · Varumärket**: always complete, always monochrome.
- * Here the circle is a name. It says who is speaking, not what is true, which
- * is why it never carries a state colour — not green, not even in marketing.
- *
- * `variant="status"` is **B · Statusmärket**: empty until the proof exists. The
- * core is drawn in the same moment a passage has been verified verbatim, and
- * not a millisecond earlier. A filled core without a citation is a lie told in
- * the shape.
- *
- * The geometry is fixed (§02): the ring is 8 % of the outer diameter, the gap
- * is always empty — no tint, no gradient, it *is* the distance between the
- * question and the proof — and the core is 46 % of the inner measure, always
- * concentric, because a hit never sits off-centre.
- *
- * Below 16px the gap stops reading, and the identity says to use the solid dot
- * without a ring rather than a ring nobody can see.
- *
- * Accessibility (§01): the status mark is the primary visual state indicator
- * and never the only one. Every state carries its own text label in mono
- * elsewhere on screen; this component only ever contributes a label to the
- * accessibility tree.
+ * Search status only. The ring is not a logo — see docs/brand/BRAND.md.
+ * Geometry is the 120-unit mark in docs/brand/status-marks.svg.md, drawn as
+ * SVG so 14px still reads. The core exists only in belagt.
  */
 
 const STATE_LABEL = {
@@ -33,65 +13,54 @@ const STATE_LABEL = {
 
 export default function TraffMark({
   size = 22,
-  variant = 'brand',
-  state = 'belagt',
+  state = 'vila',
   title,
   decorative = false,
-  breathing = false,
   className = '',
   style = {},
 }) {
-  const ring = Math.max(1, size * 0.08);
-  const inner = size - ring * 2;
-  const core = inner * 0.46;
+  const shown = STATE_LABEL[state] ? state : 'vila';
+  const label = title ?? STATE_LABEL[shown];
 
-  // Under the minimum size the gap closes up visually; the identity's own
-  // fallback is the solid dot.
-  if (size < 16) {
-    return (
-      <span
-        className={`traff-mark traff-mark--dot ${className}`}
-        style={{ width: size, height: size, ...style }}
-        role={title && !decorative ? 'img' : undefined}
-        aria-label={decorative ? undefined : title}
-        aria-hidden={title && !decorative ? undefined : 'true'}
-      />
-    );
-  }
-
-  const shown = variant === 'brand' ? 'brand' : state;
-  const label = title ?? (variant === 'brand' ? 'Träff' : STATE_LABEL[state]);
-
-  // `decorative` is for the one case the identity actually asks for: the mark
-  // standing immediately beside its own written label. Announcing "Ej belagt,
-  // Ej belagt" is not more accessible than announcing it once.
   return (
     <span
-      className={`traff-mark traff-mark--${shown}${breathing && shown === 'vila' ? ' traff-mark--andas' : ''} ${className}`}
-      style={{
-        width: size,
-        height: size,
-        borderWidth: `${ring}px`,
-        '--mark-ring': `${ring}px`,
-        ...style,
-      }}
+      className={`traff-mark traff-mark--${shown}${className ? ` ${className}` : ''}`}
+      style={{ width: size, height: size, ...style }}
       role={decorative ? undefined : 'img'}
       aria-hidden={decorative ? 'true' : undefined}
       aria-label={decorative ? undefined : label}
     >
-      {/* Söker draws a second ring on top of the resting one and turns it —
-          the identity's own "sökljus": a light hunting for the edge of the
-          gap, not a generic spinner borrowed from elsewhere. */}
-      {shown === 'soker' && <span className="traff-mark-seek" aria-hidden="true" />}
-      {/* The core exists only where something has actually been established,
-          and it plays its arrival once, the instant it mounts — the moment
-          the distance in §02 actually closes. */}
-      {(shown === 'brand' || shown === 'belagt') && (
-        <span className="traff-mark-core" style={{ width: core, height: core }} />
+      <svg viewBox="-60 -60 120 120" aria-hidden="true" focusable="false">
+        {shown === 'vila' && (
+          <circle r="40" fill="none" stroke="var(--ink)" strokeOpacity="0.25" strokeWidth="8" />
+        )}
+        {shown === 'soker' && (
+          <circle r="40" fill="none" stroke="var(--ink)" strokeOpacity="0.25" strokeWidth="8" />
+        )}
+        {shown === 'belagt' && (
+          <>
+            <circle className="traff-mark-echo" r="52" fill="none" stroke="var(--belagt-grafik)" strokeOpacity="0.28" strokeWidth="6" />
+            <circle r="40" fill="none" stroke="var(--belagt-grafik)" strokeWidth="8" />
+            <circle className="traff-mark-core" r="16" fill="var(--belagt-grafik)" />
+          </>
+        )}
+        {shown === 'ejbelagt' && (
+          <>
+            <circle r="40" fill="none" stroke="var(--ej-belagt-grafik)" strokeWidth="11" />
+            <g className="traff-mark-stamp">
+              <rect x="-22" y="-7" width="44" height="14" rx="7" fill="var(--ej-belagt-grafik)" />
+            </g>
+          </>
+        )}
+      </svg>
+      {shown === 'soker' && (
+        <span className="traff-mark-seek">
+          <svg viewBox="-60 -60 120 120" aria-hidden="true" focusable="false">
+            <path d="M 0,-40 A 40,40 0 0 1 38,-12" fill="none" stroke="var(--soker)" strokeWidth="8" strokeLinecap="round" />
+            <path d="M 38,-12 A 40,40 0 0 1 28,28" fill="none" stroke="var(--soker)" strokeOpacity="0.35" strokeWidth="8" strokeLinecap="round" />
+          </svg>
+        </span>
       )}
-      {/* One short ring flash as the core lands — the single celebratory
-          beat on the screen, and only where a passage was actually verified. */}
-      {shown === 'belagt' && <span className="traff-mark-flash" aria-hidden="true" />}
     </span>
   );
 }

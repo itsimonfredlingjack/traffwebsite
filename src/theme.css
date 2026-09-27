@@ -1,3 +1,8 @@
+/* Logo and status geometry follow docs/brand/BRAND.md (2026-09-27).
+   The ring is search status, not a logo. --belagt (#137855) and
+   --ej-belagt (#8A5D06) stay the text colours; the mark paints with
+   --belagt-grafik and --ej-belagt-grafik. */
+
 /* The Träff visual identity, implemented.
  *
  * Source: the "Träff Visual Identity System" design project, document
@@ -316,8 +321,8 @@
    *
    * Keep each triple identical to its hex above. design-lock checks it. */
   --black-900-rgb: 10 10 10;
-  --papper-rgb: 255 255 255;
-  --ink-rgb: 10 10 10;
+  --papper-rgb: 232 229 222;
+  --ink-rgb: 17 17 17;
   --remsgul-rgb: 255 214 0;
   --sokljus-rgb: 44 92 168;
   --handling-rgb: 26 79 208;
@@ -325,7 +330,7 @@
   /* Papper is the ground again, and it is white. The material it used to name
      — a warm sheet lying on a dark shell — no longer exists as a separate
      thing, because the whole page is that sheet. */
-  --papper: #FFFFFF;
+  --papper: #E8E5DE;
   --surface-1: var(--skal-raised);
   --surface-2: var(--skal-sunken);
   --surface-3: var(--skal-pressed);
@@ -336,7 +341,11 @@
      and a document's text to be different blacks; the serif is what separates
      them, which is §07 doing its actual job. */
   --black: var(--black-900);
-  --ink: #0A0A0A;
+  --ink: #111111;
+  --strykgul: #FFD84A;
+  --soker: #2563EB;
+  --belagt-grafik: #16A06A;
+  --ej-belagt-grafik: #C98A12;
   --ink-muted: var(--black-700);
   --ink-subtle: var(--black-500);
 
@@ -978,89 +987,102 @@ code, pre, kbd, samp { font-family: var(--font-mono); }
 
 .traff-mark {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: inline-block;
   flex-shrink: 0;
-  box-sizing: border-box;
-  border-style: solid;
-  border-radius: 50%;
-  /* The gap is always empty. No tint, no gradient — it is the search. */
-  background: transparent;
-  transition: border-color 0.3s ease;
+  line-height: 0;
+  border: 0;
+  background: none;
+  padding: 0;
 }
 
-.traff-mark-core {
-  border-radius: 50%;
-  background: currentColor;
-  /* Plays once, exactly when the core mounts — the instant the distance
-     in §02 actually closes, not a generic fade applied on every render.
-     The duration is §03's own 460 ms, through the token, so the core and
-     Högen's lit leaf strike together instead of drifting apart by the 40 ms
-     a hand-typed 0.42s put between them. */
-  animation: traff-core-in var(--d-belagt) cubic-bezier(0.34, 1.4, 0.4, 1) both;
+.traff-mark > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-@keyframes traff-core-in {
-  0% { transform: scale(0.3); opacity: 0; }
-  65% { transform: scale(1.16); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* Söker: the ring stays fully sökljus-blue at rest (§01 — meaning must never
-   depend on motion alone), and a travelling highlight turns on top of it —
-   light hunting the edge of the gap, additive, never the only carrier of
-   the state. A reduced-motion viewer still sees a plain solid blue ring. */
+/* Söker: the arc is its own layer so it turns around the ring's centre. */
 .traff-mark-seek {
   position: absolute;
-  inset: calc(var(--mark-ring) * -1);
-  box-sizing: border-box;
-  border-radius: 50%;
-  border-style: solid;
-  border-width: var(--mark-ring);
-  border-color: transparent;
-  border-top-color: rgb(255 255 255 / 0.85);
-  animation: traff-seek-spin 1s linear infinite;
+  inset: 0;
+  display: block;
+  transform-origin: center;
+  will-change: transform;
+  animation: traff-seek-spin 1.1s linear infinite;
+}
+
+.traff-mark-seek svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
 @keyframes traff-seek-spin {
   to { transform: rotate(360deg); }
 }
 
-/* A · Varumärket — complete, monochrome, never a state colour. */
-.traff-mark--brand { border-color: currentColor; color: currentColor; }
-
-/* B · Statusmärket — empty until the proof exists. */
-.traff-mark--vila { border-color: currentColor; opacity: 0.3; }
-.traff-mark--soker { border-color: var(--sokljus); }
-.traff-mark--belagt { border-color: var(--belagt); color: var(--belagt); }
-.traff-mark--ejbelagt { border-color: var(--vagran); }
-
-/* At rest the mark may breathe — opacity only, slow — so a waiting screen is
-   never inert. Asked for explicitly (`breathing`), never on by default. */
-.traff-mark--vila.traff-mark--andas { animation: traff-andas 4s ease-in-out infinite; }
-@keyframes traff-andas {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.55; }
+/* Belagt: the core lands .55 → 1.14 → 1. */
+.traff-mark-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: traff-core-in 0.48s cubic-bezier(0.34, 1.2, 0.4, 1) both;
 }
 
-/* The flash: a ring that leaves the mark as the core lands. Plays once, on
-   mount, over the belagt beat. */
-.traff-mark-flash {
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1.5px solid currentColor;
-  pointer-events: none;
-  animation: traff-flash 620ms var(--ease) both;
-}
-@keyframes traff-flash {
-  from { opacity: 0.9; transform: scale(0.8); }
-  to { opacity: 0; transform: scale(1.5); }
+@keyframes traff-core-in {
+  0% { transform: scale(0.55); }
+  58% { transform: scale(1.14); }
+  100% { transform: scale(1); }
 }
 
-/* Below the minimum size the ring stops reading, and the identity's own
-   fallback is the solid dot without a ring. */
-.traff-mark--dot { display: inline-block; border-radius: 50%; background: currentColor; }
+/* One echo, then it is gone. Reduced motion keeps this settled (invisible) frame. */
+.traff-mark-echo {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: traff-echo 0.72s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes traff-echo {
+  0% { opacity: 0; transform: scale(0.8); }
+  35% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
+/* Ej belagt: the bar stamps 1.5 → .92 → 1, then a short shake. */
+.traff-mark-stamp {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: traff-stamp 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes traff-stamp {
+  0% { transform: scale(1.5); }
+  45% { transform: scale(0.92); }
+  62% { transform: scale(1); }
+  74% { transform: scale(1) translateX(-1.2px); }
+  86% { transform: scale(1) translateX(1.2px); }
+  100% { transform: scale(1) translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .traff-mark-seek,
+  .traff-mark-core,
+  .traff-mark-echo,
+  .traff-mark-stamp {
+    animation: none;
+  }
+
+  .traff-mark-core,
+  .traff-mark-stamp {
+    transform: none;
+  }
+
+  .traff-mark-echo {
+    opacity: 0;
+  }
+}
 
 /* ========================================================================= */
 /* Controls — the site's own metrics                                         */

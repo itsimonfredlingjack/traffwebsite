@@ -30,16 +30,8 @@
 .navbar-brand-lockup {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   text-decoration: none;
-  color: #0F1115;
-}
-
-.navbar-brand-name {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 26px;
-  line-height: 1;
-  letter-spacing: -0.03em;
   color: #0F1115;
 }
 

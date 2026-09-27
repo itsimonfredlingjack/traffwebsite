@@ -304,3 +304,66 @@ test('pdf.js stays unloaded until the demo is on screen, then the story runs', a
   const hashed = await page.evaluate(() => performance.getEntriesByType('resource').map((r) => r.name));
   expect(hashed.some((url) => isPdfRuntime(url)), hashed.filter((url) => /pdf|worker/.test(url)).join('\n')).toBe(true);
 });
+
+test('status mark draws a core only when a passage is verified', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/', { waitUntil: 'networkidle' });
+
+  const marks = await page.evaluate(() => {
+    const states = ['vila', 'soker', 'belagt', 'ejbelagt'];
+    const out = {};
+    for (const state of states) {
+      const nodes = [...document.querySelectorAll(`.traff-mark--${state}`)];
+      out[state] = {
+        count: nodes.length,
+        cores: nodes.reduce((n, el) => n + el.querySelectorAll('.traff-mark-core').length, 0),
+        filledCircles: nodes.reduce((n, el) => n + [...el.querySelectorAll('circle')].filter((c) => {
+          const fill = c.getAttribute('fill');
+          return fill && fill !== 'none';
+        }).length, 0),
+      };
+    }
+    return out;
+  });
+
+  for (const state of ['vila', 'soker', 'ejbelagt']) {
+    expect(marks[state].count, state).toBeGreaterThan(0);
+    expect(marks[state].cores, `${state} core`).toBe(0);
+    expect(marks[state].filledCircles, `${state} filled circle`).toBe(0);
+  }
+  expect(marks.belagt.count).toBeGreaterThan(0);
+  expect(marks.belagt.cores).toBe(marks.belagt.count);
+  expect(marks.belagt.filledCircles).toBe(marks.belagt.count);
+
+  await expect(page.locator('.navbar-brand-lockup .traff-wordmark')).toHaveCount(1);
+  await expect(page.locator('.navbar-brand-name')).toHaveCount(0);
+  await expect(page.locator('.traff-mark--brand')).toHaveCount(0);
+  await expect(page.locator('.navbar-brand-lockup').getByRole('img', { name: 'Träff' })).toHaveCount(1);
+
+  const logoUrl = await page.locator('script[type="application/ld+json"]').evaluate((el) => {
+    const graph = JSON.parse(el.textContent)['@graph'];
+    return graph.find((node) => node['@type'] === 'Organization').logo;
+  });
+  expect(logoUrl).toMatch(/\/logo\.png$/);
+  const logo = await page.request.get('/logo.png');
+  expect(logo.status()).toBe(200);
+  const bytes = await logo.body();
+  expect(bytes.subarray(1, 4).toString()).toBe('PNG');
+  expect(bytes.readUInt32BE(16)).toBeGreaterThanOrEqual(512);
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload({ waitUntil: 'networkidle' });
+  const motion = await page.evaluate(() => {
+    const name = (selector) => {
+      const el = document.querySelector(selector);
+      return el ? getComputedStyle(el).animationName : 'missing';
+    };
+    return {
+      seek: name('.traff-mark--soker .traff-mark-seek'),
+      core: name('.traff-mark--belagt .traff-mark-core'),
+      stamp: name('.traff-mark--ejbelagt .traff-mark-stamp'),
+      pen: name('.traff-wordmark--draw .traff-wordmark-pen'),
+    };
+  });
+  expect(motion).toEqual({ seek: 'none', core: 'none', stamp: 'none', pen: 'none' });
+});

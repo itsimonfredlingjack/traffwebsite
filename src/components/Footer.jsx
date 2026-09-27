@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import TraffMark from './TraffMark';
+import TraffWordmark from './TraffWordmark';
 import './Footer.css';
 
 export default function Footer({ onOpenBooking }) {
@@ -49,8 +49,7 @@ export default function Footer({ onOpenBooking }) {
         <div className="footer-columns-wrap">
           <div className="footer-brand-side">
             <div className="footer-brand-lockup">
-              <TraffMark size={20} variant="brand" />
-              <span className="footer-brand-title">Träff</span>
+              <TraffWordmark height={26} />
             </div>
             <p className="footer-brand-sub">
               Svensk AI för dokument och information. Fråga dina dokument, se svaren på sidan.

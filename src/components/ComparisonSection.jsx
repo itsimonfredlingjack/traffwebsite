@@ -1,5 +1,6 @@
 import React from 'react';
 import TraffMark from './TraffMark';
+import TraffWordmark from './TraffWordmark';
 import './ComparisonSection.css';
 
 export default function ComparisonSection() {
@@ -24,7 +25,7 @@ export default function ComparisonSection() {
           <div className="comparison-col col-generic">
             <div className="col-status-header">
               <div className="col-tag ej-belagt">
-                <TraffMark size={16} variant="status" state="ejbelagt" decorative />
+                <TraffMark size={16} state="ejbelagt" decorative />
                 <span className="tag-mono">EJ BELAGT</span>
               </div>
               <span className="col-target-label">Generisk AI &amp; Chatbots</span>
@@ -67,12 +68,11 @@ export default function ComparisonSection() {
           <div className="comparison-col col-traff">
             <div className="col-status-header">
               <div className="col-tag belagt">
-                <TraffMark size={16} variant="status" state="belagt" decorative />
+                <TraffMark size={16} state="belagt" decorative />
                 <span className="tag-mono">BELAGT</span>
               </div>
               <div className="col-target-label-traff">
-                <TraffMark size={18} variant="brand" decorative />
-                <span className="col-target-name">Träff</span>
+                <TraffWordmark height={22} />
               </div>
             </div>
 
