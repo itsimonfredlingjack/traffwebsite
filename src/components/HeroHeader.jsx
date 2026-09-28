@@ -13,7 +13,7 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
       <div className="hero-container">
         {/* Category tag in JetBrains Mono */}
         <div className="hero-mono-kicker">
-          <span>SVENSK AI FÖR DOKUMENT OCH BELÄGG</span>
+          <span>AI med direkt källhänvisning</span>
         </div>
 
         {/* Main Display Headline in Instrument Serif */}
