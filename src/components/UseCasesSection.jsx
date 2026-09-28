@@ -101,7 +101,7 @@ export default function UseCasesSection({ onOpenBooking }) {
             </div>
 
             <button className="usecase-btn-handling" onClick={onOpenBooking}>
-              <span>Boka genomgång</span>
+              <span>Anmäl intresse</span>
               <ArrowRight size={14} />
             </button>
           </div>

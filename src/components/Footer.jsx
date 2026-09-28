@@ -22,12 +22,12 @@ export default function Footer({ onOpenBooking }) {
             Redo att ge styrelsen och ledningen svar de kan lita på?
           </h2>
           <p className="paper-body-lead">
-            Boka en 15-minuters genomgång så visar vi hur Träff ringer in meningen
-            i era egna avtal, protokoll och rapporter — direkt på sidan.
+            Anmäl ditt intresse så hör vi av oss när Träff är redo att testas
+            på era egna avtal, protokoll och rapporter — direkt på sidan.
           </p>
           <div className="paper-action-buttons">
             <button className="paper-btn-primary" onClick={onOpenBooking}>
-              <span>Boka personlig genomgång</span>
+              <span>Anmäl intresse</span>
               <ArrowRight size={14} />
             </button>
             <a
@@ -133,7 +133,7 @@ export default function Footer({ onOpenBooking }) {
             <div className="footer-nav-col">
               <span className="nav-col-mono-title">Kontakt</span>
               <button className="footer-link-btn" onClick={onOpenBooking}>
-                Boka genomgång
+                Anmäl intresse
               </button>
               <a href="mailto:kontakt@traff.se" className="footer-link-btn">
                 kontakt@traff.se

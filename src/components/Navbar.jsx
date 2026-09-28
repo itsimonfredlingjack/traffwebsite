@@ -109,7 +109,7 @@ export default function Navbar({ onOpenBooking }) {
             Se demon
           </a>
           <button className="navbar-btn-action" onClick={onOpenBooking}>
-            <span>Boka genomgång</span>
+            <span>Anmäl intresse</span>
             <ArrowRight size={14} />
           </button>
           <button
@@ -183,7 +183,7 @@ export default function Navbar({ onOpenBooking }) {
                 onOpenBooking();
               }}
             >
-              <span>Boka personlig genomgång</span>
+              <span>Anmäl intresse</span>
               <ArrowRight size={14} />
             </button>
           </div>

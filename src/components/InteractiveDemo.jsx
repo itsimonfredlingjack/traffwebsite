@@ -688,10 +688,10 @@ export default function InteractiveDemo({ onOpenBooking }) {
       <div className="demo-frame-footer">
         <div className="demo-footer-copy">
           <span className="demo-footer-lead">Vill du testa med era egna handlingar?</span>
-          <span className="demo-footer-sub">Vi visar hur Träff hittar svaren i era avtal och protokoll under en 15-minuters genomgång.</span>
+          <span className="demo-footer-sub">Anmäl ditt intresse så hör vi av oss när Träff är redo att testas på era handlingar.</span>
         </div>
         <button className="demo-footer-action-btn" onClick={onOpenBooking}>
-          <span>Boka genomgång</span>
+          <span>Anmäl intresse</span>
           <ArrowRight size={14} />
         </button>
       </div>

@@ -16,7 +16,7 @@ export default function FaqSection() {
             Vanliga <span className="serif-italic">funderingar</span>
           </h2>
           <p className="section-lead-text">
-            Hittar du inte svaret på din fråga här? Boka en genomgång så visar vi hur det fungerar i praktiken på era egna handlingar.
+            Hittar du inte svaret på din fråga här? Anmäl ditt intresse så hör vi av oss när Träff är redo att testas på era egna handlingar.
           </p>
         </div>
 
