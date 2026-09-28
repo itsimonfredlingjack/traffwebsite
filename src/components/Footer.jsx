@@ -17,7 +17,7 @@ export default function Footer({ onOpenBooking }) {
       {/* Paper Contrast Banner (§06 & §07: #E8E5DE Papper) */}
       <div className="footer-paper-banner-wrap">
         <div className="footer-paper-card">
-          <div className="paper-mono-kicker">05 · NÄSTA STEG</div>
+          <div className="paper-mono-kicker">05 · Nästa steg</div>
           <h2 className="paper-serif-headline">
             Redo att ge styrelsen och ledningen svar de kan lita på?
           </h2>
@@ -55,13 +55,13 @@ export default function Footer({ onOpenBooking }) {
               Svensk AI för dokument och information. Fråga dina dokument, se svaren på sidan.
             </p>
             <div className="footer-eu-mono-tag">
-              <span>EU-DATALAGRING · INGEN MODELLTRÄNING</span>
+              <span>EU-datalagring · Ingen modellträning</span>
             </div>
           </div>
 
           <div className="footer-nav-grid">
             <div className="footer-nav-col">
-              <span className="nav-col-mono-title">PRODUKT</span>
+              <span className="nav-col-mono-title">Produkt</span>
               <a
                 href="#demo-section"
                 className="footer-link-btn"
@@ -105,7 +105,7 @@ export default function Footer({ onOpenBooking }) {
             </div>
 
             <div className="footer-nav-col">
-              <span className="nav-col-mono-title">SÄKERHET</span>
+              <span className="nav-col-mono-title">Säkerhet</span>
               <a
                 href="#features-section"
                 className="footer-link-btn"
@@ -131,7 +131,7 @@ export default function Footer({ onOpenBooking }) {
             </div>
 
             <div className="footer-nav-col">
-              <span className="nav-col-mono-title">KONTAKT</span>
+              <span className="nav-col-mono-title">Kontakt</span>
               <button className="footer-link-btn" onClick={onOpenBooking}>
                 Boka genomgång
               </button>
@@ -144,8 +144,8 @@ export default function Footer({ onOpenBooking }) {
         </div>
 
         <div className="footer-sub-bar">
-          <span className="copyright-mono">© 2026 TRÄFF · ALLA RÄTTIGHETER FÖRBEHÅLLNA</span>
-          <span className="motto-mono">ORDAGRANT VERIFIERAT MOT KÄLLTEXT</span>
+          <span className="copyright-mono">© 2026 Träff · Alla rättigheter förbehållna</span>
+          <span className="motto-mono">Ordagrant verifierat mot källtext</span>
         </div>
       </div>
     </footer>

@@ -361,7 +361,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
     >
       {/* Top Scenario Selector Bar — display-only indicators during autoplay */}
       <div className="demo-scenario-strip">
-        <span className="demo-mono-header">VÄLJ TESTHANDLING</span>
+        <span className="demo-mono-header">Välj testhandling</span>
         <div className="demo-scenario-tabs" role="tablist">
           {DEMO_SCENARIOS.map((sc, idx) => {
             const isSelected = idx === selectedScenarioIndex;

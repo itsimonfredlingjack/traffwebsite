@@ -39,7 +39,7 @@ export default function Navbar({ onOpenBooking }) {
           }}
         >
           <TraffWordmark height={25} />
-          <span className="navbar-mono-label">DOKUMENT-AI</span>
+          <span className="navbar-mono-label"></span>
         </a>
 
         {/* Desktop Navigation Links */}
@@ -106,7 +106,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('demo-section');
             }}
           >
-            Testa sökningen
+            Se demon
           </a>
           <button className="navbar-btn-action" onClick={onOpenBooking}>
             <span>Boka genomgång</span>
