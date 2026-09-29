@@ -70,6 +70,18 @@ test('prerendered page hydrates, scrolls, and runs the demo', async ({ page, con
   await expect(page.locator('#main-content')).toBeFocused();
 
   // Each demo scenario leaves VILA for the right state. Copy and redo work.
+  // The story only starts with the demo on screen. The skip link starts a smooth
+  // scroll to the top, so wait for it to stop, then centre the tabs: at the very
+  // top they sit under the sticky header, and Playwright would scroll the click
+  // target to the bottom edge, taking the demo out of view.
+  await page.evaluate(() => new Promise((resolve) => {
+    let timer = setTimeout(resolve, 300);
+    window.addEventListener('scroll', () => {
+      clearTimeout(timer);
+      timer = setTimeout(resolve, 300);
+    });
+  }));
+  await page.getByRole('tab', { name: /^Stadgar:/ }).evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
   for (const [tag, state] of SCENARIOS) {
     await page.getByRole('tab', { name: new RegExp(`^${tag}:`) }).click();
     await expect(page.locator('.state-name-mono')).toHaveText(state);
