@@ -10,7 +10,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = pathToFileURL(
   require.resolve('pdfjs-dist/legacy/build/pdf.worker.mjs'),
 ).href;
 
-const AFM = '/usr/share/fonts/urw-base35/NimbusSans-Regular.afm';
+// Nimbus Sans metrics (Helvetica-compatible). Fedora and Debian/Ubuntu keep them
+// in different places; set AFM_PATH to override.
+const AFM_CANDIDATES = [
+  process.env.AFM_PATH,
+  '/usr/share/fonts/urw-base35/NimbusSans-Regular.afm',
+  '/usr/share/fonts/type1/urw-base35/NimbusSans-Regular.afm',
+].filter(Boolean);
+const AFM = AFM_CANDIDATES.find((candidate) => fs.existsSync(candidate));
+if (!AFM) {
+  throw new Error(`NimbusSans-Regular.afm not found. Tried: ${AFM_CANDIDATES.join(', ')}. Install fonts-urw-base35 or set AFM_PATH.`);
+}
 const wx = new Map();
 const named = { aring: 229, adieresis: 228, odieresis: 246, Aring: 197, Adieresis: 196, Odieresis: 214, eacute: 233 };
 for (const line of fs.readFileSync(AFM, 'utf8').split('\n')) {
