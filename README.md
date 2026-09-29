@@ -47,10 +47,9 @@ Canonical, Open Graph, Twitter-bild, JSON-LD, `sitemap.xml` och `robots.txt`
 byggs från miljövariabeln `SITE_URL`. Utan variabeln är adressen den som är
 publicerad i dag:
 
-`https://itsimonfredlingjack.github.io/traffwebsite/`
+`https://xn--trff-moa.app/` (träff.app, punycode i metadata)
 
-GitHub Pages-workflowen sätter `SITE_URL` och `VITE_BASE=/traffwebsite/`
-tillsammans. `sitemap.xml` och `robots.txt` skrivs till `dist/` vid `npm run build`
+GitHub Pages-workflowen sätter `SITE_URL` och `VITE_BASE=/` tillsammans. `sitemap.xml` och `robots.txt` skrivs till `dist/` vid `npm run build`
 och ligger inte som statiska filer i `public/`.
 
 Search Console verifieras med repository-variabeln `GOOGLE_SITE_VERIFICATION`
@@ -58,11 +57,11 @@ Search Console verifieras med repository-variabeln `GOOGLE_SITE_VERIFICATION`
 `<meta name="google-site-verification">` i sidhuvudet. Utan variabeln blir
 taggen inte med.
 
-När domänen traff.app är säkrad, bygg i stället med:
+Domänen träff.app (registrerad hos STRATO) pekar på GitHub Pages: A- och AAAA-poster
+på apex och `www` som CNAME. Custom domain är satt under repots Settings → Pages;
+eftersom sajten deployas med Actions behövs ingen `CNAME`-fil. För att bygga
+lokalt mot den gamla projektadressen:
 
 ```bash
-SITE_URL=https://traff.app/ VITE_BASE=/ npm run build
+SITE_URL=https://itsimonfredlingjack.github.io/traffwebsite/ VITE_BASE=/traffwebsite/ npm run build
 ```
-
-Lägg då också en `CNAME`-fil med innehållet `traff.app` i `public/`, så att
-GitHub Pages svarar på den domänen. Lägg inte in den filen innan domänen pekar hit.

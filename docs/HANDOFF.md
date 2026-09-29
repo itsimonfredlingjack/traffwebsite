@@ -38,5 +38,5 @@ docs/brand/BRAND.md (varumärkeslag) och .cursor/rules/traff.mdc.
 - Skärmdumpar i screenshots/brand-pen/: hero 1280/375/320, dokumentmarkering per
   BELAGT-scenario 1280/375, ej belagt, reduced motion.
 - Sedan: merga brand-pen → main, pusha, vänta in Pages-deploy, verifiera live
-  (https://itsimonfredlingjack.github.io/traffwebsite/: curl utan JS, Playwright,
+  (https://xn--trff-moa.app/, träff.app: curl utan JS, Playwright,
   Lighthouse). Rapportera kort.
