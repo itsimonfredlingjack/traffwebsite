@@ -65,3 +65,63 @@ lokalt mot den gamla projektadressen:
 ```bash
 SITE_URL=https://itsimonfredlingjack.github.io/traffwebsite/ VITE_BASE=/traffwebsite/ npm run build
 ```
+
+## Pipeline
+
+```mermaid
+flowchart TD
+    trigger("Push / PR") --> npm_ci
+
+    subgraph verify ["Jobb: verify"]
+        direction TD
+        npm_ci["npm ci"] --> build["Bygg (prerender)"]
+        build --> jsonld["Validera JSON-LD"]
+        jsonld --> deps["Installera Playwright & typsnitt"]
+        deps --> pw["Tester (Playwright)"]
+        pw --> lh["Lighthouse"]
+
+        fail("Stopp")
+
+        npm_ci -.-> fail
+        build -.-> fail
+        jsonld -.-> fail
+        deps -.-> fail
+        pw -.-> fail
+        lh -.-> fail
+    end
+
+    lh --> is_main{"Bara på main?"}
+
+    subgraph deploy ["Jobb: deploy"]
+        direction TD
+        rebuild["Bygg om med GOOGLE_SITE_VERIFICATION"] --> config["configure-pages"]
+        config --> upload["upload-pages-artifact (dist)"]
+        upload --> deploy_pages["deploy-pages"]
+    end
+
+    is_main -- "Ja" --> rebuild
+    is_main -- "Nej" --> pr_done("Färdig (PR)")
+    deploy_pages --> pub("Publicerad på träff.app")
+```
+
+**verify**
+- **npm ci**: Installerar beroenden för Node 22.
+- **Bygg (prerender)**: Kör `npm run build` med `VITE_BASE=/` och `SITE_URL=https://xn--trff-moa.app/`. Vites bygge (`vite build` och `vite build --ssr`) följs av `node scripts/prerender.js`, som skriver HTML, `robots.txt` och `sitemap.xml` till `dist/`. Fallerar om bygget kraschar.
+- **Validera JSON-LD**: Kör `node scripts/validate-jsonld.mjs`. Validerar sidans JSON-LD mot schema-dts och kontrollerar att FAQPage-texten stämmer överens med det som renderas. Fallerar om datan är ogiltig eller texterna skiljer sig.
+- **Installera Playwright & typsnitt**: Laddar ner Chromium och installerar `fonts-urw-base35` via apt, så att `citation-coverage` har tillgång till NimbusSans-Regular.afm för att mäta textbredder. Fallerar vid nätverksproblem.
+- **Tester (Playwright)**: Kör `npx playwright test tests/seo-regression.spec.js tests/citation-coverage.spec.js` med `CI=true`. Det gör att testerna körs med Playwrights egna Chromium-version (channel 'chromium'). Testar bland annat "axe finds no contrast or target-size violations in any demo state", "pdf.js stays unloaded until the demo is on screen, then the story runs", "status mark draws a core only when a passage is verified", "marked rects cover each cited passage line by line" och "narrow headers, the fitted page, and a refusal claim no false hit". Fallerar om något test misslyckas (vid fel sparas artefakten `playwright-results`).
+- **Lighthouse**: Kör `npm run lighthouse` (`scripts/lighthouse-check.mjs`) mot `vite preview`, med `CHROME_PATH` satt till Playwrights Chromium. Fallerar om resultatet understiger gränserna: performance 0.90, accessibility 0.97, best-practices 0.95, seo 0.97.
+
+**deploy**
+Körs inte på `pull_request`, utan bara på `main` (förutsatt att `verify` gick grönt). Installerar Node 22, kör `npm ci` och bygger sedan om sajten med repots hemlighet `GOOGLE_SITE_VERIFICATION`. Därefter konfigureras GitHub Pages via `configure-pages`, mappen `dist` laddas upp som en artefakt via `upload-pages-artifact` och slutligen publiceras sajten med `deploy-pages`.
+
+### Köra lokalt
+
+```bash
+npm run build
+node scripts/validate-jsonld.mjs
+npm run test:seo   # kräver installerad Chrome; typsnittet via fonts-urw-base35 eller AFM_PATH=/sökväg/NimbusSans-Regular.afm
+npm run lighthouse # CHROME_PATH=/sökväg/till/chrome om chrome-launcher inte hittar någon
+```
+
+Utanför CI körs skripten `scripts/visual-diff.mjs`, `scripts/render-og.mjs`, `scripts/generate-demo-pdfs.js` och `scripts/generate_assets.py` manuellt.
