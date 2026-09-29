@@ -12,12 +12,15 @@ import * as chromeLauncher from 'chrome-launcher';
 const PORT = 4176;
 const URL = `http://127.0.0.1:${PORT}/`;
 
-// Minimum scores, 0-1. Raise them as the site improves; never lower them to get green.
+// Minimum scores, 0-1. Measured on the built site (3 runs, identical):
+// performance 96, accessibility 100, best-practices 100, seo 100.
+// Set a little below that so runner noise does not make it flaky.
+// Raise them as the site improves; never lower them to get green.
 const MINIMUMS = {
-  performance: 0.8,
-  accessibility: 0.95,
-  'best-practices': 0.9,
-  seo: 0.95,
+  performance: 0.9,
+  accessibility: 0.97,
+  'best-practices': 0.95,
+  seo: 0.97,
 };
 
 const server = spawn('npx', ['vite', 'preview', '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'], {
