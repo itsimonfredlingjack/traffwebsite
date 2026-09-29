@@ -14,8 +14,8 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   # Builds the site and runs the SEO checks. Runs on pull requests too,
