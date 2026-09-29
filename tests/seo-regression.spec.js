@@ -148,6 +148,15 @@ test('mobile menu link updates the hash', async ({ page }) => {
   await expect(page.locator('.navbar-mobile-drawer')).toHaveCount(0);
 });
 
+test('desktop nav links land on their section', async ({ page }) => {
+  for (const id of ['comparison-section', 'use-cases-section', 'features-section', 'faq-section']) {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await page.locator(`header a.navbar-link[href="#${id}"]`).click();
+    await expect(page).toHaveURL(new RegExp(`#${id}$`));
+    await expect.poll(async () => page.locator(`#${id}`).evaluate((el) => Math.abs(el.getBoundingClientRect().top)), { message: id }).toBeLessThan(4);
+  }
+});
+
 const AXE_SCENARIOS = [
   ['Stadgar', 'BELAGT'],
   ['Avtal', 'BELAGT'],
