@@ -8,8 +8,11 @@ export default defineConfig({
   workers: 1,
   use: {
     baseURL: 'http://127.0.0.1:4175',
-    // CI installs Playwright's own Chromium; locally we use the installed Chrome.
-    channel: process.env.CI ? undefined : 'chrome',
+    // CI uses Playwright's full Chromium build ('chromium' channel), not the
+    // default headless shell: the shell does not retarget a smooth scroll when a
+    // content-visibility section resizes mid-scroll, so the mobile menu test lands
+    // 24px off there but not in Chrome. Locally we use the installed Chrome.
+    channel: process.env.CI ? 'chromium' : 'chrome',
     viewport: { width: 1280, height: 800 },
     deviceScaleFactor: 1,
   },
