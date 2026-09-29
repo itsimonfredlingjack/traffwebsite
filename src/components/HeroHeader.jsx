@@ -59,7 +59,7 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
             <ArrowDown size={15} />
           </a>
           <button className="hero-btn-secondary" onClick={onOpenBooking}>
-            <span>Boka genomgång för ert bolag</span>
+            <span>Anmäl intresse</span>
             <ArrowRight size={14} />
           </button>
         </div>

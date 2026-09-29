@@ -34,7 +34,7 @@ export default function SecuritySection() {
       <div className="section-container">
         <div className="security-editorial-box">
           <div className="security-head-editorial">
-            <span className="security-mono-kicker">05 · INTEGRITET &amp; GDPR</span>
+            <span className="security-mono-kicker">05 · Integritet och GDPR</span>
             <h2 className="security-serif-title">
               Byggt för bolag som inte kompromissar med <span className="serif-italic">sekretess</span>
             </h2>
@@ -56,13 +56,13 @@ export default function SecuritySection() {
 
           <div className="security-assurance-strip">
             <div className="assurance-tag">
-              <span className="assurance-mono">FULLSTÄNDIG GDPR-EFTERLEVNAD</span>
+              <span className="assurance-mono">Fullständig GDPR-efterlevnad</span>
             </div>
             <div className="assurance-tag">
-              <span className="assurance-mono">DATABEHANDLARAVTAL (DPA) TECKNAS</span>
+              <span className="assurance-mono">Databehandlaravtal (DPA) tecknas</span>
             </div>
             <div className="assurance-tag">
-              <span className="assurance-mono">SVENSK DRIFT &amp; JURISDIKTION</span>
+              <span className="assurance-mono">Svensk drift &amp; jurisdiktion</span>
             </div>
           </div>
         </div>

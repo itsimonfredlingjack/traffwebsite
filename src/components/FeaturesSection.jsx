@@ -9,15 +9,15 @@ export default function FeaturesSection() {
       subtitle: 'Er data lämnar aldrig unionen',
       description:
         'All dokumentbehandling och indexering sker i säkrade datacenter inom EU. Fullständig efterlevnad av GDPR och undertecknat personuppgiftsbiträdesavtal (DPA).',
-      monoTag: 'INFRASTRUKTUR',
+      monoTag: 'Infrastruktur',
     },
     {
       num: '02',
-      title: 'Noll modellträning på era handlingar',
+      title: 'Ingen modellträning på era handlingar',
       subtitle: 'Fullständig företagssekretess',
       description:
         'Era avtal, mötesprotokoll och finansiella rapporter förblir helt isolerade. Inga AI-modeller tränas på era företagsdata – varken våra eller tredje parts.',
-      monoTag: 'KONFIDENTIALITET',
+      monoTag: 'Konfidentialitet',
     },
     {
       num: '03',
@@ -25,7 +25,7 @@ export default function FeaturesSection() {
       subtitle: 'Klickbar sanning för teamet',
       description:
         'Ska du svara en styrelseledamot, revisor eller kollega? Skicka svaret som en länk. När mottagaren klickar slås samma PDF upp med samma inringade mening.',
-      monoTag: 'SAMARBETE',
+      monoTag: 'Samarbete',
     },
     {
       num: '04',
@@ -33,7 +33,7 @@ export default function FeaturesSection() {
       subtitle: 'Strikt åtkomstkontroll per samling',
       description:
         'Styr exakt vem i ledningsgruppen, styrelsen eller bland medarbetarna som har rätt att söka i specifika dokumentsamlingar och sekretessbelagda protokoll.',
-      monoTag: 'ÅTKOMSTSTYRNING',
+      monoTag: 'Åtkomststyrning',
     },
   ];
 
@@ -41,7 +41,7 @@ export default function FeaturesSection() {
     <section className="features-section" id="features-section">
       <div className="section-container">
         <div className="section-head-editorial">
-          <span className="section-mono-kicker">03 · ARKITEKTUR &amp; TRYGGHET</span>
+          <span className="section-mono-kicker">03 · Arkitektur och trygghet</span>
           <h2 className="section-title-serif">
             Byggt för organisationer med <span className="serif-italic">nolltolerans mot fel</span>
           </h2>

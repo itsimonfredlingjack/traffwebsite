@@ -11,12 +11,12 @@ export default function FaqSection() {
     <section className="faq-section" id="faq-section" role="region" aria-labelledby="faq-heading">
       <div className="section-container">
         <div className="section-head-editorial">
-          <span className="section-mono-kicker">04 · FRÅGOR OCH SVAR</span>
+          <span className="section-mono-kicker">04 · Frågor och svar</span>
           <h2 className="section-title-serif" id="faq-heading">
             Vanliga <span className="serif-italic">funderingar</span>
           </h2>
           <p className="section-lead-text">
-            Hittar du inte svaret på din fråga här? Boka en genomgång så visar vi hur det fungerar i praktiken på era egna handlingar.
+            Hittar du inte svaret på din fråga här? Anmäl ditt intresse så hör vi av oss när Träff är redo att testas på era egna handlingar.
           </p>
         </div>
 

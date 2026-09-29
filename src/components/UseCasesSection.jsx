@@ -66,7 +66,7 @@ export default function UseCasesSection({ onOpenBooking }) {
     <section className="usecases-section" id="use-cases-section">
       <div className="section-container">
         <div className="section-head-editorial">
-          <span className="section-mono-kicker">02 · TILLÄMPNING</span>
+          <span className="section-mono-kicker">02 · Tillämpning</span>
           <h2 className="section-title-serif">
             Vem har störst nytta av <span className="serif-italic">Träff</span>?
           </h2>
@@ -91,23 +91,23 @@ export default function UseCasesSection({ onOpenBooking }) {
         {/* Active Role Content Card */}
         <div className="usecase-display-card">
           <div className="usecase-display-left">
-            <span className="usecase-mono-badge">{current.label.toUpperCase()}</span>
+            <span className="usecase-mono-badge">{current.label}</span>
             <h3 className="usecase-serif-headline">{current.title}</h3>
             <p className="usecase-body-lead">{current.description}</p>
             
             <div className="usecase-result-strip">
-              <span className="result-mono">RESULTAT:</span>
+              <span className="result-mono">Resultat:</span>
               <span className="result-text">{current.result}</span>
             </div>
 
             <button className="usecase-btn-handling" onClick={onOpenBooking}>
-              <span>Boka genomgång för {current.label}</span>
+              <span>Anmäl intresse</span>
               <ArrowRight size={14} />
             </button>
           </div>
 
           <div className="usecase-display-right">
-            <div className="usecase-quotes-header">TYPISKA FRÅGOR UR HÖGEN</div>
+            <div className="usecase-quotes-header">Typiska frågor ur handlingarna</div>
             <div className="usecase-quotes-list">
               {current.sampleQuestions.map((q, idx) => (
                 <div key={idx} className="usecase-quote-box">

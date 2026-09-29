@@ -12,7 +12,7 @@ export const FAQS = [
     a: 'Eftersom Träff är molnbaserat krävs inga komplexa IT-installationer. Ni kan ladda upp era första dokument och börja ställa frågor inom några minuter. För större organisationer erbjuder vi även direktkoppling mot befintliga dokumenthanteringssystem och molnlagringar.',
   },
   {
-    q: 'Hur fungerar en genomgång med våra egna handlingar?',
-    a: 'Under en 15-minuters genomgång via videosamtal laddar vi upp ett eller ett par av era egna avtal eller protokoll (under sekretess/NDA). Vi ställer de frågor ni brukar behöva leta efter i vardagen, så att ni med egna ögon får se hur Träff hittar rätt sida och ringar in svaret.',
+    q: 'Hur fungerar det när vi vill testa med egna handlingar?',
+    a: 'När Träff är redo för testning går vi igenom era handlingar via ett kort videosamtal. Då laddar vi upp ett eller ett par av era egna avtal eller protokoll (under sekretess/NDA). Vi ställer de frågor ni brukar behöva leta efter i vardagen, så att ni med egna ögon får se hur Träff hittar rätt sida och ringar in svaret.',
   },
 ];
