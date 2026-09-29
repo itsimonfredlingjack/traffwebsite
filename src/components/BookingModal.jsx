@@ -60,10 +60,10 @@ export default function BookingModal({ isOpen, onClose }) {
                 <TraffWordmark height={22} />
                 <span className="modal-mono-badge">DEMO</span>
               </div>
-              <h3 className="modal-serif-title">Boka personlig genomgång</h3>
+              <h3 className="modal-serif-title" aria-label="Anmäl ditt intresse — Boka personlig genomgång">Anmäl ditt intresse</h3>
               <p className="modal-intro-p">
-                Se hur Träff slår upp sidan och ringer in meningen i era egna avtal,
-                protokoll och rapporter. 15 minuters genomgång helt utan förpliktelser.
+                Träff är under utveckling. Lämna dina uppgifter så hör vi av oss så snart
+                Träff är redo att testas på era egna avtal, protokoll och handlingar.
               </p>
             </div>
 
@@ -182,9 +182,8 @@ export default function BookingModal({ isOpen, onClose }) {
             </div>
             <h3 className="confirmation-title">Tack för ditt intresse</h3>
             <p className="confirmation-copy">
-              Vi har tagit emot din förfrågan för <strong>{formData.company || 'ert bolag'}</strong>.
-              Vi kontaktar dig på <strong>{formData.email}</strong> inom 24 timmar för att boka in en
-              kort genomgång på era egna handlingar.
+              Tack för visat intresse! Vi har tagit emot dina uppgifter för <strong>{formData.company || 'ert bolag'}</strong> och
+              hör av oss på <strong>{formData.email}</strong> när Träff är redo att testas.
             </p>
             <button className="modal-submit-handling" onClick={onClose}>
               Stäng fönstret

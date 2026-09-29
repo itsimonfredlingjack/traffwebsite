@@ -9,7 +9,7 @@ export default function ComparisonSection() {
       <div className="section-container">
         {/* Editorial Section Header */}
         <div className="section-head-editorial">
-          <span className="section-mono-kicker">01 · PRINCIPEN</span>
+          <span className="section-mono-kicker">01 · Principen</span>
           <h2 className="section-title-serif">
             Två sätt att svara — <span className="serif-italic">gissning mot bevis</span>
           </h2>
