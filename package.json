@@ -8,6 +8,7 @@
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist/server && node scripts/prerender.js",
     "preview": "vite preview",
     "test:seo": "playwright test",
+    "lighthouse": "node scripts/lighthouse-check.mjs",
     "sync-back": "bash sync-back.sh"
   },
   "dependencies": {

@@ -8,7 +8,8 @@ export default defineConfig({
   workers: 1,
   use: {
     baseURL: 'http://127.0.0.1:4175',
-    channel: 'chrome',
+    // CI installs Playwright's own Chromium; locally we use the installed Chrome.
+    channel: process.env.CI ? undefined : 'chrome',
     viewport: { width: 1280, height: 800 },
     deviceScaleFactor: 1,
   },
