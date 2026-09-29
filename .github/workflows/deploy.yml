@@ -40,10 +40,10 @@ jobs:
         # traff.app is not the published host yet; see README for the switch.
         run: npm run build
         env:
-          VITE_BASE: /traffwebsite/
-          SITE_URL: https://itsimonfredlingjack.github.io/traffwebsite/
+          VITE_BASE: /
+          SITE_URL: https://xn--trff-moa.app/
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
-
+        
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
