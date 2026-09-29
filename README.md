@@ -125,3 +125,5 @@ npm run lighthouse # CHROME_PATH=/sökväg/till/chrome om chrome-launcher inte h
 ```
 
 Utanför CI körs skripten `scripts/visual-diff.mjs`, `scripts/render-og.mjs`, `scripts/generate-demo-pdfs.js` och `scripts/generate_assets.py` manuellt.
+
+Sedan pipelinen sattes upp har även två nya saker tillkommit: `seo-regression` testar nu även datormenyns länkar, och `src/utils/scrollToSection.js` rättar scrollpositionen efter mjuk scroll.
