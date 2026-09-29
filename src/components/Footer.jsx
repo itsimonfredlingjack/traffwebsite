@@ -1,12 +1,13 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import TraffWordmark from './TraffWordmark';
+import { scrollToSection } from '../utils/scrollToSection';
 import './Footer.css';
 
 export default function Footer({ onOpenBooking }) {
   const scrollTo = (id) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) scrollToSection(el);
     if (window.location.hash !== `#${id}`) {
       history.pushState(null, '', `#${id}`);
     }

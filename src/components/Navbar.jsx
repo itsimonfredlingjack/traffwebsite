@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import TraffWordmark from './TraffWordmark';
+import { scrollToSection } from '../utils/scrollToSection';
 import './Navbar.css';
 
 export default function Navbar({ onOpenBooking }) {
@@ -19,7 +20,7 @@ export default function Navbar({ onOpenBooking }) {
     setMobileMenuOpen(false);
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      scrollToSection(el);
     }
     if (window.location.hash !== `#${id}`) {
       history.pushState(null, '', `#${id}`);

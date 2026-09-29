@@ -70,6 +70,18 @@ test('prerendered page hydrates, scrolls, and runs the demo', async ({ page, con
   await expect(page.locator('#main-content')).toBeFocused();
 
   // Each demo scenario leaves VILA for the right state. Copy and redo work.
+  // The story only starts with the demo on screen. The skip link starts a smooth
+  // scroll to the top, so wait for it to stop, then centre the tabs: at the very
+  // top they sit under the sticky header, and Playwright would scroll the click
+  // target to the bottom edge, taking the demo out of view.
+  await page.evaluate(() => new Promise((resolve) => {
+    let timer = setTimeout(resolve, 300);
+    window.addEventListener('scroll', () => {
+      clearTimeout(timer);
+      timer = setTimeout(resolve, 300);
+    });
+  }));
+  await page.getByRole('tab', { name: /^Stadgar:/ }).evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
   for (const [tag, state] of SCENARIOS) {
     await page.getByRole('tab', { name: new RegExp(`^${tag}:`) }).click();
     await expect(page.locator('.state-name-mono')).toHaveText(state);
@@ -146,6 +158,15 @@ test('mobile menu link updates the hash', async ({ page }) => {
   await expect(page).toHaveURL(/#faq-section$/);
   await expect.poll(async () => page.locator('#faq-section').evaluate((el) => Math.abs(el.getBoundingClientRect().top))).toBeLessThan(4);
   await expect(page.locator('.navbar-mobile-drawer')).toHaveCount(0);
+});
+
+test('desktop nav links land on their section', async ({ page }) => {
+  for (const id of ['comparison-section', 'use-cases-section', 'features-section', 'faq-section']) {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await page.locator(`header a.navbar-link[href="#${id}"]`).click();
+    await expect(page).toHaveURL(new RegExp(`#${id}$`));
+    await expect.poll(async () => page.locator(`#${id}`).evaluate((el) => Math.abs(el.getBoundingClientRect().top)), { message: id }).toBeLessThan(4);
+  }
 });
 
 const AXE_SCENARIOS = [
