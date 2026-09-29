@@ -1,5 +1,5 @@
 {
-  "name": "brfv2-lovable-dokument",
+  "name": "traff-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,8 +8,7 @@
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist/server && node scripts/prerender.js",
     "preview": "vite preview",
     "test:seo": "playwright test",
-    "lighthouse": "node scripts/lighthouse-check.mjs",
-    "sync-back": "bash sync-back.sh"
+    "lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.24.0",
@@ -22,9 +21,7 @@
     "@vitejs/plugin-react": "^6.0.3",
     "axe-core": "^4.13.0",
     "lighthouse": "^13.5.0",
-    "pixelmatch": "^7.2.0",
     "playwright": "^1.63.0",
-    "pngjs": "^7.0.0",
     "schema-dts": "^2.0.0",
     "typescript": "^7.0.2",
     "vite": "^8.1.1"
