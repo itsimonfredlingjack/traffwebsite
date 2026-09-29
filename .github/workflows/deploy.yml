@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ['main']
+  pull_request:
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -17,7 +18,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Builds the site and runs the SEO checks. Runs on pull requests too,
+  # and the deploy job below only starts if this one is green.
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Build site
+        run: npm run build
+        env:
+          VITE_BASE: /
+          SITE_URL: https://xn--trff-moa.app/
+
+      - name: Validate JSON-LD
+        run: node scripts/validate-jsonld.mjs
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: SEO regression tests
+        # citation-coverage.spec.js reads a font from a hardcoded local path,
+        # so only the SEO spec runs here for now.
+        run: npx playwright test tests/seo-regression.spec.js
+        env:
+          CI: 'true'
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results/
+
   deploy:
+    needs: verify
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -43,7 +86,7 @@ jobs:
           VITE_BASE: /
           SITE_URL: https://xn--trff-moa.app/
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
-        
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
