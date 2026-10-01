@@ -8,8 +8,6 @@ would be both a blocked request and a third party learning every reader's IP.
                       https://github.com/Instrument/instrument-sans
                       (retained for the mobile clients; desktop is sans-first
                       on Poppins/Inter since 2026-08-08)
-  Poppins           — Copyright (c) 2020 The Poppins Project Authors
-                      https://github.com/itfoundry/Poppins
   Inter             — Copyright (c) 2016 The Inter Project Authors
                       https://github.com/rsms/inter
   JetBrains Mono    — Copyright (c) 2020 The JetBrains Mono Project Authors
