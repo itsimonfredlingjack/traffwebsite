@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Loader2, AlertCircle } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { hamtaPdf } from '../pdfCache';
 import PenStroke from './PenStroke';
+import TraffMark from './TraffMark';
 
 /**
  * Renders a real PDF page inline (no modal) via pdf.js, with optional
@@ -140,10 +141,10 @@ function PdfPane({
 
   if (error) {
     return (
-      <div className="pdf-pane-error">
-        <AlertCircle size={40} color="#c33" />
-        <div>Dokumentet kunde inte visas.</div>
-        <div className="pdf-pane-error-detail">{error}</div>
+      <div className="pdf-pane-error" role="alert">
+        <TraffMark size={20} state="fel" decorative />
+        <p className="pdf-pane-error-title">Dokumentet kunde inte visas.</p>
+        <p className="pdf-pane-error-detail">Felet ligger hos Träff, inte i dina dokument.</p>
       </div>
     );
   }

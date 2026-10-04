@@ -47,21 +47,21 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
 
         {/* Action Buttons (Taktilt Djupbläck #111317) */}
         <div className="hero-actions-row">
+          <button className="hero-btn-action" onClick={onOpenBooking}>
+            <span>Anmäl intresse</span>
+            <ArrowRight size={16} />
+          </button>
           <a
             href="#demo-section"
-            className="hero-btn-action"
+            className="hero-btn-secondary"
             onClick={(e) => {
               e.preventDefault();
               onScrollToDemo();
             }}
           >
-            <span>Testa den interaktiva sökningen</span>
-            <ArrowDown size={15} />
+            <span>Prova demon</span>
+            <ArrowDown size={16} />
           </a>
-          <button className="hero-btn-secondary" onClick={onOpenBooking}>
-            <span>Anmäl intresse</span>
-            <ArrowRight size={14} />
-          </button>
         </div>
 
         {/* The 4 States in Mono Pills */}

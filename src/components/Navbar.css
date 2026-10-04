@@ -36,11 +36,11 @@
 }
 
 .navbar-mono-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: rgba(15, 17, 21, 0.62);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #5A5A55;
   padding-left: 4px;
   white-space: nowrap;
 }
@@ -61,18 +61,23 @@
 .navbar-link {
   background: transparent;
   border: none;
-  color: rgba(15, 17, 21, 0.65);
+  color: #111111;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  padding: 4px 2px;
-  transition: color 0.15s ease;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .navbar-link:hover {
-  color: #0F1115;
+  background: #F7F7F5;
 }
 
 .navbar-actions {
@@ -104,24 +109,23 @@
 .navbar-btn-action {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: #111317;
+  gap: 8px;
+  background: #111111;
   color: #FFFFFF;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  padding: 8px 18px;
+  line-height: 1;
+  height: 40px;
+  padding: 0 20px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 0;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .navbar-btn-action:hover {
-  background: #242730;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: #2B2B2B;
 }
 
 .navbar-btn-action.full-width {

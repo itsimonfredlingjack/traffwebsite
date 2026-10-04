@@ -156,7 +156,7 @@ test('narrow headers, the fitted page, and a refusal claim no false hit', async 
     document.documentElement.setAttribute('data-demo-hold', 'result');
   });
   await page.locator('#demo-section').evaluate((el) => el.scrollIntoView({ block: 'center' }));
-  await page.getByRole('tab', { name: /^Vägran:/ }).click();
+  await page.getByRole('tab', { name: /^VÄGRAN:/ }).click();
   await expect(page.locator('.state-name-mono')).toHaveText('EJ BELAGT', { timeout: 20000 });
   await page.getByRole('button', { name: /Källdokument/ }).click();
   await expect.poll(async () => page.locator('.demo-white-sheet canvas').evaluate((canvas) => canvas.width), { timeout: 15000 }).toBeGreaterThan(50);

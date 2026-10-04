@@ -678,11 +678,66 @@ showpage
   return ps;
 }
 
+function buildOffertPS() {
+  let ps = headerPS();
+  ps += `%%Page: 1 1
+HeaderBar
+/Helvetica-Bold-ISO findfont 18 scalefont setfont
+0.1 0.1 0.1 setrgbcolor
+72 755 moveto
+(${psEscape('OFFERT - LEVERANSVILLKOR')}) show
+
+/Helvetica-ISO findfont 10 scalefont setfont
+0.4 0.4 0.4 setrgbcolor
+72 735 moveto
+(${psEscape('Offertreferens: OFF-2026-014 | Upprättat: 2026-03-02')}) show
+
+/Helvetica-Bold-ISO findfont 11 scalefont setfont
+0.15 0.18 0.25 setrgbcolor
+72 700 moveto
+(${psEscape('PARTER')}) show
+
+/Helvetica-ISO findfont 10 scalefont setfont
+0.2 0.2 0.2 setrgbcolor
+72 680 moveto
+(${psEscape('Leverantör: Example Kontor AB, Org.nr 559100-2040')}) show
+72 665 moveto
+(${psEscape('Kund: Nordiska Kontoret AB, Org.nr 556200-1188')}) show
+
+/Helvetica-Bold-ISO findfont 12 scalefont setfont
+0.1 0.1 0.1 setrgbcolor
+72 630 moveto
+(${psEscape('§ 2. Leverans')}) show
+
+/Helvetica-ISO findfont 10 scalefont setfont
+0.2 0.2 0.2 setrgbcolor
+72 605 moveto
+(${psEscape('2.1 Leverans sker inom tio (10) arbetsdagar från beställning.')}) show
+72 585 moveto
+(${psEscape('2.2 Frakt ingår i priset vid beställning över 5 000 kronor.')}) show
+
+/Helvetica-Bold-ISO findfont 12 scalefont setfont
+0.1 0.1 0.1 setrgbcolor
+72 545 moveto
+(${psEscape('§ 3. Pris')}) show
+
+/Helvetica-ISO findfont 10 scalefont setfont
+0.2 0.2 0.2 setrgbcolor
+72 520 moveto
+(${psEscape('3.1 Priset fastställs per kalendermånad och faktureras i förskott.')}) show
+
+FooterBar
+showpage
+`;
+  return ps;
+}
+
 const docs = [
   { name: 'nordic-tech-avtal', ps: buildNordicTechPS() },
   { name: 'vinter-bolag-protokoll', ps: buildVinterProtokollPS() },
   { name: 'personalpolicy-riktlinjer', ps: buildPersonalpolicyPS() },
   { name: 'stadgar-brf-bjorken', ps: buildStadgarBjorkenPS() },
+  { name: 'offert-leveransvillkor', ps: buildOffertPS() },
 ];
 
 for (const doc of docs) {

@@ -11,7 +11,7 @@ export default function FaqSection() {
     <section className="faq-section" id="faq-section" role="region" aria-labelledby="faq-heading">
       <div className="section-container">
         <div className="section-head-editorial">
-          <span className="section-mono-kicker">04 · Frågor och svar</span>
+          <span className="section-mono-kicker">Frågor och svar</span>
           <h2 className="section-title-serif" id="faq-heading">
             Vanliga <span className="serif-italic">funderingar</span>
           </h2>

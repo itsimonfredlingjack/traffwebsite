@@ -7,19 +7,18 @@ const require = createRequire(import.meta.url);
 const axe = require('axe-core');
 
 const NAV = [
-  ['Demonstration', '#demo-section'],
-  ['Principen', '#comparison-section'],
-  ['Tillämpning', '#use-cases-section'],
+  ['Demo', '#demo-section'],
+  ['Skillnaden', '#comparison-section'],
+  ['Principen', '#use-cases-section'],
   ['Arkitektur & trygghet', '#features-section'],
-  ['Frågor & svar', '#faq-section'],
 ];
 
 const SCENARIOS = [
-  ['Stadgar', 'BELAGT'],
-  ['Avtal', 'BELAGT'],
-  ['Protokoll', 'BELAGT'],
-  ['Vägran', 'EJ BELAGT'],
-  ['Policy', 'BELAGT'],
+  ['OFFERT', 'BELAGT'],
+  ['AVTAL', 'BELAGT'],
+  ['PROTOKOLL', 'BELAGT'],
+  ['VÄGRAN', 'EJ BELAGT'],
+  ['POLICY', 'BELAGT'],
 ];
 
 test('prerendered page hydrates, scrolls, and runs the demo', async ({ page, context }) => {
@@ -61,7 +60,7 @@ test('prerendered page hydrates, scrolls, and runs the demo', async ({ page, con
   }
 
   // Footer links do the same.
-  await page.locator('.footer-nav-col').getByRole('link', { name: 'Demonstration', exact: true }).click();
+  await page.locator('.footer-nav-col').getByRole('link', { name: 'Demo', exact: true }).click();
   await expect(page).toHaveURL(/#demo-section$/);
 
   // Skip link moves focus to main.
@@ -81,14 +80,14 @@ test('prerendered page hydrates, scrolls, and runs the demo', async ({ page, con
       timer = setTimeout(resolve, 300);
     });
   }));
-  await page.getByRole('tab', { name: /^Stadgar:/ }).evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await page.getByRole('tab', { name: /^OFFERT:/ }).evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
   for (const [tag, state] of SCENARIOS) {
     await page.getByRole('tab', { name: new RegExp(`^${tag}:`) }).click();
     await expect(page.locator('.state-name-mono')).toHaveText(state);
-    if (tag === 'Stadgar') {
+    if (tag === 'OFFERT') {
       await page.getByRole('button', { name: 'Kopiera' }).click();
       const copied = await page.evaluate(() => navigator.clipboard.readText());
-      expect(copied).toContain('andra hand');
+      expect(copied).toContain('arbetsdagar');
       await page.evaluate(() => {
         window.__sawVila = false;
         const el = document.querySelector('.state-name-mono');
@@ -161,7 +160,7 @@ test('mobile menu link updates the hash', async ({ page }) => {
 });
 
 test('desktop nav links land on their section', async ({ page }) => {
-  for (const id of ['comparison-section', 'use-cases-section', 'features-section', 'faq-section']) {
+  for (const id of ['comparison-section', 'use-cases-section', 'features-section']) {
     await page.goto('/', { waitUntil: 'networkidle' });
     await page.locator(`header a.navbar-link[href="#${id}"]`).click();
     await expect(page).toHaveURL(new RegExp(`#${id}$`));
@@ -170,11 +169,11 @@ test('desktop nav links land on their section', async ({ page }) => {
 });
 
 const AXE_SCENARIOS = [
-  ['Stadgar', 'BELAGT'],
-  ['Avtal', 'BELAGT'],
-  ['Protokoll', 'BELAGT'],
-  ['Vägran', 'EJ BELAGT'],
-  ['Policy', 'BELAGT'],
+  ['OFFERT', 'BELAGT'],
+  ['AVTAL', 'BELAGT'],
+  ['PROTOKOLL', 'BELAGT'],
+  ['VÄGRAN', 'EJ BELAGT'],
+  ['POLICY', 'BELAGT'],
 ];
 
 async function axeProblems(page) {
@@ -206,7 +205,7 @@ async function showScenario(page, tag) {
   await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const active = (await page.locator('.demo-scenario-tab-btn.active .tab-category').innerText()).trim();
   if (active === tag) {
-    const other = tag === 'Stadgar' ? 'Avtal' : 'Stadgar';
+    const other = tag === 'OFFERT' ? 'AVTAL' : 'OFFERT';
     await page.getByRole('tab', { name: new RegExp(`^${other}:`) }).click();
   }
   await page.getByRole('tab', { name: new RegExp(`^${tag}:`) }).click();
@@ -244,9 +243,9 @@ test('axe finds no contrast or target-size violations in any demo state', async 
     expect(paint.belagt).toBe('#137855');
     expect(paint.ejBelagt).toBe('#8a5d06');
     expect(paint.label).toBe('rgb(19, 120, 85)');
-    expect(paint.refusal).toBe('rgba(15, 17, 21, 0.62)');
-    expect(paint.kicker).toBe('rgba(15, 17, 21, 0.62)');
-    expect(paint.brand).toBe('rgba(15, 17, 21, 0.62)');
+    expect(paint.refusal).toBe('rgb(90, 90, 85)');
+    expect(paint.kicker).toBe('rgb(90, 90, 85)');
+    expect(paint.brand).toBe('rgb(90, 90, 85)');
 
     const note = async (where, selector) => {
       for (const hit of await scanInView(page, selector)) problems.push(`${width} ${where} ${hit}`);
@@ -312,7 +311,7 @@ test('pdf.js stays unloaded until the demo is on screen, then the story runs', a
   await expect(page.locator('.state-name-mono')).toHaveText('VILA');
 
   await page.getByRole('button', { name: 'Öppna meny' }).click();
-  await page.locator('.navbar-mobile-drawer').getByRole('link', { name: 'Demonstration', exact: true }).click();
+  await page.locator('.navbar-mobile-drawer').getByRole('link', { name: 'Demo', exact: true }).click();
   await expect(page).toHaveURL(/#demo-section$/);
   await expect(page.locator('.state-name-mono')).toHaveText('BELAGT', { timeout: 20000 });
   await expect.poll(() => pdfUrls.length, { timeout: 15000 }).toBeGreaterThan(0);

@@ -181,3 +181,127 @@
     padding: 2rem;
   }
 }
+
+.promise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: left;
+}
+
+.promise-card {
+  box-sizing: border-box;
+  padding: 32px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.promise-num,
+.promise-verbatim,
+.promise-proof-top,
+.promise-proof-status span {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5A5A55;
+}
+
+.promise-title {
+  margin: 0;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #111111;
+  text-wrap: balance;
+}
+
+.promise-body {
+  margin: 0;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #5A5A55;
+}
+
+.promise-proof {
+  margin-top: auto;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.promise-proof-belagt {
+  background: rgba(19, 120, 85, 0.08);
+  border: 1px solid rgba(19, 120, 85, 0.32);
+}
+
+.promise-proof-refusal {
+  background: rgba(138, 93, 6, 0.08);
+  border: 1px solid rgba(138, 93, 6, 0.32);
+}
+
+.promise-proof-quote {
+  background: #F7F7F5;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.promise-proof-top,
+.promise-proof-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.promise-proof-top { justify-content: space-between; color: #137855; }
+.promise-proof-top span { color: #137855; }
+
+.promise-proof-index {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: #137855;
+  color: #FFFFFF !important;
+  display: grid;
+  place-items: center;
+  letter-spacing: 0;
+}
+
+.promise-proof-status span { color: #8A5D06; }
+
+.promise-quote,
+.promise-assertion {
+  margin: 0;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.35;
+  color: #111111;
+}
+
+.promise-quote { font-style: italic; }
+
+.promise-verbatim { margin: 0; color: #137855; }
+
+.promise-note {
+  margin: 20px 0 0;
+  text-align: center;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5A5A55;
+}
+
+@media (max-width: 900px) {
+  .promise-grid { grid-template-columns: 1fr; }
+}
