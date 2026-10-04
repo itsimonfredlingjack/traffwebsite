@@ -9,6 +9,7 @@ const STATE_LABEL = {
   soker: 'Söker',
   belagt: 'Belagt',
   ejbelagt: 'Ej belagt',
+  fel: 'Tekniskt fel',
 };
 
 export default function TraffMark({
@@ -50,6 +51,13 @@ export default function TraffMark({
             <g className="traff-mark-stamp">
               <rect x="-22" y="-7" width="44" height="14" rx="7" fill="var(--ej-belagt-grafik)" />
             </g>
+          </>
+        )}
+        {shown === 'fel' && (
+          <>
+            <rect x="-38" y="-38" width="76" height="76" rx="18" fill="none" stroke="var(--fel-grafik)" strokeWidth="8" />
+            <rect x="-7" y="-22" width="14" height="28" rx="7" fill="var(--fel-grafik)" />
+            <circle cy="22" r="8" fill="var(--fel-grafik)" />
           </>
         )}
       </svg>

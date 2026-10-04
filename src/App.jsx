@@ -41,13 +41,14 @@ export default function App() {
         {/* Guided Interactive Split-View Showcase */}
         <section className="demo-outer-section">
           <InteractiveDemo onOpenBooking={() => setBookingOpen(true)} />
+          <p className="demo-loop-caption">Exempel med testhandlingar · spelas upp i slinga</p>
         </section>
 
         {/* 01 · Varför Träff: Generisk AI vs Träff (Gissning mot bevis) */}
         <ComparisonSection />
 
         {/* 02 · Vem: Tillämpning & Roller (Verkliga avtal och frågor) */}
-        <UseCasesSection onOpenBooking={() => setBookingOpen(true)} />
+        <UseCasesSection />
 
         {/* 03 · Hur: Arkitektur & Trygghet (EU-lagring, noll modellträning, djuplänk, RBAC) */}
         <FeaturesSection />
@@ -57,7 +58,7 @@ export default function App() {
       </main>
 
       {/* Footer & Conversion Banner */}
-      <Footer onOpenBooking={() => setBookingOpen(true)} />
+      <Footer />
 
       {/* Book Demo Modal */}
       <BookingModal

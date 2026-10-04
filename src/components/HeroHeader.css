@@ -31,11 +31,12 @@
 }
 
 .hero-mono-kicker {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: rgba(15, 17, 21, 0.62);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5A5A55;
   margin-bottom: 1.75rem;
   background: rgba(0, 0, 0, 0.05);
   padding: 5px 14px;
@@ -99,7 +100,7 @@
 .hero-assertion-refusal {
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: clamp(1.4rem, 2.6vw, 1.95rem);
-  color: rgba(15, 17, 21, 0.62);
+  color: #5A5A55;
   margin: 0;
   letter-spacing: -0.015em;
   line-height: 1.3;
@@ -134,47 +135,49 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 26px;
-  background: #111317;
+  height: 48px;
+  padding: 0 28px;
+  background: #111111;
   color: #FFFFFF;
   text-decoration: none;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 0;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .hero-btn-action:hover {
-  background: #242730;
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: #2B2B2B;
 }
 
 .hero-btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 24px;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: #0F1115;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  color: #111111;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
   border-radius: 999px;
+  text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .hero-btn-secondary:hover {
-  border-color: rgba(0, 0, 0, 0.22);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
-  transform: translateY(-1px);
+  border-color: rgba(17, 17, 17, 0.28);
 }
 
 /* The 4 States Strip */
@@ -199,13 +202,13 @@
 
 .state-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
 }
 
-.state-indicator-pill.vila .state-label { color: rgba(15, 17, 21, 0.62); }
-.state-indicator-pill.soker .state-label { color: #2563EB; }
+.state-indicator-pill.vila .state-label { color: #5A5A55; }
+.state-indicator-pill.soker .state-label { color: var(--soker-text, #1F55D6); }
 .state-indicator-pill.belagt .state-label { color: var(--belagt, #137855); }
 .state-indicator-pill.ej-belagt .state-label { color: var(--ej-belagt, #8A5D06); }
 

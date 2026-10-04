@@ -53,7 +53,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('demo-section');
             }}
           >
-            Demonstration
+            Demo
           </a>
           <a
             href="#comparison-section"
@@ -63,7 +63,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('comparison-section');
             }}
           >
-            Principen
+            Skillnaden
           </a>
           <a
             href="#use-cases-section"
@@ -73,7 +73,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('use-cases-section');
             }}
           >
-            Tillämpning
+            Principen
           </a>
           <a
             href="#features-section"
@@ -85,33 +85,13 @@ export default function Navbar({ onOpenBooking }) {
           >
             Arkitektur &amp; trygghet
           </a>
-          <a
-            href="#faq-section"
-            className="navbar-link"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo('faq-section');
-            }}
-          >
-            Frågor &amp; svar
-          </a>
         </nav>
 
         {/* Actions */}
         <div className="navbar-actions">
-          <a
-            href="#demo-section"
-            className="navbar-btn-demo"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo('demo-section');
-            }}
-          >
-            Se demon
-          </a>
           <button className="navbar-btn-action" onClick={onOpenBooking}>
             <span>Anmäl intresse</span>
-            <ArrowRight size={14} />
+            <ArrowRight size={16} />
           </button>
           <button
             className="navbar-mobile-toggle"
@@ -134,7 +114,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('demo-section');
             }}
           >
-            Demonstration
+            Demo
           </a>
           <a
             href="#comparison-section"
@@ -144,7 +124,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('comparison-section');
             }}
           >
-            Principen
+            Skillnaden
           </a>
           <a
             href="#use-cases-section"
@@ -154,7 +134,7 @@ export default function Navbar({ onOpenBooking }) {
               scrollTo('use-cases-section');
             }}
           >
-            Tillämpning
+            Principen
           </a>
           <a
             href="#features-section"
@@ -185,7 +165,7 @@ export default function Navbar({ onOpenBooking }) {
               }}
             >
               <span>Anmäl intresse</span>
-              <ArrowRight size={14} />
+              <ArrowRight size={16} />
             </button>
           </div>
         </div>

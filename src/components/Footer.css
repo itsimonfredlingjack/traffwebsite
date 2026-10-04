@@ -233,3 +233,146 @@
     align-items: flex-start;
   }
 }
+
+.interest-wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 112px 24px 0;
+}
+
+.interest-card {
+  box-sizing: border-box;
+  padding: 56px;
+  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.14), 0 0 1px 1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+}
+
+.interest-copy { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+.interest-form { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+.interest-title {
+  margin: 0;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #111111;
+  text-wrap: balance;
+}
+
+.interest-lead,
+.interest-thanks {
+  margin: 0;
+  max-width: 440px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #5A5A55;
+}
+
+.interest-mail { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+
+.interest-mail-label,
+.interest-form label span {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5A5A55;
+}
+
+.interest-mail a {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(17, 17, 17, 0.28);
+}
+
+.interest-form label { display: flex; flex-direction: column; gap: 8px; }
+
+.interest-form input,
+.interest-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  background: #FFFFFF;
+  color: #111111;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.interest-form input { height: 48px; padding: 0 16px; }
+.interest-form textarea { padding: 14px 16px; line-height: 1.5; resize: vertical; }
+
+.interest-form input::placeholder,
+.interest-form textarea::placeholder { color: #5A5A55; opacity: 1; }
+
+.interest-submit {
+  align-self: flex-start;
+  height: 48px;
+  padding: 0 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #111111;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.interest-submit:hover { background: #2B2B2B; }
+
+.footer-bar {
+  max-width: 1240px;
+  margin: 96px auto 0;
+  padding: 0 24px;
+  min-height: 72px;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-wordmark { margin-right: auto; display: inline-flex; text-decoration: none; }
+
+.footer-nav-col { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+.footer-link-btn,
+.footer-copy {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  color: #5A5A55;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 8px 0;
+}
+
+.footer-link-btn:hover { color: #111111; }
+
+@media (max-width: 800px) {
+  .interest-card { flex-direction: column; gap: 32px; padding: 32px 20px; }
+  .interest-wrap { padding-top: 72px; }
+  .footer-wordmark { margin-right: 0; }
+}
