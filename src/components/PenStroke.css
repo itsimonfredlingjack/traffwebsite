@@ -19,7 +19,7 @@
   }
 }
 
-/* One text line. Ends keep a fixed aspect; only the middle stretches. */
+/* One text line in a document: straight, square ends. */
 .pen-stroke--line {
   position: absolute;
   inset: 0;
@@ -27,45 +27,20 @@
   pointer-events: none;
 }
 
-/* Bottom edge stays on the baseline. The top edge rises at the visual angle,
-   so a long line still covers the letters instead of climbing off them. */
 .pen-rot {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: calc(100% + var(--pen-rise, 0px));
+  height: 100%;
 }
 
+/* strykgul at 0.92. The blend (multiply) is set on .pdf-highlight. */
 .pen-clip {
-  display: flex;
-  align-items: stretch;
+  display: block;
   width: 100%;
   height: 100%;
-}
-
-.pen-cap {
-  width: auto;
-  aspect-ratio: 0.26;
-  flex: 0 0 auto;
-  display: block;
-  max-width: 42%;
-  align-self: flex-end;
-}
-
-.pen-cap-l { height: calc(100% - var(--pen-rise, 0px)); }
-.pen-cap-r { height: 100%; }
-
-.pen-cap-l { margin-right: -1px; }
-.pen-cap-r { margin-left: -1px; }
-
-.pen-mid {
-  flex: 1 1 auto;
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  align-self: flex-end;
-  display: block;
+  background: rgba(255, 216, 74, 0.92);
 }
 
 .pen-stroke--wait .pen-clip {

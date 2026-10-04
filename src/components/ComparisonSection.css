@@ -1,20 +1,21 @@
 /* Comparison Section - Architectural Limestone & Sculpted White */
 .comparison-section {
-  padding: 6.5rem 2rem;
-  position: relative;
-  background: #EFEFEB;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  /* 96px between sections (space-9). The extra 72px of top padding is pulled
+     back by the negative margin, so a link to the section lands with the
+     heading clear of the fixed header. */
+  padding: 120px 24px 48px;
+  margin-top: -72px;
 }
 
 .section-container {
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .section-head-editorial {
   text-align: center;
   max-width: 780px;
-  margin: 0 auto 4rem;
+  margin: 0 auto 48px;
 }
 
 .section-mono-kicker {
@@ -39,9 +40,9 @@
   text-wrap: balance;
 }
 
+/* Italic belongs to quotations; a title is Träff's own voice. */
 .serif-italic {
-  font-style: italic;
-  color: rgba(15, 17, 21, 0.72);
+  font-style: normal;
 }
 
 .section-lead-text {
@@ -49,7 +50,8 @@
   font-size: 17px;
   line-height: 1.6;
   color: #5A5A55;
-  margin: 20px 0 0;
+  max-width: 640px;
+  margin: 20px auto 0;
   text-wrap: balance;
 }
 
