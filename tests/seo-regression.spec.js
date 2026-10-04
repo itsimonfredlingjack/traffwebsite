@@ -234,7 +234,6 @@ test('axe finds no contrast or target-size violations in any demo state', async 
       return {
         belagt: root.getPropertyValue('--belagt').trim(),
         ejBelagt: root.getPropertyValue('--ej-belagt').trim(),
-        label: color('.state-indicator-pill.belagt .state-label'),
         refusal: color('.hero-assertion-refusal'),
         kicker: color('.hero-mono-kicker'),
         brand: color('.navbar-mono-label'),
@@ -242,7 +241,6 @@ test('axe finds no contrast or target-size violations in any demo state', async 
     });
     expect(paint.belagt).toBe('#137855');
     expect(paint.ejBelagt).toBe('#8a5d06');
-    expect(paint.label).toBe('rgb(19, 120, 85)');
     expect(paint.refusal).toBe('rgb(90, 90, 85)');
     expect(paint.kicker).toBe('rgb(90, 90, 85)');
     expect(paint.brand).toBe('rgb(90, 90, 85)');
@@ -329,25 +327,42 @@ test('pdf.js stays unloaded until the demo is on screen, then the story runs', a
 });
 
 test('status mark draws a core only when a passage is verified', async ({ page }) => {
+  // The page shows each state only while the demo is in it, so walk the demo
+  // through VILA, SÖKER, BELAGT and EJ BELAGT and read the marks in each.
+  await page.addInitScript(() => {
+    document.documentElement.setAttribute('data-demo-hold', 'vila');
+  });
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/', { waitUntil: 'networkidle' });
 
-  const marks = await page.evaluate(() => {
-    const states = ['vila', 'soker', 'belagt', 'ejbelagt'];
-    const out = {};
-    for (const state of states) {
-      const nodes = [...document.querySelectorAll(`.traff-mark--${state}`)];
-      out[state] = {
-        count: nodes.length,
-        cores: nodes.reduce((n, el) => n + el.querySelectorAll('.traff-mark-core').length, 0),
-        filledCircles: nodes.reduce((n, el) => n + [...el.querySelectorAll('circle')].filter((c) => {
-          const fill = c.getAttribute('fill');
-          return fill && fill !== 'none';
-        }).length, 0),
-      };
-    }
-    return out;
-  });
+  const read = (state) => page.evaluate((name) => {
+    const nodes = [...document.querySelectorAll(`.traff-mark--${name}`)];
+    return {
+      count: nodes.length,
+      cores: nodes.reduce((n, el) => n + el.querySelectorAll('.traff-mark-core').length, 0),
+      filledCircles: nodes.reduce((n, el) => n + [...el.querySelectorAll('circle')].filter((c) => {
+        const fill = c.getAttribute('fill');
+        return fill && fill !== 'none';
+      }).length, 0),
+    };
+  }, state);
+
+  const marks = {};
+  await page.locator('#demo-section').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  marks.vila = await read('vila');
+
+  await showScenario(page, 'OFFERT');
+  await setHold(page, 'soker');
+  await page.locator('.state-soker-label').waitFor({ timeout: 8000 });
+  marks.soker = await read('soker');
+
+  await setHold(page, 'result');
+  await expect(page.locator('.state-name-mono')).toHaveText('BELAGT', { timeout: 20000 });
+  marks.belagt = await read('belagt');
+
+  await page.getByRole('tab', { name: /^VÄGRAN:/ }).click();
+  await expect(page.locator('.state-name-mono')).toHaveText('EJ BELAGT', { timeout: 20000 });
+  marks.ejbelagt = await read('ejbelagt');
 
   for (const state of ['vila', 'soker', 'ejbelagt']) {
     expect(marks[state].count, state).toBeGreaterThan(0);
@@ -375,19 +390,21 @@ test('status mark draws a core only when a passage is verified', async ({ page }
   expect(bytes.subarray(1, 4).toString()).toBe('PNG');
   expect(bytes.readUInt32BE(16)).toBeGreaterThanOrEqual(512);
 
+  // Reduced motion: the demo skips the scan and typing and shows the finished
+  // loop, so no mark animates. SÖKER is never on screen, which is the point.
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.reload({ waitUntil: 'networkidle' });
-  const motion = await page.evaluate(() => {
-    const name = (selector) => {
-      const el = document.querySelector(selector);
-      return el ? getComputedStyle(el).animationName : 'missing';
-    };
-    return {
-      seek: name('.traff-mark--soker .traff-mark-seek'),
-      core: name('.traff-mark--belagt .traff-mark-core'),
-      stamp: name('.traff-mark--ejbelagt .traff-mark-stamp'),
-      pen: name('.pen-stroke-hero'),
-    };
-  });
-  expect(motion).toEqual({ seek: 'none', core: 'none', stamp: 'none', pen: 'none' });
+  await page.evaluate(() => document.documentElement.removeAttribute('data-demo-hold'));
+  await page.locator('#demo-section').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await expect(page.locator('.state-name-mono')).toHaveText('BELAGT', { timeout: 20000 });
+  const animation = (selector) => page.evaluate((sel) => {
+    const els = [...document.querySelectorAll(sel)];
+    return els.length ? els.map((el) => getComputedStyle(el).animationName) : ['missing'];
+  }, selector);
+  expect(new Set(await animation('.traff-mark--belagt .traff-mark-core'))).toEqual(new Set(['none']));
+  expect(await animation('.traff-mark-seek')).toEqual(['missing']);
+  await page.getByRole('tab', { name: /^VÄGRAN:/ }).click();
+  await expect(page.locator('.state-name-mono')).toHaveText('EJ BELAGT', { timeout: 20000 });
+  expect(new Set(await animation('.traff-mark--ejbelagt .traff-mark-stamp'))).toEqual(new Set(['none']));
+  expect(new Set(await animation('.pen-stroke-hero'))).toEqual(new Set(['none']));
 });

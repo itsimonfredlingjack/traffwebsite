@@ -1,7 +1,7 @@
 /* Hero Header - Architectural Limestone & Sculpted White */
 .hero-section {
   position: relative;
-  padding: 8rem 2rem 2.5rem;
+  padding: 6.5rem 2rem 2.5rem;
   overflow: visible;
   text-align: center;
 }
@@ -204,51 +204,9 @@
   border-color: rgba(17, 17, 17, 0.28);
 }
 
-/* The 4 States Strip */
-.hero-states-strip {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 9px 20px;
-  border-radius: 999px;
-  background: #FFFFFF;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.state-indicator-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.state-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-}
-
-.state-indicator-pill.vila .state-label { color: #5A5A55; }
-.state-indicator-pill.soker .state-label { color: var(--soker-text, #1F55D6); }
-.state-indicator-pill.belagt .state-label { color: var(--belagt, #137855); }
-.state-indicator-pill.ej-belagt .state-label { color: var(--ej-belagt, #8A5D06); }
-
-.state-arrow {
-  color: rgba(15, 17, 21, 0.25);
-  font-size: 11px;
-}
-
-.state-divider {
-  color: rgba(15, 17, 21, 0.25);
-  font-size: 11px;
-}
-
 @media (max-width: 640px) {
   .hero-section {
-    padding: 6.5rem 1.25rem 2rem;
+    padding: 5.5rem 1.25rem 1.5rem;
   }
   .hero-title-serif {
     font-size: clamp(2.5rem, 13vw, 3.4rem);

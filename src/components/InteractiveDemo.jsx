@@ -79,6 +79,8 @@ export default function InteractiveDemo({ onOpenBooking }) {
 
   /* ── Mobile tab state: 'chat' | 'doc' ───────────────── */
   const [mobileTab, setMobileTab] = useState('chat');
+  const mobileTabRef = useRef('chat');
+  mobileTabRef.current = mobileTab;
 
   /* ── Cycle counter for re-keying SourceThread ─────────── */
   const [storyCycle, setStoryCycle] = useState(0);
@@ -88,6 +90,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
   const frameRef = useRef(null);
   const splitContainerRef = useRef(null);
   const activePillRef = useRef(null);
+  const scenarioTabsRef = useRef(null);
   const pdfContainerRef = useRef(null);
   const canvasViewportRef = useRef(null);
   const isHoveredRef = useRef(false);
@@ -187,6 +190,18 @@ export default function InteractiveDemo({ onOpenBooking }) {
     // Tests set data-demo-hold to pause on a phase. Absent, the story is unchanged.
     const hold = () => document.documentElement.getAttribute('data-demo-hold');
 
+    // Reduced motion: no typing, no scan bar, no rotation. Show the finished
+    // loop (answer, source, verdict) and stay on it until the visitor picks
+    // another document.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayedAnswer(sc.answer);
+      setShowCitation(true);
+      setSearchState(sc.state || 'belagt');
+      setStoryCycle((c) => c + 1);
+      setStoryPhase('hold');
+      return;
+    }
+
     // Phase 1: SÖKER
     setStoryPhase('soker');
     setSearchState('soker');
@@ -227,7 +242,8 @@ export default function InteractiveDemo({ onOpenBooking }) {
                 setStoryPhase('hold');
 
                 const checkAndAdvance = () => {
-                  if (isHoveredRef.current || document.documentElement.getAttribute('data-demo-hold') === 'result') {
+                  // Hovering (mouse) or the document tab open (touch) means the visitor is reading.
+                  if (isHoveredRef.current || mobileTabRef.current === 'doc' || document.documentElement.getAttribute('data-demo-hold') === 'result') {
                     // User is hovering / reading — hold and check again in 1s
                     storyTimerRef.current = setTimeout(checkAndAdvance, 1000);
                     return;
@@ -274,6 +290,18 @@ export default function InteractiveDemo({ onOpenBooking }) {
   useEffect(() => {
     return () => clearStoryTimers();
   }, [clearStoryTimers]);
+
+  /* On a phone the document row scrolls sideways. Keep the playing one in view,
+     moving only the row itself, never the page. */
+  useEffect(() => {
+    const row = scenarioTabsRef.current;
+    const tab = row?.querySelector('.demo-scenario-tab-btn.active');
+    if (!row || !tab || row.scrollWidth <= row.clientWidth + 1) return;
+    const rowBox = row.getBoundingClientRect();
+    const tabBox = tab.getBoundingClientRect();
+    const left = row.scrollLeft + (tabBox.left - rowBox.left) - (row.clientWidth - tabBox.width) / 2;
+    row.scrollTo({ left: Math.max(0, left), behavior: 'auto' });
+  }, [selectedScenarioIndex]);
 
   /* ── Page navigation (still available for user exploration) */
   const handlePrevPage = () => {
@@ -362,7 +390,7 @@ export default function InteractiveDemo({ onOpenBooking }) {
       {/* Top Scenario Selector Bar — display-only indicators during autoplay */}
       <div className="demo-scenario-strip">
         <span className="demo-mono-header">Välj testhandling</span>
-        <div className="demo-scenario-tabs" role="tablist">
+        <div className="demo-scenario-tabs" role="tablist" ref={scenarioTabsRef}>
           {DEMO_SCENARIOS.map((sc, idx) => {
             const isSelected = idx === selectedScenarioIndex;
             return (
@@ -494,6 +522,19 @@ export default function InteractiveDemo({ onOpenBooking }) {
                   );
                 })}
               </div>
+            )}
+
+            {/* Phone: the document is a separate tab, so offer the step the loop ends on. */}
+            {showCitation && (
+              <button
+                type="button"
+                className="demo-open-doc-btn"
+                onClick={() => setMobileTab('doc')}
+              >
+                <FileText size={14} aria-hidden="true" />
+                <span>{isBelagt ? 'Se meningen i dokumentet' : 'Se dokumentet'}</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </button>
             )}
 
             {/* Warning Callout for Refusal / Contradiction */}

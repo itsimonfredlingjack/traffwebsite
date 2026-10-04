@@ -50,7 +50,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y fonts-urw-base35
 
       - name: SEO and citation-coverage tests
-        run: npx playwright test tests/seo-regression.spec.js tests/citation-coverage.spec.js
+        run: npx playwright test tests/seo-regression.spec.js tests/citation-coverage.spec.js tests/demo-first.spec.js
         env:
           CI: 'true'
 

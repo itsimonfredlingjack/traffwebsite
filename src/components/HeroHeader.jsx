@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
-import TraffMark from './TraffMark';
 import PenStroke from './PenStroke';
 import './HeroHeader.css';
 
@@ -40,9 +39,8 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
 
         {/* Descriptive Body Text in Instrument Sans */}
         <p className="hero-body-text">
-          <strong>Träff</strong> är en AI-chatt som inte bara svarar. Den slår upp ditt riktiga dokument,
-          bläddrar fram rätt sida och ringer in meningen som svaret bygger på.
-          Avtal, protokoll, policy, rapporter. Du läser källan själv i samma ögonblick.
+          <strong>Träff</strong> är en AI-chatt för dina avtal, protokoll och policys.
+          Den slår upp originalet och ringer in meningen som svaret bygger på.
         </p>
 
         {/* Action Buttons (Taktilt Djupbläck #111317) */}
@@ -62,29 +60,6 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
             <span>Prova demon</span>
             <ArrowDown size={16} />
           </a>
-        </div>
-
-        {/* The 4 States in Mono Pills */}
-        <div className="hero-states-strip">
-          <div className="state-indicator-pill vila">
-            <TraffMark size={14} state="vila" />
-            <span className="state-label">VILA</span>
-          </div>
-          <span className="state-arrow" aria-hidden="true">→</span>
-          <div className="state-indicator-pill soker">
-            <TraffMark size={14} state="soker" />
-            <span className="state-label">SÖKER</span>
-          </div>
-          <span className="state-arrow" aria-hidden="true">→</span>
-          <div className="state-indicator-pill belagt">
-            <TraffMark size={14} state="belagt" />
-            <span className="state-label">BELAGT</span>
-          </div>
-          <span className="state-divider" aria-hidden="true">/</span>
-          <div className="state-indicator-pill ej-belagt">
-            <TraffMark size={14} state="ejbelagt" />
-            <span className="state-label">EJ BELAGT</span>
-          </div>
         </div>
       </div>
     </section>

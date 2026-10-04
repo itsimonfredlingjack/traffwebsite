@@ -115,6 +115,34 @@
   color: #FFFFFF;
 }
 
+/* Phone only: opens the document tab from the answer. */
+.demo-open-doc-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  margin-top: 16px;
+  white-space: nowrap;
+  padding: 0 12px;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: #111111;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.demo-open-doc-btn:hover {
+  border-color: rgba(17, 17, 17, 0.28);
+}
+
 /* Mobile Tab Switcher */
 .demo-mobile-bar {
   display: none;
@@ -808,12 +836,24 @@
     flex-wrap: wrap;
     padding: 16px;
   }
+  /* One row, scrolled sideways. Five stacked pills pushed the question and the
+     answer more than 200px down the first phone screen. The right edge fades
+     so the row reads as continuing. */
   .demo-scenario-tabs {
     flex: 1 1 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+    padding-right: 28px;
+  }
+  .demo-scenario-tabs::-webkit-scrollbar {
+    display: none;
   }
   .demo-scenario-tab-btn {
+    flex: 0 0 auto;
     padding: 0 14px;
-    max-width: 100%;
   }
 }
 
@@ -824,11 +864,15 @@
   .demo-mobile-bar {
     display: flex;
   }
+  .demo-open-doc-btn {
+    display: inline-flex;
+  }
   .demo-chat-pane.mobile-hidden,
   .demo-doc-pane.mobile-hidden {
     display: none;
   }
   .demo-chat-pane {
     border-right: none;
+    min-width: 0;
   }
 }
