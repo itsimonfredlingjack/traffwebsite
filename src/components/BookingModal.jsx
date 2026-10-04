@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, ArrowRight, Loader2, Check } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import TraffWordmark from './TraffWordmark';
 import './BookingModal.css';
+
+const CONTACT = 'traff.application@gmail.com';
 
 export default function BookingModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -12,7 +14,6 @@ export default function BookingModal({ isOpen, onClose }) {
     docTypes: ['Avtal'],
     notes: '',
   });
-  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
@@ -37,13 +38,21 @@ export default function BookingModal({ isOpen, onClose }) {
     });
   };
 
+  // There is no backend. Submitting opens the visitor's mail client with the
+  // form filled in, the same way as the interest form in the footer, so
+  // nothing is reported as sent until the visitor sends it.
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 600);
+    const body = [
+      `Namn: ${formData.name}`,
+      `E-post: ${formData.email}`,
+      `Företag: ${formData.company}`,
+      `Antal medarbetare: ${formData.size}`,
+      formData.docTypes.length ? `Handlingar: ${formData.docTypes.join(', ')}` : '',
+      formData.notes ? `Meddelande: ${formData.notes}` : '',
+    ].filter(Boolean).join('\n');
+    window.location.href = `mailto:${CONTACT}?subject=${encodeURIComponent('Intresseanmälan till Träff')}&body=${encodeURIComponent(body)}`;
+    setSubmitted(true);
   };
 
   return (
@@ -153,18 +162,9 @@ export default function BookingModal({ isOpen, onClose }) {
                 />
               </div>
 
-              <button type="submit" className="modal-submit-handling" disabled={loading}>
-                {loading ? (
-                  <>
-                    <Loader2 size={16} className="spin" />
-                    <span>Skickar...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Skicka förfrågan</span>
-                    <ArrowRight size={14} />
-                  </>
-                )}
+              <button type="submit" className="modal-submit-handling">
+                <span>Skicka förfrågan</span>
+                <ArrowRight size={14} />
               </button>
 
               <div className="modal-privacy-footnote">
@@ -178,12 +178,13 @@ export default function BookingModal({ isOpen, onClose }) {
           <div className="modal-confirmation-view">
             <div className="confirmation-tag">
               <span className="dot-belagt" />
-              <span className="tag-mono">FÖRFRÅGAN MOTTAGEN</span>
+              <span className="tag-mono">SKICKA MEJLET</span>
             </div>
             <h3 className="confirmation-title">Tack för ditt intresse</h3>
             <p className="confirmation-copy">
-              Tack för visat intresse! Vi har tagit emot dina uppgifter för <strong>{formData.company || 'ert bolag'}</strong> och
-              hör av oss på <strong>{formData.email}</strong> när Träff är redo att testas.
+              Din e-postklient har öppnats med förfrågan för <strong>{formData.company || 'ert bolag'}</strong> ifylld.
+              Skicka mejlet så hör vi av oss på <strong>{formData.email}</strong> när Träff är redo att testas.
+              Öppnades inget? Skriv till <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
             </p>
             <button className="modal-submit-handling" onClick={onClose}>
               Stäng fönstret
