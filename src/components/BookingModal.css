@@ -1,16 +1,18 @@
-/* Booking Modal - Luminous Precision Studio */
+/* Booking modal. Same tokens as the page: fields are control-lg (48), choices
+   are control-sm (32) pills, the primary action is ink. */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 17, 21, 0.4);
+  background: rgba(17, 17, 17, 0.4);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  animation: modal-fade 0.2s ease-out;
+  padding: 24px;
+  overflow-y: auto;
+  animation: modal-fade 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 @keyframes modal-fade {
@@ -20,164 +22,221 @@
 
 .modal-dialog-editorial {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(17, 17, 17, 0.08);
   border-radius: 20px;
   width: 100%;
-  max-width: 540px;
-  padding: 2.5rem;
+  max-width: 560px;
+  margin: auto;
+  padding: 32px;
   position: relative;
-  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.2), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.09), 0 0 1px 1px rgba(0, 0, 0, 0.06);
 }
 
 .modal-close-btn {
   position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: #F3F4F6;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  top: 24px;
+  right: 24px;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.16);
   border-radius: 999px;
-  color: rgba(15, 17, 21, 0.6);
+  color: #5A5A55;
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: border-color 180ms cubic-bezier(0.2, 0, 0, 1), color 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .modal-close-btn:hover {
-  background: #E5E7EB;
-  color: #0F1115;
+  border-color: rgba(17, 17, 17, 0.28);
+  color: #111111;
 }
 
 .modal-header-block {
-  margin-bottom: 1.75rem;
+  margin-bottom: 24px;
+  padding-right: 40px;
 }
 
 .modal-brand-lockup {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 0.85rem;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-.modal-mono-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: rgba(15, 17, 21, 0.45);
+.modal-mono-badge,
+.footnote-mono,
+.tag-mono,
+.input-group label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #5A5A55;
 }
 
-.modal-serif-title {
+.modal-serif-title,
+.confirmation-title {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.85rem;
+  font-size: 28px;
   font-weight: 400;
-  color: #0F1115;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #111111;
+  margin: 0 0 8px;
 }
 
-.modal-intro-p {
+.modal-intro-p,
+.confirmation-copy {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  color: rgba(15, 17, 21, 0.65);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5A5A55;
   margin: 0;
 }
 
 .modal-form-body {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 16px;
 }
 
-.modal-input-group {
+.form-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  min-width: 0;
 }
 
-.modal-label-mono {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(15, 17, 21, 0.6);
-}
-
-.modal-text-input,
-.modal-select-input,
-.modal-textarea {
-  background: #F8F9FA;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 14px;
-  color: #0F1115;
-  transition: all 0.15s ease;
-  outline: none;
-}
-
-.modal-text-input:focus,
-.modal-select-input:focus,
-.modal-textarea:focus {
+.input-group input,
+.input-group select,
+.input-group textarea {
+  box-sizing: border-box;
+  width: 100%;
   background: #FFFFFF;
-  border-color: var(--belagt);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--belagt) 12%, transparent);
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  border-radius: 12px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #111111;
 }
 
-.modal-submit-btn {
+.input-group input,
+.input-group select {
+  height: 48px;
+  padding: 0 16px;
+}
+
+.input-group textarea {
+  padding: 14px 16px;
+  line-height: 1.5;
+  resize: none;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: #5A5A55;
+  opacity: 1;
+}
+
+.doc-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.doc-pill-select {
+  height: 32px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: #111111;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1), border-color 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.doc-pill-select:hover {
+  border-color: rgba(17, 17, 17, 0.16);
+}
+
+.doc-pill-select.active {
+  background: #111111;
+  border-color: #111111;
+  color: #FFFFFF;
+}
+
+.modal-submit-handling {
+  align-self: flex-start;
+  height: 48px;
+  padding: 0 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 13px 24px;
-  background: #111317;
+  border: 0;
+  border-radius: 999px;
+  background: #111111;
   color: #FFFFFF;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  line-height: 1;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-  transition: all 0.2s ease;
-  margin-top: 0.5rem;
+  transition: background-color 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-.modal-submit-btn:hover {
-  background: #242730;
-  transform: translateY(-1px);
+.modal-submit-handling:hover:not(:disabled) {
+  background: #2B2B2B;
 }
 
-.modal-success-screen {
-  text-align: center;
-  padding: 2rem 0;
+.modal-submit-handling:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.modal-privacy-footnote {
+  margin-top: 8px;
+}
+
+.modal-confirmation-view {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-right: 40px;
+}
+
+.confirmation-tag {
+  display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 8px;
 }
 
-.modal-success-icon-wrap {
-  margin-bottom: 0.5rem;
-}
+.confirmation-title { margin: 0; }
 
-.modal-success-title {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 2rem;
-  color: #0F1115;
-  margin: 0;
-}
-
-.modal-success-desc {
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(15, 17, 21, 0.65);
-  max-width: 400px;
-  margin: 0;
+@media (max-width: 560px) {
+  .modal-dialog-editorial { padding: 24px 16px; }
+  .modal-header-block,
+  .modal-confirmation-view { padding-right: 32px; }
+  .form-two-col { grid-template-columns: 1fr; }
+  .modal-close-btn { top: 16px; right: 16px; }
 }

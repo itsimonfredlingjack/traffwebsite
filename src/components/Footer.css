@@ -3,7 +3,6 @@
   background: #EFEFEB;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 /* Paper Contrast Card */
@@ -235,9 +234,9 @@
 }
 
 .interest-wrap {
-  max-width: 1240px;
+  max-width: 1248px;
   margin: 0 auto;
-  padding: 112px 24px 0;
+  padding: 48px 24px 0;
 }
 
 .interest-card {
@@ -340,9 +339,9 @@
 .interest-submit:hover { background: #2B2B2B; }
 
 .footer-bar {
-  max-width: 1240px;
+  width: min(1200px, calc(100% - 48px));
   margin: 96px auto 0;
-  padding: 0 24px;
+  padding: 0;
   min-height: 72px;
   box-sizing: border-box;
   border-top: 1px solid rgba(17, 17, 17, 0.08);
@@ -354,7 +353,7 @@
 
 .footer-wordmark { margin-right: auto; display: inline-flex; text-decoration: none; }
 
-.footer-nav-col { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-nav-col { display: flex; flex-direction: row; align-items: center; gap: 24px; flex-wrap: wrap; }
 
 .footer-link-btn,
 .footer-copy {
@@ -366,7 +365,10 @@
   text-decoration: none;
   background: none;
   border: 0;
-  padding: 8px 0;
+  padding: 0;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer-link-btn:hover { color: #111111; }

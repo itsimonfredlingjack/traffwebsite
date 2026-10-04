@@ -1,9 +1,10 @@
 /* Use Cases Section - Architectural Limestone & Sculpted White */
 .usecases-section {
-  padding: 6.5rem 2rem;
-  background: #EFEFEB;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
-  position: relative;
+  /* 96px between sections (space-9). The extra 72px of top padding is pulled
+     back by the negative margin, so a link to the section lands with the
+     heading clear of the fixed header. */
+  padding: 120px 24px 48px;
+  margin-top: -72px;
 }
 
 .usecases-tab-row {

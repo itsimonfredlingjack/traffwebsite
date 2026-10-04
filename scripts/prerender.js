@@ -31,7 +31,9 @@ async function prerender() {
   if (fs.existsSync(assetsDir)) {
     const assetFiles = fs.readdirSync(assetsDir);
     const primaryFonts = assetFiles.filter((f) =>
-      (f.startsWith('instrument-sans-latin-wght-normal') || f.startsWith('instrument-serif-latin-400-normal')) &&
+      (f.startsWith('instrument-sans-latin-wght-normal')
+        || f.startsWith('instrument-serif-latin-400-normal')
+        || f.startsWith('jetbrains-mono-latin-wght-normal')) &&
       f.endsWith('.woff2')
     );
     const base = process.env.VITE_BASE || '/';
@@ -54,7 +56,7 @@ async function prerender() {
         name: 'Träff',
         alternateName: 'Traff',
         url: origin,
-        email: 'kontakt@traff.se',
+        email: 'traff.application@gmail.com',
         logo: absoluteUrl('logo.png'),
         description: 'Svensk AI för dokument och information.',
       },

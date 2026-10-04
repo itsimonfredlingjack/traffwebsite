@@ -119,8 +119,8 @@ function PdfPane({
             height,
             citationId: citationIds[i] ?? 0,
             lead: i === 0 || citationIds[i] !== citationIds[i - 1],
-            tilt: width < height * 7 ? -6 : -1.25,
-            rise: width * Math.tan(((width < height * 7 ? 6 : 1.25) * Math.PI) / 180),
+            tilt: 0,
+            rise: 0,
           };
         }));
       }
@@ -142,7 +142,10 @@ function PdfPane({
   if (error) {
     return (
       <div className="pdf-pane-error" role="alert">
-        <TraffMark size={20} state="fel" decorative />
+        <div className="pdf-pane-error-status">
+          <TraffMark size={20} state="fel" decorative />
+          <span className="pdf-pane-error-label">FEL · TEKNISKT</span>
+        </div>
         <p className="pdf-pane-error-title">Dokumentet kunde inte visas.</p>
         <p className="pdf-pane-error-detail">Felet ligger hos Träff, inte i dina dokument.</p>
       </div>

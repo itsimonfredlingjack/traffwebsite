@@ -90,16 +90,14 @@ body {
   line-height: 1.6;
 }
 
-/* Page container wrapper with subtle radial studio lighting on limestone */
+/* The page is limestone (skal). Its one light cone lives behind the headline
+   (.hero-studio-glow). */
 .landing-page-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  background: 
-    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255, 255, 255, 0.85), rgba(239, 239, 235, 0) 70%),
-    radial-gradient(ellipse 70% 40% at 85% 15%, rgba(245, 245, 240, 0.6), rgba(239, 239, 235, 0) 60%),
-    var(--skal);
+  background: var(--skal);
   color: var(--text-main);
 }
 
@@ -110,7 +108,7 @@ main {
 /* Interactive Demo Section Container */
 .demo-outer-section {
   max-width: 1360px;
-  margin: -1.5rem auto 5.5rem;
+  margin: -1.5rem auto 3rem;
   padding: 0 1.5rem;
   position: relative;
   z-index: 10;
@@ -202,16 +200,32 @@ main {
   border-radius: 12px;
 }
 
+.pdf-pane-error-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pdf-pane-error-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--fel-text);
+}
+
 .pdf-pane-error-title {
   font-family: 'Instrument Serif', Georgia, serif;
   font-weight: 400;
-  font-size: 1.35rem;
+  font-size: 28px;
   line-height: 1.15;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
 .pdf-pane-error-detail {
-  font-size: 0.8rem;
+  font-size: 14px;
+  line-height: 1.55;
   color: var(--text-muted);
   max-width: 400px;
 }
