@@ -17,10 +17,10 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
 
         {/* Main Display Headline in Instrument Serif */}
         <h1 className="hero-title-serif">
-          {'Fråga dina dokument. '}
+          {'Fråga Träff. '}
           <br />
           <span className="hero-title-italic hero-pen-target">
-            Se svaren på sidan.
+            Se svaren i dina dokument.
             <span className="hero-pen-layer" aria-hidden="true">
               <PenStroke variant="hero" />
             </span>
@@ -39,8 +39,8 @@ export default function HeroHeader({ onOpenBooking, onScrollToDemo }) {
 
         {/* Descriptive Body Text in Instrument Sans */}
         <p className="hero-body-text">
-          <strong>Träff</strong> är en AI-chatt för dina avtal, protokoll och policys.
-          Den slår upp originalet och ringer in meningen som svaret bygger på.
+          <strong>Träff</strong> är en AI-chatt för dokumenten i din verksamhet.
+          Den visar originaldokumentet och markerar exakt den passage som svaret bygger på.
         </p>
 
         {/* Action Buttons (Taktilt Djupbläck #111317) */}
