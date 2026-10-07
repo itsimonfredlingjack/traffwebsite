@@ -49,7 +49,7 @@ const ogHtml = `<!doctype html>
 </style>
 <div class="stage">
   ${wordmark}
-  <p>Fråga dina dokument.<br><em>Se svaren på sidan.</em></p>
+  <p>Fråga Träff.<br><em>Se svaren i dina dokument.</em></p>
 </div>`;
 
 const logoW = 1024;
