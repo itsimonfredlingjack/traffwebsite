@@ -66,7 +66,7 @@
   color: #111111;
 }
 
-/* Authentic Brand Pen Stroke over "Se svaren på sidan." */
+/* Authentic Brand Pen Stroke over "Se svaren i dina dokument." */
 .hero-pen-target {
   position: relative;
   display: inline-block;
@@ -209,7 +209,7 @@
     padding: 5.5rem 1.25rem 1.5rem;
   }
   .hero-title-serif {
-    font-size: clamp(2.5rem, 13vw, 3.4rem);
+    font-size: clamp(1.75rem, 8.4vw, 3.4rem);
   }
   .hero-actions-row {
     flex-direction: column;

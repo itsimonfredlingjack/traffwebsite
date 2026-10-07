@@ -7,10 +7,10 @@ test('the hero answers what, why and what next, and the demo starts on the first
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
 
-  await expect(page.locator('h1')).toContainText('Fråga dina dokument.');
+  await expect(page.locator('h1')).toContainText('Fråga Träff.');
   await expect(page.locator('.hero-assertion-lead')).toContainText('visar Träff exakt var');
   await expect(page.locator('.hero-assertion-refusal')).toContainText('Finns det inte där säger Träff det');
-  await expect(page.locator('.hero-body-text')).toContainText('Den slår upp originalet');
+  await expect(page.locator('.hero-body-text')).toContainText('Den visar originaldokumentet');
   await expect(page.getByRole('button', { name: /Anmäl intresse/ }).first()).toBeVisible();
   await expect(page.getByRole('link', { name: /Prova demon/ })).toBeVisible();
   await expect(page.locator('.hero-states-strip')).toHaveCount(0);
