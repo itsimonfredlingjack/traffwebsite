@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, ArrowRight } from 'lucide-react';
 import TraffWordmark from './TraffWordmark';
 import './BookingModal.css';
@@ -16,13 +16,46 @@ export default function BookingModal({ isOpen, onClose }) {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const dialogRef = useRef(null);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) onClose();
+      if (!isOpen) return;
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      // Keep Tab inside the dialog while it is open.
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
+
+  // Move focus into the dialog when it opens and back to where it came from
+  // when it closes.
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const previous = document.activeElement;
+    dialogRef.current?.focus();
+    return () => {
+      if (previous && typeof previous.focus === 'function') previous.focus();
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -57,8 +90,16 @@ export default function BookingModal({ isOpen, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-dialog-editorial" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-btn" onClick={onClose} aria-label="Stäng">
+      <div
+        className="modal-dialog-editorial"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={submitted ? 'booking-confirmation-title' : 'booking-modal-title'}
+        tabIndex={-1}
+        ref={dialogRef}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Stäng">
           <X size={18} />
         </button>
 
@@ -69,7 +110,7 @@ export default function BookingModal({ isOpen, onClose }) {
                 <TraffWordmark height={22} />
                 <span className="modal-mono-badge">DEMO</span>
               </div>
-              <h3 className="modal-serif-title" aria-label="Anmäl ditt intresse — Boka personlig genomgång">Anmäl ditt intresse</h3>
+              <h3 id="booking-modal-title" className="modal-serif-title" aria-label="Anmäl ditt intresse — Boka personlig genomgång">Anmäl ditt intresse</h3>
               <p className="modal-intro-p">
                 Träff är under utveckling. Lämna dina uppgifter så hör vi av oss så snart
                 Träff är redo att testas på era egna avtal, protokoll och handlingar.
@@ -83,6 +124,7 @@ export default function BookingModal({ isOpen, onClose }) {
                   <input
                     id="name"
                     type="text"
+                    autoComplete="name"
                     required
                     placeholder="För- och efternamn"
                     value={formData.name}
@@ -94,6 +136,7 @@ export default function BookingModal({ isOpen, onClose }) {
                   <input
                     id="email"
                     type="email"
+                    autoComplete="email"
                     required
                     placeholder="namn@bolag.se"
                     value={formData.email}
@@ -108,6 +151,7 @@ export default function BookingModal({ isOpen, onClose }) {
                   <input
                     id="company"
                     type="text"
+                    autoComplete="organization"
                     required
                     placeholder="Exempelbolaget AB"
                     value={formData.company}
@@ -130,8 +174,8 @@ export default function BookingModal({ isOpen, onClose }) {
               </div>
 
               <div className="input-group">
-                <label>Vilka handlingar söker ni primärt i?</label>
-                <div className="doc-filter-pills">
+                <label id="doc-types-label">Vilka handlingar söker ni primärt i?</label>
+                <div className="doc-filter-pills" role="group" aria-labelledby="doc-types-label">
                   {['Leverantörsavtal', 'Styrelseprotokoll', 'Personalpolicy', 'Underhållsplaner', 'Årsredovisningar'].map(
                     (type) => {
                       const isSelected = formData.docTypes.includes(type);
@@ -140,9 +184,10 @@ export default function BookingModal({ isOpen, onClose }) {
                           type="button"
                           key={type}
                           className={`doc-pill-select ${isSelected ? 'active' : ''}`}
+                          aria-pressed={isSelected}
                           onClick={() => handleToggleDocType(type)}
                         >
-                          {isSelected && <span className="pill-check-mark">✓</span>}
+                          {isSelected && <span className="pill-check-mark" aria-hidden="true">✓</span>}
                           <span>{type}</span>
                         </button>
                       );
@@ -180,13 +225,13 @@ export default function BookingModal({ isOpen, onClose }) {
               <span className="dot-belagt" />
               <span className="tag-mono">SKICKA MEJLET</span>
             </div>
-            <h3 className="confirmation-title">Tack för ditt intresse</h3>
+            <h3 id="booking-confirmation-title" className="confirmation-title">Tack för ditt intresse</h3>
             <p className="confirmation-copy">
               Din e-postklient har öppnats med förfrågan för <strong>{formData.company || 'ert bolag'}</strong> ifylld.
               Skicka mejlet så hör vi av oss på <strong>{formData.email}</strong> när Träff är redo att testas.
               Öppnades inget? Skriv till <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.
             </p>
-            <button className="modal-submit-handling" onClick={onClose}>
+            <button type="button" className="modal-submit-handling" onClick={onClose}>
               Stäng fönstret
             </button>
           </div>

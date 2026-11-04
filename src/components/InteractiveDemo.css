@@ -67,8 +67,7 @@
   color: #FFFFFF;
 }
 
-.demo-scenario-tab-btn.active::after {
-  content: '';
+.demo-scenario-tab-btn .tab-progress {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -83,7 +82,7 @@
   to { width: 100%; }
 }
 
-.demo-showcase-frame:hover .demo-scenario-tab-btn.active::after {
+.demo-showcase-frame:hover .demo-scenario-tab-btn .tab-progress {
   animation-play-state: paused;
 }
 
@@ -94,6 +93,15 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #5A5A55;
+}
+
+/* Gives the tab the accessible name "OFFERT: Leveransvillkor" without drawing
+   the colon. Generated content counts toward the name but not textContent, and
+   a zero font size and letter-spacing take it out of the layout. */
+.tab-category::after {
+  content: ':';
+  font-size: 0;
+  letter-spacing: 0;
 }
 
 .demo-scenario-tab-btn.active .tab-category {

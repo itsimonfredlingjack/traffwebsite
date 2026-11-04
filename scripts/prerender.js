@@ -86,6 +86,17 @@ async function prerender() {
           },
         })),
       },
+      {
+        '@type': 'WebSite',
+        '@id': `${origin}#website`,
+        name: 'Träff',
+        alternateName: 'Traff',
+        url: origin,
+        inLanguage: 'sv-SE',
+        publisher: {
+          '@id': organizationId,
+        },
+      },
     ],
   };
 
