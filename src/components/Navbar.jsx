@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import TraffWordmark from './TraffWordmark';
 import { scrollToSection } from '../utils/scrollToSection';
@@ -7,14 +7,28 @@ import './Navbar.css';
 export default function Navbar({ onOpenBooking }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const toggleRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Escape closes the mobile menu and hands focus back to its toggle.
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [mobileMenuOpen]);
 
   const scrollTo = (id) => {
     setMobileMenuOpen(false);
@@ -44,7 +58,7 @@ export default function Navbar({ onOpenBooking }) {
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="navbar-links">
+        <nav className="navbar-links" aria-label="Huvudmeny">
           <a
             href="#demo-section"
             className="navbar-link"
@@ -89,14 +103,18 @@ export default function Navbar({ onOpenBooking }) {
 
         {/* Actions */}
         <div className="navbar-actions">
-          <button className="navbar-btn-action" onClick={onOpenBooking}>
+          <button type="button" className="navbar-btn-action" onClick={onOpenBooking}>
             <span>Anmäl intresse</span>
             <ArrowRight size={16} />
           </button>
           <button
+            type="button"
+            ref={toggleRef}
             className="navbar-mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Öppna meny"
+            aria-label={mobileMenuOpen ? 'Stäng meny' : 'Öppna meny'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="navbar-mobile-drawer"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -105,7 +123,7 @@ export default function Navbar({ onOpenBooking }) {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="navbar-mobile-drawer">
+        <nav className="navbar-mobile-drawer" id="navbar-mobile-drawer" aria-label="Mobilmeny">
           <a
             href="#demo-section"
             className="navbar-mobile-link"
@@ -158,6 +176,7 @@ export default function Navbar({ onOpenBooking }) {
           </a>
           <div className="navbar-mobile-cta">
             <button
+              type="button"
               className="navbar-btn-action full-width"
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -168,7 +187,7 @@ export default function Navbar({ onOpenBooking }) {
               <ArrowRight size={16} />
             </button>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );

@@ -25,11 +25,11 @@ const CARDS = [
 
 export default function UseCasesSection() {
   return (
-    <section className="usecases-section" id="use-cases-section">
+    <section className="usecases-section" id="use-cases-section" aria-labelledby="use-cases-heading">
       <div className="section-container">
         <div className="section-head-editorial">
           <span className="section-mono-kicker">03 · Principen</span>
-          <h2 className="section-title-serif">Tre löften. Se beläggen.</h2>
+          <h2 className="section-title-serif" id="use-cases-heading">Tre löften. Se beläggen.</h2>
         </div>
 
         <div className="promise-grid">

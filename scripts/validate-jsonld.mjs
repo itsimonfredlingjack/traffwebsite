@@ -33,15 +33,17 @@ if (JSON.stringify(pairs) !== JSON.stringify(visible)) {
 }
 
 const tsPath = path.resolve('scripts/.jsonld-check.ts');
-const ts = `import type { FAQPage, Organization, SoftwareApplication } from 'schema-dts';
+const ts = `import type { FAQPage, Organization, SoftwareApplication, WebSite } from 'schema-dts';
 
 const graph = ${JSON.stringify(data['@graph'], null, 2)} as const;
 
 const organization: Organization = graph[0];
 const software: SoftwareApplication = graph[1];
 const faq: FAQPage = graph[2];
+const website: WebSite = graph[3];
 
 void organization;
+void website;
 void software;
 void faq;
 `;

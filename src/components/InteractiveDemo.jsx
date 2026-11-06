@@ -303,6 +303,22 @@ export default function InteractiveDemo({ onOpenBooking }) {
     row.scrollTo({ left: Math.max(0, left), behavior: 'auto' });
   }, [selectedScenarioIndex]);
 
+  /* Arrow keys, Home and End move between the document tabs (WAI-ARIA tabs
+     pattern, automatic activation). Focus follows the selected tab. */
+  const handleTabKeyDown = (e) => {
+    const count = DEMO_SCENARIOS.length;
+    let next = null;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (selectedScenarioIndex + 1) % count;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (selectedScenarioIndex - 1 + count) % count;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = count - 1;
+    if (next === null) return;
+    e.preventDefault();
+    resetForScenario(next);
+    const tabs = scenarioTabsRef.current?.querySelectorAll('[role="tab"]');
+    tabs?.[next]?.focus();
+  };
+
   /* ── Page navigation (still available for user exploration) */
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage((p) => p - 1);
@@ -390,22 +406,38 @@ export default function InteractiveDemo({ onOpenBooking }) {
       {/* Top Scenario Selector Bar — display-only indicators during autoplay */}
       <div className="demo-scenario-strip">
         <span className="demo-mono-header">Välj testhandling</span>
-        <div className="demo-scenario-tabs" role="tablist" ref={scenarioTabsRef}>
+        <div
+          className="demo-scenario-tabs"
+          role="tablist"
+          aria-label="Testhandlingar"
+          ref={scenarioTabsRef}
+          onKeyDown={handleTabKeyDown}
+        >
           {DEMO_SCENARIOS.map((sc, idx) => {
             const isSelected = idx === selectedScenarioIndex;
             return (
               <button
-                key={`tab-${sc.id}-${selectedScenarioIndex === idx ? storyCycle : 'idle'}`}
+                key={`tab-${sc.id}`}
+                type="button"
                 role="tab"
+                id={`demo-tab-${sc.id}`}
                 aria-selected={isSelected}
+                aria-controls="demo-split-panel"
+                tabIndex={isSelected ? 0 : -1}
                 className={`demo-scenario-tab-btn ${isSelected ? 'active' : ''} ${sc.state === 'ejbelagt' ? 'is-refusal' : ''}`}
                 style={isSelected ? { '--story-duration': `${getScenarioDuration(sc)}ms` } : undefined}
                 onClick={() => resetForScenario(idx)}
-                aria-label={`${sc.tag}: ${sc.title}`}
                 title={`Klicka för att se handling: ${sc.title}`}
               >
+                {/* The name is the visible text plus a colon from CSS
+                    (.tab-category::after): "OFFERT: Leveransvillkor". */}
                 <span className="tab-category">{sc.tag}</span>
                 <span className="tab-title">{sc.title}</span>
+                {/* Re-keyed each cycle so the progress bar restarts without
+                    remounting the button, which would drop keyboard focus. */}
+                {isSelected && (
+                  <span key={`progress-${storyCycle}`} className="tab-progress" aria-hidden="true" />
+                )}
               </button>
             );
           })}
@@ -415,13 +447,17 @@ export default function InteractiveDemo({ onOpenBooking }) {
       {/* Mobile Tab Switcher */}
       <div className="demo-mobile-bar">
         <button
+          type="button"
           className={`demo-mobile-tab-btn ${mobileTab === 'chat' ? 'active' : ''}`}
+          aria-pressed={mobileTab === 'chat'}
           onClick={() => setMobileTab('chat')}
         >
           <span>Ärende &amp; Svar</span>
         </button>
         <button
+          type="button"
           className={`demo-mobile-tab-btn ${mobileTab === 'doc' ? 'active' : ''}`}
+          aria-pressed={mobileTab === 'doc'}
           onClick={() => setMobileTab('doc')}
         >
           <span>Källdokument (Sida {currentPage})</span>
@@ -432,7 +468,13 @@ export default function InteractiveDemo({ onOpenBooking }) {
       </div>
 
       {/* Main Split Grid */}
-      <div className={splitClasses} ref={splitContainerRef}>
+      <div
+        className={splitClasses}
+        ref={splitContainerRef}
+        id="demo-split-panel"
+        role="tabpanel"
+        aria-labelledby={`demo-tab-${activeScenario.id}`}
+      >
         {/* Dynamic SVG Connection Thread — re-keyed each cycle for fresh draw-on */}
         <SourceThread
           key={`thread-${storyCycle}`}

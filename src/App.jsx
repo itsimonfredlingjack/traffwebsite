@@ -39,7 +39,7 @@ export default function App() {
         />
 
         {/* Guided Interactive Split-View Showcase */}
-        <section className="demo-outer-section">
+        <section className="demo-outer-section" aria-label="Interaktiv demo">
           <InteractiveDemo onOpenBooking={() => setBookingOpen(true)} />
           <p className="demo-loop-caption">Exempel med testhandlingar · spelas upp i slinga</p>
         </section>

@@ -69,7 +69,7 @@ export default function Footer() {
 
       <div className="footer-bar">
         <a
-          href="#demo-section"
+          href="/"
           className="footer-wordmark"
           aria-label="Träff, startsida"
           onClick={(e) => {

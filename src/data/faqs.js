@@ -1,7 +1,7 @@
 export const FAQS = [
   {
     q: 'Hur kan jag lita på att svaren inte är fabricerade (hallucinerade)?',
-    a: 'Till skillnad från generella AI-chattar som gissar fritt, tvingas Träff att binda varje påstående till en faktisk mening i ert arkiv. Om det inte finns stöd i texten svarar Träff att källan saknas (vägran är en funktion). Dessutom ser du alltid originaldokumentet bredvid chatten med den exakta meningen inringad med remsgul penna så att du kan läsa och godkänna det själv.',
+    a: 'Till skillnad från generella AI-chattar som gissar fritt, tvingas Träff att binda varje påstående till en faktisk mening i ert arkiv. Om det inte finns stöd i texten svarar Träff att källan saknas (vägran är en funktion). Dessutom ser du alltid originaldokumentet bredvid chatten med den exakta meningen inringad med gul penna så att du kan läsa och godkänna den själv.',
   },
   {
     q: 'Vilka dokumentformat och typer stöds?',

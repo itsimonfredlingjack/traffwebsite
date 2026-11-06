@@ -240,3 +240,9 @@
   .form-two-col { grid-template-columns: 1fr; }
   .modal-close-btn { top: 16px; right: 16px; }
 }
+
+/* The dialog itself takes focus on open so screen readers announce it; the
+   ring belongs on the controls inside, not round the whole card. */
+.modal-dialog-editorial:focus {
+  outline: none;
+}

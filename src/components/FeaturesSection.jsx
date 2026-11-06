@@ -26,11 +26,11 @@ const CELLS = [
 
 export default function FeaturesSection() {
   return (
-    <section className="features-section" id="features-section">
+    <section className="features-section" id="features-section" aria-labelledby="features-heading">
       <div className="section-container">
         <div className="section-head-editorial">
           <span className="section-mono-kicker">04 · Arkitektur &amp; trygghet</span>
-          <h2 className="section-title-serif">Öppet om hur svaren blir till.</h2>
+          <h2 className="section-title-serif" id="features-heading">Öppet om hur svaren blir till.</h2>
           <p className="section-lead-text">Fyra saker du kan kontrollera själv, på varje svar.</p>
         </div>
 

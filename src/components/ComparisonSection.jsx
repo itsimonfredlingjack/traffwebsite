@@ -4,11 +4,11 @@ import './ComparisonSection.css';
 
 export default function ComparisonSection() {
   return (
-    <section className="comparison-section" id="comparison-section">
+    <section className="comparison-section" id="comparison-section" aria-labelledby="comparison-heading">
       <div className="section-container">
         <div className="section-head-editorial">
           <span className="section-mono-kicker">02 · Skillnaden</span>
-          <h2 className="section-title-serif">Samma fråga. Två olika svar.</h2>
+          <h2 className="section-title-serif" id="comparison-heading">Samma fråga. Två olika svar.</h2>
           <p className="section-lead-text">
             Avtalet säger ingenting om prishöjningar. Se vad som händer när någon frågar ändå.
           </p>
