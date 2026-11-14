@@ -1,13 +1,9 @@
----
-description: Träffs marknadssajt – arbetsregler för agenter
-alwaysApply: true
----
+# Träff – marknadssajten
 
 - Projektet är Träffs marknadssajt (React 19 + Vite, SSG-prerender, GitHub Pages på träff.app
   rot-bas /, SITE_URL/VITE_BASE via env). Svenska i UI och commit-beskrivningar är ok.
 - docs/brand/BRAND.md är varumärkeslag: loggan är ordmärket med gul penna; ringen är bara
-  sökstatus i demon; kärna ritas bara vid BELAGT; grönt aldrig i loggan. Gamla identiteten i
-  docs/archive/ är historik och ska inte följas.
+  sökstatus i demon; kärna ritas bara vid BELAGT; grönt aldrig i loggan.
 - Pennan (#FFD84A, multiply) används bara på loggan, heron-löftet och faktiskt citerad text.
 - Rör inte SEO/prerender (scripts/prerender.js, entry-server), JSON-LD, lazy-laddning av
   pdf.js eller canonical/SITE_URL-logiken om uppgiften inte gäller dem.

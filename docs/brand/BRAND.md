@@ -1,7 +1,7 @@
 # Träff – varumärke (gäller från 2026-09-27)
 
 Källa: varumärkesutkastet "Träff varumärke" (claude.ai-artifact e16ded11…).
-Detta dokument ERSÄTTER logotypdelen i den gamla identiteten. `docs/archive/Träff Visual Identity System (2)/` och `docs/archive/random-old-components/` är historik – ringen med kärna är inte längre logotyp.
+Detta dokument ersätter logotypdelen i den gamla identiteten: ringen med kärna är inte längre logotyp.
 
 ## Grundidé
 - **Loggan = överstrykningspennan.** Ordet "Träff" i Young Serif, helt svart (#111111),
